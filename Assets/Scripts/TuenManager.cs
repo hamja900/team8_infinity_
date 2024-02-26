@@ -6,13 +6,13 @@ using UnityEngine;
 public class TuenManager : MonoBehaviour
 {
     public static TuenManager i;
-    float globalTrun;
-    public event Action<float> MonsterTurn;
+    int globalTrun;
+    public event Action<int> MonsterTurn;
     private void Awake()
     {
         i = this;
     }
-    public void PlayerTurns(float useTurn,PlayerInputScript player)
+    public void PlayerTurns(int useTurn,PlayerInputScript player)
     {
         globalTrun += useTurn;
         player.enabled = false;

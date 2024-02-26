@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    float attackSpeed = 1;
-    float moveSpeed = 1;
+    int attackSpeed = 10;
+    int moveSpeed = 10;
     float hp = 20;
     float maxHp = 20;
     float afk = 5;
@@ -15,11 +15,11 @@ public class PlayerStats : MonoBehaviour
     int exp = 0;
     int maxExp = 20;
     int attackRange = 1;
-    public float AttackSpeed()
+    public int AttackSpeed()
     {
         return attackSpeed;//장비 여부 반영
     }
-    public float MoveSpeed()
+    public int MoveSpeed()
     {
         return moveSpeed;//상태 여부 반영
     }
