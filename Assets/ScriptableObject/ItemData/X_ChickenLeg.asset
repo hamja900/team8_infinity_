@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a425fcf398e1940a4a990abf8a242c, type: 3}
-  m_Name: HealingPotion
+  m_Name: X_ChickenLeg
   m_EditorClassIdentifier: 
-  expendType: 0
-  healPoint: 20
-  HungerPoint: 0
-  itemSprite: {fileID: -354592167, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
+  expendType: 2
+  healPoint: 5
+  HungerPoint: 100
+  itemSprite: {fileID: -99403663, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
   maxStack: 10

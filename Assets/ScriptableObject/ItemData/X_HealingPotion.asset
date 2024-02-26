@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85efa6e4c60aa594586f5a13ce2f814a, type: 3}
-  m_Name: RustyPants
+  m_Script: {fileID: 11500000, guid: 35a425fcf398e1940a4a990abf8a242c, type: 3}
+  m_Name: X_HealingPotion
   m_EditorClassIdentifier: 
-  equipType: 0
-  attackRange: 0
-  attackSpeed: 0
-  atk: 0
-  def: 0
-  itemSprite: {fileID: 0}
+  expendType: 0
+  healPoint: 20
+  HungerPoint: 0
+  itemSprite: {fileID: -354592167, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
+  maxStack: 10

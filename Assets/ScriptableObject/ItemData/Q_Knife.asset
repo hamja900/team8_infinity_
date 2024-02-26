@@ -10,10 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a425fcf398e1940a4a990abf8a242c, type: 3}
-  m_Name: ChickenLeg
+  m_Name: Q_Knife
   m_EditorClassIdentifier: 
-  expendType: 2
-  healPoint: 5
-  HungerPoint: 100
-  itemSprite: {fileID: -99403663, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
-  maxStack: 10
+  itemSprite: {fileID: 1489416574, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
+  dropPrefab: {fileID: 0}
+  isStacking: 0
+  maxStack: 0
+  expendType: 0
+  healPoint: 0
+  HungerPoint: 0
+  equipType: 1
+  attackRange: 0
+  attackSpeed: 0
+  atk: 2
+  def: 0
