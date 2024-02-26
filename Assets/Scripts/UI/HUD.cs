@@ -1,19 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
+[Serializable]
 public class HUD : MonoBehaviour
 {
-    public GameObject player { get; private set; }
+    public GameObject player;
 
     private PlayerStats _playerStats { get;  set; }
 
 
-    [SerializeField] private Slider _playerHpSlider { get; set; }
-    [SerializeField] private Slider _playerExpSlider { get; set; }
-    [SerializeField] private Text _levelText { get; set; }
-    [SerializeField] private Text _dungeonLevelText { get; set; }
+    [SerializeField] private Slider _playerHpSlider;
+    [SerializeField] private Slider _playerExpSlider;
+    [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private TextMeshProUGUI _dungeonLevelText;
 
     private void Awake()
     {
