@@ -5,14 +5,20 @@ using UnityEngine;
 public enum EnemyState
 {
     Idle,
-    Wandering,
+    Chasing,
     Attacking,
     Dead
 }
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
-    public EnemyData enemyData;
+    [field: Header("Stats")]
+    [field: SerializeField] public EnemySO enemyData { get; private set; }
+
+    [field: Header("Animations")]
+    [field: SerializeField] public AnimationData AnimationData { get; private set; }
+
+    private EnemyStateMachine stateMachine;
 
     // Start is called before the first frame update
     void Start()
