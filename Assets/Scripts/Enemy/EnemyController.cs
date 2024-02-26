@@ -2,8 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public enum EnemyState
 {
+    Idle,
+    Wandering,
+    Attacking,
+    Dead
+}
+
+public class EnemyController : MonoBehaviour, IDamageable
+{
+    public EnemyData enemyData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +24,10 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void TakeDamage(int damage)
+    {
+
     }
 }

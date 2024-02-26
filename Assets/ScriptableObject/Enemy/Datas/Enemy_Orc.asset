@@ -19,3 +19,6 @@ MonoBehaviour:
   enemyAtk: 2
   enemyDetectRange: 5
   enemyDropExp: 10
+  enemyMoveFrequency: 15
+  enemyAttackFrequency: 10
+  leftOverTurn: 0
