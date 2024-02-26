@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyData : MonoBehaviour
+[CreateAssetMenu(menuName = "Enemy", fileName = "Enemy_")]
+public class EnemyData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject enemyPrefab;
+    public string enemyName;
+    public int enemyHealth;
+    public int enemyHealthMax;
+    public int enemyAtk;
+    public float enemyDetectRange;
+    public float enemyDropExp;
+    
+    // TODO : Enemy Drop Item
 }
