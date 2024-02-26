@@ -27,7 +27,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.q, this);
+                move.Move(Dir.q);
             }
         }
     }
@@ -37,7 +37,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.w,this);
+                move.Move(Dir.w);
             }
         }
     }
@@ -47,7 +47,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.e, this);
+                move.Move(Dir.e);
             }
         }
     }
@@ -57,7 +57,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.a, this);
+                move.Move(Dir.a);
             }
         }
     }
@@ -67,7 +67,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.d, this);
+                move.Move(Dir.d);
             }
         }
     }
@@ -77,7 +77,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.z, this);
+                move.Move(Dir.z);
             }
         }
     }
@@ -87,7 +87,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.x, this);
+                move.Move(Dir.x);
             }
         }
     }
@@ -97,7 +97,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (move.CanMove())
             {
-                move.Move(Dir.c, this);
+                move.Move(Dir.c);
             }
         }
     }
