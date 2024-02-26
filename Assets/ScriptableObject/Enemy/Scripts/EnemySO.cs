@@ -1,14 +1,15 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy", fileName = "Enemy_")]
-public class EnemyData : ScriptableObject
+public class EnemySO : ScriptableObject
 {
     public GameObject enemyPrefab;
     public string enemyName;
     public int enemyHealth;
-    public int enemyHealthMax;
+    public int enemyMaxHealth;
     public int enemyAtk;
     public float enemyDetectRange;
+    public float enemySafeRange;
     public float enemyDropExp;
 
     // Enemy의 턴 당 이동, 공격 빈도
