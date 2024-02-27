@@ -9,4 +9,8 @@ public class PlayerAttack : MonoBehaviour
     {
         stats = GetComponent<PlayerStats>();
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+    }
 }

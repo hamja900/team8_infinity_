@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     }
     public bool CanMove()
     {
-        if (!isMoveing)
+        if (!isMoveing)//움직이며 공격하지 못 하게 해야함.
         {
             isMoveing = true;
             return true;

@@ -8,10 +8,16 @@ public class PlayerStats : MonoBehaviour
     int moveSpeed = 10;
     float hp = 20;
     float maxHp = 20;
+    int hpRegenCount = 20;
+    int curHpRegenCount;
+    int hpRegen = 1;
+    int hpDeductionCount = 20;
+    int curHpDeductionCount;
+    int hpDeduction = 1;
     float afk = 5;
     int def = 0;
-    int hunger = 500;
-    int maxHunger = 500;
+    int hunger = 4500;
+    int maxHunger = 4500;
     int exp = 0;
     int maxExp = 20;
     int attackRange = 1;
@@ -33,6 +39,51 @@ public class PlayerStats : MonoBehaviour
         while (this.exp >= maxExp)
         {
             //lvup
+        }
+    }
+    public void EatFood(int foodCount)
+    {
+        hunger += foodCount;
+        if (hunger > maxHunger)
+        {
+            hunger = maxHunger;
+        }
+    }
+    public void PlayerTurn(int turn)
+    {
+        while (turn > 0)
+        {
+            hunger--;
+            turn--;
+            if (hunger <= 0)
+            {
+                hunger = 0;
+                curHpRegenCount = 0;
+                curHpDeductionCount++;
+                if (curHpDeductionCount >= hpDeductionCount)
+                {
+                    curHpDeductionCount = 0;
+                    hp -= hpDeduction;
+                }
+            }
+            if (hunger > 0)
+            {
+                curHpDeductionCount = 0;
+                curHpRegenCount++;
+                if (curHpRegenCount >= hpRegenCount)
+                {
+                    curHpRegenCount = 0;
+                    HealHp(hpRegen);
+                }
+            }
+        }
+    }
+    public void HealHp(int healing)
+    {
+        hp += healing;
+        if (hp > maxHp)
+        {
+            hp = maxHp;
         }
     }
 }
