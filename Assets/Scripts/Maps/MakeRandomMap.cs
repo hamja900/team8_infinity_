@@ -25,9 +25,10 @@ public class MakeRandomMap : MonoBehaviour
     private void Start()
     {
         StartRandomMap();
+        entrance.SetActive(true);
     }
 
-    private void StartRandomMap()
+    public void StartRandomMap()
     {
         spreadTilemap.ClearAllTiles(); //깔려있는 모든타일 제거
 
@@ -40,15 +41,15 @@ public class MakeRandomMap : MonoBehaviour
         //방
         MakeRandomRooms();
         //복도
-        //MakeCorridors();
+        MakeCorridors();
         //벽
-        //MakeWall();
+        MakeWall();
 
         spreadTilemap.SpreadFloorTilemap(floor);
-        //spreadTilemap.SpreadWallTilemap(wall);
+        spreadTilemap.SpreadWallTilemap(wall);
 
-        //player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-        //entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
+        player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
+        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
     }
 
     // space리스트에 있는 모든 리스트의 MakeARandomRectangleRoom을 콜하고 리턴되는 방의좌표들을 UnionWith를 통해 floor에 추가
@@ -77,27 +78,32 @@ public class MakeRandomMap : MonoBehaviour
         return positnions;
     }
 
+    //복도생성함수
     private void MakeCorridors()
     {
+        //방의 중심을 기준으로 이어가기때문에 방의 중심리스트를 제작
         List<Vector2Int> tempCenters = new List<Vector2Int>();
-
         foreach(var space in divideSpace.spaceList)
         {
             tempCenters.Add(new Vector2Int(space.Center().x, space.Center().y));
+            tempCenters.Add(new Vector2Int(space.Center().x, space.Center().y));
         }
-        Vector2Int nextCenter;
-        Vector2Int currentCenter = tempCenters[0];
-        tempCenters.Remove(currentCenter);
 
-        while(tempCenters.Count != 0)
+        Vector2Int nextCenter;
+        Vector2Int currentCenter = tempCenters[0]; //시작할 중심을 정한다.
+        //중심을 리스트에서 제외시킨다.
+        tempCenters.Remove(currentCenter);
+        // 중심에서 가장 가까운 중심을 찾고 복도를 만들어준다.
+        while (tempCenters.Count != 0)
         {
             nextCenter = ChooseShortestNextCorridor(tempCenters, currentCenter);
             MakeOneCorridor(currentCenter, nextCenter);
             currentCenter = nextCenter;
-            tempCenters.Remove(currentCenter);
+            tempCenters.Remove(currentCenter); //새로운중심을 리스트에서 제거한다.
         }
     }
 
+    // 가장 가까운 중심을 찾아주는 함수
     private Vector2Int ChooseShortestNextCorridor(List<Vector2Int> tempCenters, Vector2Int previousCenter)
     {
         int n = 0;
@@ -105,6 +111,7 @@ public class MakeRandomMap : MonoBehaviour
 
         for(int i = 0; i < tempCenters.Count; i++)
         {
+            //Distance함수란?
             if (Vector2.Distance(previousCenter, tempCenters[i]) < minLength)
             {
                 minLength = Vector2.Distance(previousCenter, tempCenters[i]);
@@ -114,13 +121,14 @@ public class MakeRandomMap : MonoBehaviour
         return tempCenters[n];
     }
 
+    // x,y의 좌취를 이으면 두 중심을 잇는 복도가 완성된다.
     private void MakeOneCorridor(Vector2Int currentCenter, Vector2Int nextCenter)
     {
         Vector2Int current = new Vector2Int(currentCenter.x, currentCenter.y);
         Vector2Int next = new Vector2Int(nextCenter.x, nextCenter.y);
         floor.Add(current);
-
-        while(current.x != next.x)
+        //현재 중심의 x좌표가 다음중심의 x좌표와 같아질때까지 이동하며 자취저장
+        while (current.x != next.x)
         {
             if(current.x < next.x)
             {
@@ -133,7 +141,8 @@ public class MakeRandomMap : MonoBehaviour
                 floor.Add(current);
             }
         }
-        while(current.y != next.y)
+        //현재 중심의 y좌표가 다음중심의 y좌표와 같아질때까지 이동하며 자취저장
+        while (current.y != next.y)
         {
             if(current.y < next.y)
             {
@@ -148,6 +157,7 @@ public class MakeRandomMap : MonoBehaviour
         }
     }
 
+    // 모든타일에대해 3*3블럭을 만들어 인접한타일중 바닥이 아닌것을 조사한다.
     private void MakeWall()
     {
         foreach(Vector2Int tile in floor)
