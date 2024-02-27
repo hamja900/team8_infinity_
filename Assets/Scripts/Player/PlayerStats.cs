@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
     int attackRange = 1;
     private void Start()
     {
-        TuenManager.i.MonsterTurn += PlayerTurn;
+        TuenManager.I.MonsterTurn += PlayerTurn;
     }
     public int Attack()
     {

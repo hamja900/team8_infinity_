@@ -70,7 +70,7 @@ public class PlayerMove : MonoBehaviour
         }
         //rigi.MovePosition(new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)));
         aniScript.MoveAnima(false);
-        TuenManager.i.PlayerTurns(stats.MoveSpeed());
+        TuenManager.I.PlayerTurns(stats.MoveSpeed());
         IsMoveing = false;
     }
 }

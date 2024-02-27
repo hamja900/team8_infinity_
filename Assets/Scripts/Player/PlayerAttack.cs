@@ -62,6 +62,6 @@ public class PlayerAttack : MonoBehaviour
     public void AttackEvent()
     {
         curTarget.TakeDamage(stats.Attack());
-        TuenManager.i.PlayerTurns(stats.AttackSpeed());
+        TuenManager.I.PlayerTurns(stats.AttackSpeed());
     }
 }
