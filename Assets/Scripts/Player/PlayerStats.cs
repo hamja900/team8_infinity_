@@ -29,6 +29,10 @@ public class PlayerStats : MonoBehaviour
     {
         return atk;//장비 여부 반영
     }
+    public int GetDef()
+    {
+        return def;//장비 여부 반영
+    }
     public int AttackSpeed()
     {
         return attackSpeed;//장비 여부 반영
