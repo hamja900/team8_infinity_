@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public event Action PlayerDie;
     int attackSpeed = 10;
     int moveSpeed = 10;
     float hp = 20;
@@ -103,7 +105,7 @@ public class PlayerStats : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
-            //die
+            PlayerDie?.Invoke();
         }
     }
 }
