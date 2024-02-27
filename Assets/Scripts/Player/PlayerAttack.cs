@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Animation;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     PlayerStats stats;
+    public event Action PAttackEvent;
     public List<IDamageable> targets = new List<IDamageable>();
     IDamageable curTarget = null;
     int targetIndex;
@@ -55,6 +57,7 @@ public class PlayerAttack : MonoBehaviour
         {
             return;
         }
+        PAttackEvent?.Invoke();
         curTarget.TakeDamage(stats.Attack());
         TuenManager.i.PlayerTurns(stats.AttackSpeed());
     }

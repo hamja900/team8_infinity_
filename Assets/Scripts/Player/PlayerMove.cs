@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,7 +55,6 @@ public class PlayerMove : MonoBehaviour
                 break;
         }
         StartCoroutine(CharacterMove(direction));
-        TuenManager.i.PlayerTurns(stats.MoveSpeed());
     }
     IEnumerator CharacterMove(Vector2 dir)
     {
@@ -66,6 +66,7 @@ public class PlayerMove : MonoBehaviour
             yield return null;
         }
         //rigi.MovePosition(new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)));
+        TuenManager.i.PlayerTurns(stats.MoveSpeed());
         IsMoveing = false;
     }
 }

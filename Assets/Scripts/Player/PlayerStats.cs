@@ -14,7 +14,7 @@ public class PlayerStats : MonoBehaviour
     int hpDeductionCount = 20;
     int curHpDeductionCount;
     int hpDeduction = 1;
-    int atk = 5;
+    int atk = 2;
     int def = 0;
     int hunger = 4500;
     int maxHunger = 4500;
