@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     PlayerStats stats;
     Rigidbody2D rigi;
     int moveDelay = 10;
+    bool isMoveing = false;
     private void Awake()
     {
         rigi = GetComponent<Rigidbody2D>();
@@ -15,7 +16,12 @@ public class PlayerMove : MonoBehaviour
     }
     public bool CanMove()
     {
-        return true;
+        if (!isMoveing)
+        {
+            isMoveing = true;
+            return true;
+        }
+        return false;
     }
     public void Move(Dir dir)
     {
@@ -53,11 +59,13 @@ public class PlayerMove : MonoBehaviour
     IEnumerator CharacterMove(Vector2 dir)
     {
         int curMoveDelay = 0;
-        while (curMoveDelay < moveDelay)
+        while (curMoveDelay <= moveDelay)
         {
             rigi.MovePosition(rigi.position + dir / moveDelay);
             ++curMoveDelay;
             yield return null;
         }
+        rigi.MovePosition(new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)));
+        isMoveing = false;
     }
 }
