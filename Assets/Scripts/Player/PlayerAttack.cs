@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-    void ChangeTarget()
+    public void ChangeTarget()
     {
         if (targets.Count == 0)
         {

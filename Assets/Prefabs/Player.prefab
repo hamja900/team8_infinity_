@@ -406,7 +406,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3275774499645778815}
         m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
         m_MethodName: OnRInput
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -417,6 +417,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bbf12926-6eff-4b37-9245-f0c91fb91b53
     m_ActionName: Player/R[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3275774499645778815}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnFInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3b955721-1ecf-4327-a07b-c405fad701b6
+    m_ActionName: Player/F[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

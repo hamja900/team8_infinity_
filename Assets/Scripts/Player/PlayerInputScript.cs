@@ -116,6 +116,13 @@ public class PlayerInputScript : MonoBehaviour
             attack.Attack();
         }
     }
+    public void OnFInput(InputAction.CallbackContext con) //targetChange
+    {
+        if (con.phase == InputActionPhase.Started)
+        {
+            attack.ChangeTarget();
+        }
+    }
     //---------Attack-----------
     //-----------Toolbar---------
     public void On1Input()

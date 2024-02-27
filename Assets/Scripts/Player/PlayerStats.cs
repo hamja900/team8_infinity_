@@ -53,7 +53,7 @@ public class PlayerStats : MonoBehaviour
             hunger = maxHunger;
         }
     }
-    public void PlayerTurn(int turn)
+    public void PlayerTurn(int turn) //turn 매니저와 연결해야함.
     {
         while (turn > 0)
         {
