@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    Equipable,
+    Expendable,
+}
 public enum EquipType
 {
     None,
@@ -20,9 +25,12 @@ public enum ExpendType
 public class ItemSO : ScriptableObject
 {
     [Header("General")]
+    public string itemName;
+    public string itemDescription;
     public Sprite itemSprite;
+    public ItemType itemType;
     public GameObject dropPrefab;
-    public bool isStacking;
+    public bool canStack;
     public int maxStack;
 
     [Header("Expendable")]  
