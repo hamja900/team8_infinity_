@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,13 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         stateMachine.ChangeState(stateMachine.E_IdleState);
         movePoint.parent = null;
+
+        TuenManager.i.MonsterTurn += UpdateMonsterTurn;
+    }
+
+    private void UpdateMonsterTurn(int turn)
+    {
+        
     }
 
     // Update is called once per frame
@@ -53,5 +61,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
 
+    }
+
+    public void OnTestBtn()
+    {
+        UpdateMonsterTurn(10);
     }
 }

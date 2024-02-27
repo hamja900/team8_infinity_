@@ -68,7 +68,10 @@ public class EnemyBaseState : IState
 
     protected bool IsInChaseRange()
     {
-        float distance = Vector3.Distance(stateMachine.Target.transform.position, stateMachine.EnemyController.transform.position);
-        return distance <= stateMachine.EnemyController.EnemyData.enemyDetectRange;
+        //float distance = Vector3.Distance(stateMachine.Target.transform.position, stateMachine.EnemyController.transform.position);
+        //return distance <= stateMachine.EnemyController.EnemyData.enemyDetectRange;
+
+        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.EnemyController.transform.position).sqrMagnitude;
+        return playerDistanceSqr <= stateMachine.EnemyController.EnemyData.enemyDetectRange * stateMachine.EnemyController.EnemyData.enemyDetectRange;
     }
 }
