@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     PlayerStats stats;
     Rigidbody2D rigi;
     int moveDelay = 10;
-    bool isMoveing = false;
+    public bool IsMoveing { get; private set; } = false;
     private void Awake()
     {
         rigi = GetComponent<Rigidbody2D>();
@@ -16,9 +16,9 @@ public class PlayerMove : MonoBehaviour
     }
     public bool CanMove()
     {
-        if (!isMoveing)//움직이며 공격하지 못 하게 해야함.
+        if (!IsMoveing)//움직이며 공격하지 못 하게 해야함,벽이나 몬스터가 있는 쪽으로는 움직이지 못 하게 해야함.
         {
-            isMoveing = true;
+            IsMoveing = true;
             return true;
         }
         return false;
@@ -59,13 +59,13 @@ public class PlayerMove : MonoBehaviour
     IEnumerator CharacterMove(Vector2 dir)
     {
         int curMoveDelay = 0;
-        while (curMoveDelay <= moveDelay)
+        while (curMoveDelay < moveDelay)
         {
-            rigi.MovePosition(rigi.position + dir / moveDelay);
+            rigi.position = (rigi.position + dir / moveDelay);
             ++curMoveDelay;
             yield return null;
         }
-        rigi.MovePosition(new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)));
-        isMoveing = false;
+        //rigi.MovePosition(new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)));
+        IsMoveing = false;
     }
 }

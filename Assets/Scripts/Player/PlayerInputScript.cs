@@ -21,6 +21,7 @@ public class PlayerInputScript : MonoBehaviour
         attack = GetComponent<PlayerAttack>();
     }
     #region Inputs
+    //-------------move-----------
     public void OnQInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
@@ -108,8 +109,12 @@ public class PlayerInputScript : MonoBehaviour
     }
     //-------------Stop-----------
     //------------Attack---------
-    public void OnRInput()
+    public void OnRInput(InputAction.CallbackContext con)
     {
+        if (con.phase == InputActionPhase.Started)
+        {
+            attack.Attack();
+        }
     }
     //---------Attack-----------
     //-----------Toolbar---------
@@ -137,5 +142,6 @@ public class PlayerInputScript : MonoBehaviour
     {
 
     }
+    //---------Toolbar---------
     #endregion
 }

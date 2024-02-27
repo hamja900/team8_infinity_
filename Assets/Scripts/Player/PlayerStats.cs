@@ -14,13 +14,17 @@ public class PlayerStats : MonoBehaviour
     int hpDeductionCount = 20;
     int curHpDeductionCount;
     int hpDeduction = 1;
-    float afk = 5;
+    int atk = 5;
     int def = 0;
     int hunger = 4500;
     int maxHunger = 4500;
     int exp = 0;
     int maxExp = 20;
     int attackRange = 1;
+    public int Attack()
+    {
+        return atk;//장비 여부 반영
+    }
     public int AttackSpeed()
     {
         return attackSpeed;//장비 여부 반영
@@ -63,7 +67,7 @@ public class PlayerStats : MonoBehaviour
                 if (curHpDeductionCount >= hpDeductionCount)
                 {
                     curHpDeductionCount = 0;
-                    hp -= hpDeduction;
+                    GetDmg(hpDeduction);
                 }
             }
             if (hunger > 0)
@@ -84,6 +88,14 @@ public class PlayerStats : MonoBehaviour
         if (hp > maxHp)
         {
             hp = maxHp;
+        }
+    }
+    public void GetDmg(int dmg)
+    {
+        hp -= dmg;
+        if (hp <= 0)
+        {
+            //die
         }
     }
 }
