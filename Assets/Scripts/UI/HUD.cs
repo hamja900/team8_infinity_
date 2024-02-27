@@ -9,6 +9,8 @@ using TMPro;
 public class HUD : MonoBehaviour
 {
     public GameObject player;
+    public GameObject inventoryParent;
+    public GameObject optionParent;
 
     private PlayerStats _playerStats { get;  set; }
 
@@ -17,6 +19,9 @@ public class HUD : MonoBehaviour
     [SerializeField] private Slider _playerExpSlider;
     [SerializeField] private TextMeshProUGUI _levelText;
     [SerializeField] private TextMeshProUGUI _dungeonLevelText;
+
+    public GameObject inventory;
+    public GameObject option;
 
     private void Awake()
     {
@@ -39,6 +44,38 @@ public class HUD : MonoBehaviour
     public void UpdateDungeonLevel()
     {
 
+    }
+
+    public void OnNextTurnButton()
+    {
+        UpdatePlayerHpBar();
+        
+    }
+    public void OnInvestigateButton()
+    {
+
+    }
+    public void OnOptionButton()
+    {
+        try
+        {
+            optionParent.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        catch
+        {
+            Instantiate(option, inventoryParent.transform);
+        }
+    }
+    public void OnInventoryButton()
+    {
+        try
+        {
+            inventoryParent.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        catch
+        {
+            Instantiate(inventory,inventoryParent.transform);
+        }
     }
 
 

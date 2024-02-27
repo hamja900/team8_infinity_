@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2506427995528788021}
   - component: {fileID: 4249436562085976629}
   - component: {fileID: 2385425724599303585}
+  - component: {fileID: 2111833763648631129}
   m_Layer: 5
   m_Name: PopupA
   m_TagString: Untagged
@@ -33,7 +34,7 @@ RectTransform:
   m_Children:
   - {fileID: 273118584102039296}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -58,7 +59,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 2
@@ -103,6 +104,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2111833763648631129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271258139783335207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1af30cdb8aea1d34894bd859f03c6a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainText: {fileID: 6271814381913754610}
 --- !u!1 &3803939770486256481
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +183,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Warning Text
+  m_text: "\uC7A5\uCC29\uC911\uC778 \uC544\uC774\uD15C\uC740 \uBC84\uB9B4 \uC218
+    \uC5C6\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b0d9d61861c7f140a995e657f2fddce, type: 2}
   m_sharedMaterial: {fileID: -58958133963774178, guid: 1b0d9d61861c7f140a995e657f2fddce, type: 2}

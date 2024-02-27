@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+using static UnityEditor.Progress;
+[Serializable]
 public class ItemSlot
 {
     public ItemSO items;
@@ -12,15 +13,12 @@ public class ItemSlot
 }
 public class Inventory : MonoBehaviour
 {
+    public ItemSO testItem; ///테스트용장비
+
     public ItemSlotUI[] uiSlot;
     public ItemSlot[] slots;
-    public GameObject weaponSlot;                   //  여기부터
-    public UnityEngine.UI.Image weaponImage;
-    public GameObject topSlot;
-    public UnityEngine.UI.Image topImage;
-    public GameObject bottomSlot;
-    public UnityEngine.UI.Image bottomImage;       //여기까지 장착 UI
-
+    public EquipSlotUI[] equipUiSlot;
+    public ItemSlot[] equipSlots = new ItemSlot[3];
 
     public GameObject inventoryPopup;
     public Transform dropPosition;
@@ -47,6 +45,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         slots = new ItemSlot[uiSlot.Length];
+        equipSlots = new ItemSlot[equipUiSlot.Length];
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -54,8 +53,16 @@ public class Inventory : MonoBehaviour
             uiSlot[i].index = i;
             uiSlot[i].Clear();
         }
+        for (int j = 0; j< equipSlots.Length;j++)
+        {
+            equipSlots[j] = new ItemSlot();
+            equipUiSlot[j].idx = j;
+            equipUiSlot[j].Clear();
+        }
+        AddItem(testItem);
 
-        //clearSelectedItemWindow()
+        ClearSelectedItemWindow();
+        CheckEquip();
     }
 
 
@@ -84,6 +91,8 @@ public class Inventory : MonoBehaviour
         ThrowItem(item);
     }
 
+   
+
     private void ThrowItem(ItemSO item)
     {
         Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector2.zero));
@@ -99,6 +108,8 @@ public class Inventory : MonoBehaviour
                 uiSlot[i].Clear();
         }
     }
+
+
 
     private ItemSlot GetItemStack(ItemSO item)
     {
@@ -122,6 +133,8 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
+
+
 
     public void SelectedItem(int index)
     {
@@ -198,42 +211,26 @@ public class Inventory : MonoBehaviour
 
     }
 
-
-    public void SetEquipment(ItemSO item)
+    private void ClearSelectedItemWindow()
     {
-        if (item.isEquipped)
-        {
-            switch (item.equipType)
-            {
-                case EquipType.Weapon:
-                    {
-                        weaponImage.gameObject.SetActive(true);
-                        weaponImage.sprite = item.itemSprite;
-                    }
-                    break;
-                case EquipType.Top:
-                    {
-                        weaponImage.gameObject.SetActive(true);
-                        weaponImage.sprite = item.itemSprite;
-                    }
-                    break;
-                case EquipType.Bottom:
-                    {
-                        weaponImage.gameObject.SetActive(true);
-                        weaponImage.sprite = item.itemSprite;
-                    }
-                    break;
-            }
+        _selectedItem = null;
+        selectedItemName.text = string.Empty;
+        selectedItemDescription.text = string.Empty;
 
-        }
+        selectedItemStatName.text = string.Empty;
+        selectedItemStatValue.text = string.Empty;
 
+        useButton.SetActive(false);
+        equipButton.SetActive(false);
+        unEquipButton.SetActive(false);
+        dropButton.SetActive(false);
     }
 
     public void OnUseButton()
     {
-        if(_selectedItem.items.itemType == ItemType.Expendable)
+        if (_selectedItem.items.itemType == ItemType.Expendable)
         {
-            switch(_selectedItem.items.expendType)
+            switch (_selectedItem.items.expendType)
             {
                 case ExpendType.Heal:
                     {
@@ -251,15 +248,81 @@ public class Inventory : MonoBehaviour
 
     public void OnEquipButton()
     {
-
+        _selectedItem.items.isEquipped = true;
+        Equip(_selectedItemIndex);
+    }
+    private void Equip(int index)
+    {
+        if (slots[index].items == null)
+            return;
+        if (slots[index].items.itemType == ItemType.Equipable && slots[index].items.isEquipped)
+        {
+            if (slots[index].items.equipType == EquipType.Weapon)
+            {
+                if (equipSlots[0] != null)
+                {
+                    equipSlots[0].items = slots[index].items;
+                    equipUiSlot[0].Set(equipSlots[0].items);
+                }
+            }
+            else if (slots[index].items.equipType == EquipType.Top)
+            {
+                if (equipSlots[1] != null)
+                {
+                    equipSlots[1].items = slots[index].items;
+                    equipUiSlot[1].Set(equipSlots[1].items);
+                }
+            }
+            else if (slots[index].items.equipType == EquipType.Bottom)
+            {
+                if (equipSlots[2] != null)
+                {
+                    equipSlots[2].items = slots[index].items;
+                    equipUiSlot[2].Set(equipSlots[2].items);
+                }
+            }
+        }
+        UpdateEquipSlotUI();
+        uiSlot[index].Clear();
     }
     public void OnUnEquipButton()
     {
-
+        _selectedItem.items.isEquipped = false;
+        UnEquip(_selectedItemIndex);
     }
-    void UnEquip(int index)
+    private void UnEquip(int index)
     {
-
+        UpdateEquipSlotUI();
+    }
+    public void UpdateEquipSlotUI()
+    {
+        for (int i = 0; i < equipSlots.Length; i++)
+        {
+            if (equipSlots[i] != null)
+            {
+                equipUiSlot[i].icon.sprite = equipSlots[i].items.itemSprite;
+            }
+            else
+            {
+                equipUiSlot[i].icon.gameObject.SetActive(false);
+            }
+        }
+    }
+    public void CheckEquip()
+    {
+        for(int i = 0; i<slots.Length; i++)
+        {
+            if (!slots[i].items.isEquipped)
+            {
+                uiSlot[i].Clear();
+                return;
+            }
+            else if (slots[i].items.isEquipped)
+            {
+                Equip(i);
+            }
+        }
+        UpdateEquipSlotUI();
     }
 
     public void OnDropButton()
