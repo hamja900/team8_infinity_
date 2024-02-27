@@ -13,7 +13,7 @@ public enum EnemyState
 public class EnemyController : MonoBehaviour, IDamageable
 {
     [field: Header("Stats")]
-    [field: SerializeField] public EnemySO enemyData { get; private set; }
+    [field: SerializeField] public EnemySO EnemyData { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public AnimationData AnimationData { get; private set; }
