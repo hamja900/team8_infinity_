@@ -12,11 +12,9 @@ public class TuenManager : MonoBehaviour
     {
         i = this;
     }
-    public void PlayerTurns(int useTurn,PlayerInputScript player)
+    public void PlayerTurns(int useTurn)
     {
         globalTrun += useTurn;
-        player.enabled = false;
         MonsterTurn?.Invoke(useTurn);
-        player.enabled = true;
     }
 }
