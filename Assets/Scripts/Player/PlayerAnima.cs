@@ -21,10 +21,15 @@ public class PlayerAnima : MonoBehaviour
     {
         characterSprite.flipX = b;
     }
-    void AttackAnima()
+    public void AttackAnima()
+    {
+        StartCoroutine("AttackAnimaCor");
+    }
+    public IEnumerator AttackAnimaCor()
     {
         ani.SetTrigger("IsAttack");
-        Pattack.AttackEvent();// attack 애니메이션 종료후 호출
+        yield return ani.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle");
+        Pattack.AttackEvent();
     }
     public void MoveAnima(bool b)
     {
