@@ -7,7 +7,7 @@ public class TuenManager : MonoBehaviour
 {
     public static TuenManager i;
     int globalTrun;
-    public event Action<int> MonsterTurn;
+    public event Action<int> MonsterTurn;//변수명 수정
     private void Awake()
     {
         i = this;

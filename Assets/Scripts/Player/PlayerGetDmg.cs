@@ -11,7 +11,7 @@ public class PlayerGetDmg : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
-        //damage 방어력 적용
+        //damage 방어력 적용해야함
         stats.GetDmg(damage);
     }
 }

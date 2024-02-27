@@ -21,6 +21,10 @@ public class PlayerStats : MonoBehaviour
     int exp = 0;
     int maxExp = 20;
     int attackRange = 1;
+    private void Start()
+    {
+        TuenManager.i.MonsterTurn += PlayerTurn;
+    }
     public int Attack()
     {
         return atk;//장비 여부 반영
@@ -53,7 +57,7 @@ public class PlayerStats : MonoBehaviour
             hunger = maxHunger;
         }
     }
-    public void PlayerTurn(int turn) //turn 매니저와 연결해야함.
+    public void PlayerTurn(int turn)
     {
         while (turn > 0)
         {

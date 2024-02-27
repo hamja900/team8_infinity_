@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     PlayerStats stats;
     Rigidbody2D rigi;
     int moveDelay = 10;
-    public bool IsMoveing { get; private set; } = false;
+    public static bool IsMoveing { get; private set; } = false;
     private void Awake()
     {
         rigi = GetComponent<Rigidbody2D>();
@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     }
     public bool CanMove()
     {
-        if (!IsMoveing)//움직이며 공격하지 못 하게 해야함,벽이나 몬스터가 있는 쪽으로는 움직이지 못 하게 해야함.
+        if (!IsMoveing)//벽이나 몬스터가 있는 쪽으로는 움직이지 못 하게 해야함.
         {
             IsMoveing = true;
             return true;

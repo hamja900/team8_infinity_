@@ -20,6 +20,8 @@ public class PlayerInputScript : MonoBehaviour
         move = GetComponent<PlayerMove>();
         attack = GetComponent<PlayerAttack>();
     }
+
+    //몬스터의 동작이 끝난후 동작하도록 추가해야함.
     #region Inputs
     //-------------move-----------
     public void OnQInput(InputAction.CallbackContext con)

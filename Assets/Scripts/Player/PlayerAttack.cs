@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out IDamageable damageable)) // need Fix
+        if (collision.gameObject.TryGetComponent(out IDamageable damageable))
         {
             targets.Add(damageable);
             if (curTarget == null)
@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Attack()
     {
-        if (curTarget == null)
+        if (curTarget == null || PlayerMove.IsMoveing)
         {
             return;
         }
