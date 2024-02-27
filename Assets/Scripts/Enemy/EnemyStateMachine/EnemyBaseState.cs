@@ -50,12 +50,21 @@ public class EnemyBaseState : IState
     private void Move()
     {
         Vector3 moveDirection = GetMovementDirection();
+        
         Move(moveDirection);
     }
 
     private Vector3 GetMovementDirection()
     {
-        return (stateMachine.Target.transform.position - stateMachine.EnemyController.transform.position).normalized;
+        Vector3 movePoint = (stateMachine.Target.transform.position - stateMachine.EnemyController.transform.position).normalized;
+
+        if (Mathf.Abs(movePoint.x) < 0.5f) movePoint.x = 0f;
+        else movePoint.x = movePoint.x > 0 ? 1f : -1f;
+
+        if (Mathf.Abs(movePoint.y) < 0.5f) movePoint.y = 0f;
+        else movePoint.y = movePoint.y > 0 ? 1f : -1f;
+
+        return movePoint;
     }
 
     private void Move(Vector3 moveDirection)
