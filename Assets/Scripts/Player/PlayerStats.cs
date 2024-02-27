@@ -8,12 +8,12 @@ public class PlayerStats : MonoBehaviour
     int moveSpeed = 10;
     float hp = 20;
     float maxHp = 20;
-    int hpRegenCount = 20;
+    int hpRegenCount = 200;
     int curHpRegenCount;
     int hpRegen = 1;
-    int hpDeductionCount = 20;
+    int hpDeductionCount = 200;
     int curHpDeductionCount;
-    int hpDeduction = 1;
+    int hpDeduction = 1; //Á¶Àý later
     int atk = 2;
     int def = 0;
     int hunger = 4500;
