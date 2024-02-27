@@ -115,7 +115,7 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (con.phase == InputActionPhase.Started)
         {
-            attack.Attack();
+            attack.CanAttack();
         }
     }
     public void OnFInput(InputAction.CallbackContext con) //targetChange

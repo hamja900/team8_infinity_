@@ -17,8 +17,17 @@ public class PlayerAnima : MonoBehaviour
         Pattack = GetComponent<PlayerAttack>();
         Pattack.PAttackEvent += AttackAnima;
     }
+    public void SpriteFileX(bool b)
+    {
+        characterSprite.flipX = b;
+    }
     void AttackAnima()
     {
         ani.SetTrigger("IsAttack");
+        Pattack.AttackEvent();// attack 애니메이션 종료후 호출
+    }
+    public void MoveAnima(bool b)
+    {
+        ani.SetBool("IsMove",b);
     }
 }

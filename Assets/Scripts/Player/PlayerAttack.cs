@@ -51,15 +51,17 @@ public class PlayerAttack : MonoBehaviour
         }
         curTarget = targets[targetIndex];
     }
-    public void Attack()
+    public void CanAttack()
     {
         if (curTarget == null || PlayerMove.IsMoveing)
         {
             return;
         }
         PAttackEvent?.Invoke();
-
-        curTarget.TakeDamage(stats.Attack());//공격 애니매이션이 끝나고
+    }
+    public void AttackEvent()
+    {
+        curTarget.TakeDamage(stats.Attack());
         TuenManager.i.PlayerTurns(stats.AttackSpeed());
     }
 }
