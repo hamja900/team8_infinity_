@@ -15,6 +15,6 @@ public class TuenManager : MonoBehaviour
     public void PlayerTurns(int useTurn)
     {
         globalTrun += useTurn;
-        MonsterTurn?.Invoke(useTurn);
+        MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
     }
 }
