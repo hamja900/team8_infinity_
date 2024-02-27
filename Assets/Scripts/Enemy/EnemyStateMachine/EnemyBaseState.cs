@@ -1,18 +1,74 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBaseState : MonoBehaviour
+public class EnemyBaseState : IState
 {
-    // Start is called before the first frame update
-    void Start()
+    protected EnemyStateMachine stateMachine;
+
+    public EnemyBaseState(EnemyStateMachine stateMachine)
+    {
+        this.stateMachine = stateMachine;
+    }
+
+    public virtual void Enter()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Exit()
     {
         
+    }
+
+    public virtual void HandleInput()
+    {
+        
+    }
+
+    public virtual void PhysicsUpdate()
+    {
+        
+    }
+
+    public virtual void Update()
+    {
+        Move();
+    }
+
+    protected void StartAnimation(int animationHash)
+    {
+        stateMachine.EnemyController.Animator.SetBool(animationHash, true);
+    }
+
+    protected void StopAnimation(int animationHash)
+    {
+        stateMachine.EnemyController.Animator.SetBool(animationHash, false);
+    }
+
+    private void Move()
+    {
+        Vector3 moveDirection = GetMovementDirection();
+        Move(moveDirection);
+    }
+
+    private Vector3 GetMovementDirection()
+    {
+        return (stateMachine.Target.transform.position - stateMachine.EnemyController.transform.position).normalized;
+    }
+
+    private void Move(Vector3 moveDirection)
+    {
+        EnemyController enemyController = stateMachine.EnemyController;
+
+        enemyController.movePoint.position = moveDirection;
+        enemyController.transform.position = Vector3.MoveTowards(enemyController.transform.position, enemyController.movePoint.position, enemyController.moveSpeed * Time.deltaTime);
+    }
+
+    protected bool IsInChaseRange()
+    {
+        float distance = Vector3.Distance(stateMachine.Target.transform.position, stateMachine.EnemyController.transform.position);
+        return distance <= stateMachine.EnemyController.EnemyData.enemyDetectRange;
     }
 }
