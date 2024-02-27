@@ -58,7 +58,8 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         PAttackEvent?.Invoke();
-        curTarget.TakeDamage(stats.Attack());
+
+        curTarget.TakeDamage(stats.Attack());//공격 애니매이션이 끝나고
         TuenManager.i.PlayerTurns(stats.AttackSpeed());
     }
 }
