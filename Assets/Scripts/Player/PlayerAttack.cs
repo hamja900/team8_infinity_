@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public List<IDamageable> targets = new List<IDamageable>();
     IDamageable curTarget = null;
     int targetIndex;
+    bool isAttack = false;
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
@@ -53,15 +54,17 @@ public class PlayerAttack : MonoBehaviour
     }
     public void CanAttack()
     {
-        if (curTarget == null || PlayerMove.IsMoveing)
+        if (curTarget == null || PlayerMove.IsMoveing || isAttack)
         {
             return;
         }
+        isAttack = true;
         PAttackEvent?.Invoke();
     }
     public void AttackEvent()
     {
         curTarget.TakeDamage(stats.Attack());
         TuenManager.I.PlayerTurns(stats.AttackSpeed());
+        isAttack = false;
     }
 }

@@ -7,6 +7,7 @@ public class PlayerAnima : MonoBehaviour
     Animator ani;
     SpriteRenderer characterSprite;
     PlayerAttack Pattack;
+    bool isAttack = false;
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
@@ -23,13 +24,24 @@ public class PlayerAnima : MonoBehaviour
     }
     public void AttackAnima()
     {
-        StartCoroutine("AttackAnimaCor");
-    }
-    public IEnumerator AttackAnimaCor()
-    {
+        isAttack = true;
         ani.SetTrigger("IsAttack");
-        yield return ani.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle");
-        Pattack.AttackEvent();
+    }
+    private void Update()
+    {
+        if (isAttack)
+        {
+            if (ani.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack") == true)
+            {
+                float animTime = ani.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                if (animTime >= 1.0f)
+                {
+                    Pattack.AttackEvent();
+                    isAttack = false;
+                    return;
+                }
+            }
+        }
     }
     public void MoveAnima(bool b)
     {
