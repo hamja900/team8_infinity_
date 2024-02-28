@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public enum EnemyState
 {
@@ -26,11 +20,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public EnemyMove EnemyMove { get; private set; }
+    public EnemyAttack EnemyAttack { get; private set; }
 
     public Transform movePoint;
     public float moveSpeed = 5f;
 
-    public bool isMonsterTurn = false;
+    public bool isEnemyTurn = false;
     public bool isTurnOver = false;
 
     public EnemyState currentState;
@@ -45,25 +40,22 @@ public class EnemyController : MonoBehaviour, IDamageable
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         EnemyMove = GetComponent<EnemyMove>();
+        EnemyAttack = GetComponent<EnemyAttack>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         movePoint.parent = null;
 
-        TuenManager.I.MonsterTurn += UpdateMonsterTurn;
+        TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isMonsterTurn)
+        if (isEnemyTurn)
         {
             UpdateState();
-        }
-        else
-            EndOfMonsterTurn();
+        }           
     }
 
     public void SetEnemyState(EnemyState state)
@@ -75,6 +67,9 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Chasing:
                 currentState = EnemyState.Chasing;
+                break;
+            case EnemyState.Attacking: 
+                currentState = EnemyState.Attacking;
                 break;
         }
     }
@@ -90,6 +85,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 EnemyMove.Move();
                 break;
             case EnemyState.Attacking:
+                EnemyAttack.Attack();
                 break;
         }
     }
@@ -98,6 +94,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (IsInAttackRange())
         {
+            Debug.Log("Check Attack");
             if (!IsTurnOver(EnemyState.Attacking))
                 SetEnemyState(EnemyState.Attacking);
             else
@@ -105,6 +102,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
         else if (IsInChasingRange())
         {
+            Debug.Log("Check Chasing");
             if (!IsTurnOver(EnemyState.Chasing))
                 SetEnemyState(EnemyState.Chasing);
             else
@@ -128,13 +126,13 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
     }
 
-    private void UpdateMonsterTurn(int turn)
+    private void UpdateEnemyTurn(int turn)
     {
         movePoint.parent = null;
         movePoint.position = SetEnemyMovePoint();
 
         localTurn = turn;
-        isMonsterTurn = true;
+        isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
     }
@@ -162,28 +160,32 @@ public class EnemyController : MonoBehaviour, IDamageable
             case EnemyState.Chasing:
                 if(localTurn < EnemyData.enemyMoveCost)
                 {
+                    EndOfEnemyTurn();
                     return true;
                 }
+                localTurn -= EnemyData.enemyMoveCost;
                 return false;
             case EnemyState.Attacking:
                 if(localTurn < EnemyData.enemyAttackCost)
                 {
+                    EndOfEnemyTurn();
                     return true;
                 }
+                localTurn -= EnemyData.enemyAttackCost;
                 return false;
                 default: return false;
         }
     }
 
-    private void EndOfMonsterTurn()
+    private void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
-
-        isTurnOver = false;
+        Debug.Log("Enemy Turn Over");
+        isEnemyTurn = false;
     }
 
     public void OnTestBtn()
     {
-        UpdateMonsterTurn(10);
+        UpdateEnemyTurn(10);
     }
 }

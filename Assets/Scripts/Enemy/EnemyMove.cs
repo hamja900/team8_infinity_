@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
@@ -22,7 +21,6 @@ public class EnemyMove : MonoBehaviour
 
         if (_controller.transform.position.Equals(_controller.movePoint.position))
         {
-            _controller.IsTurnOver(EnemyState.Chasing);
             _controller.SetEnemyState(EnemyState.Idle);
         }
     }
