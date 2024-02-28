@@ -7,7 +7,7 @@ public class PlayerAnima : MonoBehaviour
     Animator ani;
     SpriteRenderer characterSprite;
     PlayerAttack Pattack;
-    bool isAttack = false;
+    bool isAttackAnima = false;
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
@@ -24,12 +24,12 @@ public class PlayerAnima : MonoBehaviour
     }
     public void AttackAnima()
     {
-        isAttack = true;
+        isAttackAnima = true;
         ani.SetTrigger("IsAttack");
     }
     private void Update()
     {
-        if (isAttack)
+        if (isAttackAnima)
         {
             if (ani.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack") == true)
             {
@@ -37,7 +37,7 @@ public class PlayerAnima : MonoBehaviour
                 if (animTime >= 1.0f)
                 {
                     Pattack.AttackEvent();
-                    isAttack = false;
+                    isAttackAnima = false;
                     return;
                 }
             }
