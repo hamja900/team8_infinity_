@@ -28,80 +28,56 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.q);
-            }
+            move.CanMove(Dir.q);
         }
     }
     public void OnWInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.w);
-            }
+            move.CanMove(Dir.w);
         }
     }
     public void OnEInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.e);
-            }
+            move.CanMove(Dir.e);
         }
     }
     public void OnAInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.a);
-            }
+            move.CanMove(Dir.a);
         }
     }
     public void OnDInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.d);
-            }
+            move.CanMove(Dir.d);
         }
     }
     public void OnZInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.z);
-            }
+            move.CanMove(Dir.z);
         }
     }
     public void OnXInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.x);
-            }
+            move.CanMove(Dir.x);
         }
     }
     public void OnCInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
         {
-            if (move.CanMove())
-            {
-                move.Move(Dir.c);
-            }
+            move.CanMove(Dir.c);
         }
     }
     //---------------Move----------
