@@ -214,4 +214,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         UpdateEnemyTurn(10);
     }
+
+    public Vector2 Pos()
+    {
+        return (Vector2)transform.position;
+    }
 }
