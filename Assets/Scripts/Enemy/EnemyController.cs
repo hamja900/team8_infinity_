@@ -43,6 +43,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         EnemyMove = GetComponent<EnemyMove>();
         EnemyAttack = GetComponent<EnemyAttack>();
         EnemyAnimation = GetComponent<EnemyAnimation>();
+
+        EnemyData.enemyHealth = EnemyData.enemyMaxHealth;
     }
 
     void Start()
@@ -83,7 +85,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void ExitState(EnemyState state)
     {
-        IsStillEnemyTurn();
         switch (state)
         {
             case EnemyState.Idle:
@@ -205,20 +206,6 @@ public class EnemyController : MonoBehaviour, IDamageable
                 return false;
                 default: return false;
         }
-    }
-
-    public void IsStillEnemyTurn()
-    {
-        if (!isTurnOver)
-        {
-            StartCoroutine("PrintEnemyTurn");
-        }
-    }
-
-    IEnumerator PrintEnemyturn()
-    {
-        Debug.Log("Is Still Enemy Turn...");
-        yield return new WaitForEndOfFrame();
     }
 
     private void EndOfEnemyTurn()

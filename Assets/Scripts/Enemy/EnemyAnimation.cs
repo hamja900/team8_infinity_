@@ -17,11 +17,6 @@ public class EnemyAnimation : MonoBehaviour
         Animator.SetBool(animationName, toggle);
     }
 
-    public void TriggerAnimation(string animationName)
-    {
-        Animator.SetTrigger(animationName);
-    }
-
     public void PlayAttackAnimation()
     {
         StartCoroutine("PlayAttack");
