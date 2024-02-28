@@ -9,7 +9,7 @@ public class EnemyAttack : MonoBehaviour
     private void Awake()
     {
         _controller = GetComponent<EnemyController>();
-        //_playerDamage = _controller.Target.gameObject.GetComponent<PlayerGetDmg>();
+        _playerDamage = _controller.Target.GetComponent<PlayerGetDmg>();
     }
 
     void Start()
@@ -26,7 +26,7 @@ public class EnemyAttack : MonoBehaviour
     {
         Debug.Log("Player Attack");
         //_controller.EnemyAnimation
-        //_playerDamage.TakeDamage(_controller.EnemyData.enemyAtk);
+        _playerDamage.TakeDamage(_controller.EnemyData.enemyAtk);
         _controller.ExitState(EnemyState.Attacking);
         _controller.SetEnemyState(EnemyState.Idle);
     }
