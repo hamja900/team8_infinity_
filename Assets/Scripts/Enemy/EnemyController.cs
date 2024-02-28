@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public enum EnemyState
 {
@@ -30,7 +32,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public EnemyState currentState;
 
-    private int localTurn;
+    public int localTurn;
 
     private void Awake()
     {
@@ -72,13 +74,16 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking: 
                 currentState = EnemyState.Attacking;
-                EnemyAnimation.ToggleAnimation("EnemyAttack", true);
+                //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
+                //EnemyAnimation.TriggerAnimation("EnemyAttack");
+                EnemyAnimation.PlayAttackAnimation();
                 break;
         }
     }
 
     public void ExitState(EnemyState state)
     {
+        IsStillEnemyTurn();
         switch (state)
         {
             case EnemyState.Idle:
@@ -91,7 +96,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking:
                 currentState = EnemyState.Attacking;
-                EnemyAnimation.ToggleAnimation("EnemyAttack", false);
+                //EnemyAnimation.ToggleAnimation("EnemyAttack", false);
                 break;
         }
     }
@@ -128,7 +133,9 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             if (movePoint.position.x < 0) SpriteRenderer.flipX = true;
             else SpriteRenderer.flipX = false;
-            Debug.Log("Check Chasing");
+
+            Debug.Log("IsInChasingRange");
+
             if (!IsTurnOver(EnemyState.Chasing))
                 SetEnemyState(EnemyState.Chasing);
             else
@@ -146,10 +153,6 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         float playerDistanceSqr = (Target.transform.position - transform.position).sqrMagnitude;
         return playerDistanceSqr <= EnemyData.enemyAttackRange * EnemyData.enemyAttackRange;
-    }
-
-    public void TakeDamage(int damage)
-    {
     }
 
     private void UpdateEnemyTurn(int turn)
@@ -190,6 +193,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                     return true;
                 }
                 localTurn -= EnemyData.enemyMoveCost;
+                movePoint.position = SetEnemyMovePoint();
                 return false;
             case EnemyState.Attacking:
                 if(localTurn < EnemyData.enemyAttackCost)
@@ -203,10 +207,25 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
     }
 
+    public void IsStillEnemyTurn()
+    {
+        if (!isTurnOver)
+        {
+            StartCoroutine("PrintEnemyTurn");
+        }
+    }
+
+    IEnumerator PrintEnemyturn()
+    {
+        Debug.Log("Is Still Enemy Turn...");
+        yield return new WaitForEndOfFrame();
+    }
+
     private void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
-        Debug.Log("Enemy Turn Over");
+        
+        TuenManager.I.EnemyTurnOver();
         isEnemyTurn = false;
     }
 
@@ -215,8 +234,23 @@ public class EnemyController : MonoBehaviour, IDamageable
         UpdateEnemyTurn(10);
     }
 
+    public void TakeDamage(int damage)
+    {
+        EnemyData.enemyHealth -= damage;
+        if(EnemyData.enemyHealth <= 0)
+        {
+            EnemyData.enemyHealth = 0;
+            Die();
+        }
+    }
+
     public Vector2 Pos()
     {
         return (Vector2)transform.position;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
