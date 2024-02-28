@@ -12,7 +12,7 @@ public class PlayerGetDmg : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         damage -= stats.GetDef();
-        if (damage > 0)
+        if (damage <= 0)
         {
             damage = 0;
         }
