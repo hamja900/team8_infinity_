@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         stateMachine.ChangeState(stateMachine.E_IdleState);
         movePoint.parent = null;
 
-        TuenManager.i.MonsterTurn += UpdateMonsterTurn;
+        TuenManager.I.MonsterTurn += UpdateMonsterTurn;
     }
 
     // Update is called once per frame
