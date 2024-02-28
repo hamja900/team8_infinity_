@@ -22,9 +22,10 @@ public class PlayerAnima : MonoBehaviour
     {
         characterSprite.flipX = b;
     }
-    public void AttackAnima()
+    public void AttackAnima(bool b)
     {
         IsAttackAnima = true;
+        SpriteFileX(b);
         ani.SetTrigger("IsAttack");
     }
     private void Update()

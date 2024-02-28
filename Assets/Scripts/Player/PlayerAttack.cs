@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
     PlayerStats stats;
-    public event Action PAttackEvent;
+    public event Action<bool> PAttackEvent;
     public List<IDamageable> targets = new List<IDamageable>();
     IDamageable curTarget = null;
     int targetIndex;
     bool isAttack = false;
+    [SerializeField] RawImage targetUi;
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
@@ -38,6 +40,20 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+    private void Update()
+    {
+        TargetUiUpdate();
+    }
+    void TargetUiUpdate()
+    {
+        if (curTarget == null)
+        {
+            targetUi.enabled = false;
+            return;
+        }
+        targetUi.enabled = true;
+        targetUi.transform.position = curTarget.Pos();
+    }
     public void ChangeTarget()
     {
         if (targets.Count == 0)
@@ -59,7 +75,14 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         isAttack = true;
-        PAttackEvent?.Invoke();
+        Vector2 targetPos = curTarget.Pos();
+        Vector2 dir = (Vector2)transform.position - targetPos;
+        if (dir.x > 0)
+        {
+            PAttackEvent?.Invoke(true);
+            return;
+        }
+        PAttackEvent?.Invoke(false);
     }
     public void AttackEvent()
     {

@@ -18,4 +18,9 @@ public class PlayerGetDmg : MonoBehaviour, IDamageable
         }
         stats.GetDmg(damage);
     }
+
+    public Vector2 Pos()
+    {
+        return (Vector2)transform.position;
+    }
 }
