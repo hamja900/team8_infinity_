@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a425fcf398e1940a4a990abf8a242c, type: 3}
-  m_Name: X_ChickenLeg
+  m_Name: Q_LightShirt
   m_EditorClassIdentifier: 
-  itemName: "\uB2ED\uB2E4\uB9AC"
-  itemDescription: "\uC815\uB9D0 \uB2ED\uC758 \uB2E4\uB9AC\uC778\uC9C0 \uC758\uC2EC\uC2A4\uB7FD\uB2E4."
-  itemSprite: {fileID: -99403663, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
-  itemType: 1
+  itemName: "\uAC00\uBCBC\uC6B4 \uBAB8\uD1B5\uAC11\uC637"
+  itemDescription: "\uAC00\uBCCD\uACE0, \uC584\uD30D\uD558\uB2E4."
+  itemSprite: {fileID: 1627921802, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
+  itemType: 0
   dropPrefab: {fileID: 0}
-  canStack: 1
-  maxStack: 10
-  expendType: 3
+  canStack: 0
+  maxStack: 0
+  expendType: 0
   healPoint: 0
-  HungerPoint: 800
-  equipType: 0
+  HungerPoint: 0
+  equipType: 2
   attackRange: 0
   attackSpeed: 0
   atk: 0
-  def: 0
+  def: 3
   isEquipped: 0
