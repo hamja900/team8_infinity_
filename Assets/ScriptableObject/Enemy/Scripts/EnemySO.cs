@@ -8,6 +8,7 @@ public class EnemySO : ScriptableObject
     public int enemyHealth;
     public int enemyMaxHealth;
     public int enemyAtk;
+    public float enemyAttackRange;
     public float enemyDetectRange;
     public float enemySafeRange;
     public float enemyDropExp;

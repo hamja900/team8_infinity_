@@ -2,14 +2,14 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class AnimationData : MonoBehaviour
+public class AnimationData
 {
     [SerializeField] private string wanderParameterName = "@Wander";
     [SerializeField] private string idleParameterName = "Idle";
     [SerializeField] private string walkParameterName = "Walk";
 
     [SerializeField] private string attackParameterName = "@Attack";
-    [SerializeField] private string enemyAttackParameterName = "enemyAttack";
+    [SerializeField] private string enemyAttackParameterName = "EnemyAttack";
     
     [SerializeField] private string takeDamageParameterName = "@TakeDamage";
     [SerializeField] private string deadParameterName = "Dead";

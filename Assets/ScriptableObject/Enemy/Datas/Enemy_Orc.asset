@@ -15,10 +15,12 @@ MonoBehaviour:
   enemyPrefab: {fileID: 0}
   enemyName: Orc
   enemyHealth: 10
-  enemyHealthMax: 10
+  enemyMaxHealth: 0
   enemyAtk: 2
+  enemyAttackRange: 1
   enemyDetectRange: 5
+  enemySafeRange: 0
   enemyDropExp: 10
-  enemyMoveFrequency: 15
-  enemyAttackFrequency: 10
+  enemyMoveCost: 0
+  enemyAttackCost: 0
   leftOverTurn: 0
