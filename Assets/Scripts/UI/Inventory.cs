@@ -21,6 +21,8 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] slots;
     public ItemSlot[] equipSlots;
 
+    private Equip equipScript;
+
     public GameObject inventoryWindow;
     public Transform dropPosition;
 
@@ -43,6 +45,7 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        equipScript = GetComponent<Equip>();
     }
 
     private void Start()
@@ -230,15 +233,11 @@ public class Inventory : MonoBehaviour
     }
     public void OnEquipButton()
     {
-
-    }
-    private void UnEquip(int index)
-    {
-
+        equipScript.EquipItem(selectedItemIndex);
     }
     public void OnUnEquipButton()
     {
-
+        equipScript.UnEquipItem(selectedItemIndex);
     }
     public void OnDropButton()
     {
@@ -256,7 +255,7 @@ public class Inventory : MonoBehaviour
         {
             if (uiSlots[selectedItemIndex].isEquipped)
             {
-                UnEquip(selectedItemIndex);
+                equipScript.UnEquipItem(selectedItemIndex);
             }
             selectedItem.items = null;
             ClearSelectedItemWindow();
