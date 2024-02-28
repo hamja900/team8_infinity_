@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     public ItemSlotUI[] uiSlots;
     public EquipSlotUI[] equipUiSlots;
     public ItemSlot[] slots;
-    public ItemSlot[] equipSlots;
+    public ItemSlot[] equipitems;
 
     private Equip equipScript;
 
@@ -57,10 +57,10 @@ public class Inventory : MonoBehaviour
             uiSlots[i].index = i;
             uiSlots[i].Clear();
         }
-        equipSlots = new ItemSlot[equipUiSlots.Length];
-        for(int j = 0; j < equipSlots.Length; j++)
+        equipitems = new ItemSlot[equipUiSlots.Length];
+        for (int j = 0; j < equipitems.Length; j++)
         {
-            equipSlots[j] = new ItemSlot();
+            equipitems[j] = new ItemSlot();
             equipUiSlots[j].index = j;
             equipUiSlots[j].Clear();
         }
@@ -237,7 +237,12 @@ public class Inventory : MonoBehaviour
     }
     public void OnUnEquipButton()
     {
-        equipScript.UnEquipItem(selectedItemIndex);
+        if (selectedItem.items.equipType == EquipType.Weapon)
+            equipScript.UnEquipItem(selectedItemIndex, 0);
+        else if (selectedItem.items.equipType == EquipType.Top)
+            equipScript.UnEquipItem(selectedItemIndex, 1);
+        else if (selectedItem.items.equipType == EquipType.Bottom)
+            equipScript.UnEquipItem(selectedItemIndex, 2);
     }
     public void OnDropButton()
     {
@@ -255,7 +260,12 @@ public class Inventory : MonoBehaviour
         {
             if (uiSlots[selectedItemIndex].isEquipped)
             {
-                equipScript.UnEquipItem(selectedItemIndex);
+                if (selectedItem.items.equipType == EquipType.Weapon)
+                    equipScript.UnEquipItem(selectedItemIndex, 0);
+                else if (selectedItem.items.equipType == EquipType.Top)
+                    equipScript.UnEquipItem(selectedItemIndex, 1);
+                else if (selectedItem.items.equipType == EquipType.Bottom)
+                    equipScript.UnEquipItem(selectedItemIndex, 2);
             }
             selectedItem.items = null;
             ClearSelectedItemWindow();
@@ -266,5 +276,29 @@ public class Inventory : MonoBehaviour
     {
 
     }
-    
+    public int EquippedItemIndex()
+    {
+        for (int i = 0; i<equipitems.Length; i++)
+        {
+            if (equipitems[i].items == null)
+                return -1;
+            else
+            {
+                if(equipitems[i].items.equipType == EquipType.Weapon)
+                {
+                    return 0;
+                }
+                else if (equipitems[i].items.equipType == EquipType.Top)
+                {
+                    return 1;
+                }
+                else if (equipitems[i].items.equipType == EquipType.Bottom)
+                {
+                    return 2;
+                }
+            }
+                
+        }
+        return -1;
+    }
 }

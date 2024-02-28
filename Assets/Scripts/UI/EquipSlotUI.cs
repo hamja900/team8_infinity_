@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EquipSlotUI : MonoBehaviour
-{
+{ 
     public UnityEngine.UI.Image icon;
     public ItemSlot curSlot;
 
@@ -22,4 +22,6 @@ public class EquipSlotUI : MonoBehaviour
         curSlot = null;
         icon.gameObject.SetActive(false);
     }
+
+   
 }

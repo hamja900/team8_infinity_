@@ -1,36 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Equip : MonoBehaviour
 {
-   public void EquipItem(int index)
+
+
+    public void EquipItem(int index)
     {
         ItemSlot item = Inventory.instance.slots[index];
-        if(item.items.equipType == EquipType.Weapon)
+
+        if (item.items.equipType == EquipType.Weapon)
         {
-            Inventory.instance.equipUiSlots[0].Set(item);
+            if (Inventory.instance.equipitems[0].items != null)
+                UnEquipItem(Inventory.instance.EquippedItemIndex(), 0);
+            else
+            {
+                Inventory.instance.equipUiSlots[0].Set(item);
+                Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
+            }
         }
         else if (item.items.equipType == EquipType.Top)
         {
-            Inventory.instance.equipUiSlots[1].Set(item);
+            if (Inventory.instance.equipitems[1].items != null)
+                UnEquipItem(Inventory.instance.EquippedItemIndex(), 1);
+            else
+                Inventory.instance.equipUiSlots[1].Set(item);
+            Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
         }
-        else if (item.items. equipType == EquipType.Bottom)
+        else if (item.items.equipType == EquipType.Bottom)
         {
-            Inventory.instance.equipUiSlots[2].Set(item);
+            if (Inventory.instance.equipitems[2].items != null)
+                UnEquipItem(Inventory.instance.EquippedItemIndex(), 2);
+            else
+                Inventory.instance.equipUiSlots[2].Set(item);
+            Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
         }
         Inventory.instance.uiSlots[index].isEquipped = true;
         UpdateEquipUI();
 
     }
-    public void UnEquipItem(int index)
+    public void UnEquipItem(int index,int slotIndex)
     {
+        if (index == -1)
+            return;
+        Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
+        Inventory.instance.uiSlots[index].isEquipped = false;
+        UpdateEquipUI();
     }
+
 
     private void UpdateEquipUI()
     {
-        
+        for (int i = 0; i < Inventory.instance.slots.Length; i++)
+        {
+            if (Inventory.instance.uiSlots[i].isEquipped)
+            {
+                Inventory.instance.uiSlots[i].equipMark.SetActive(true);
+            }
+            else
+            {
+                Inventory.instance.uiSlots[i].equipMark.SetActive(false);
+            }
+        }
     }
 
 }
