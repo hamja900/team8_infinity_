@@ -6,15 +6,10 @@ public class EnemyAttack : MonoBehaviour
     private EnemyController _controller;
     private PlayerGetDmg _playerDamage;
 
-    private void Awake()
+    void Start()
     {
         _controller = GetComponent<EnemyController>();
         _playerDamage = _controller.Target.GetComponent<PlayerGetDmg>();
-    }
-
-    void Start()
-    {
-        
     }
 
     void Update()

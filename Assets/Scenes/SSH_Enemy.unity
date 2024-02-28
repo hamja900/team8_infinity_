@@ -233,11 +233,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1713022626032424387, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.47
+      value: -2.46
       objectReference: {fileID: 0}
     - target: {fileID: 1713022626032424387, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.51
+      value: 3.48
       objectReference: {fileID: 0}
     - target: {fileID: 1713022626032424387, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_LocalPosition.z
@@ -501,19 +501,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EnemyData>k__BackingField: {fileID: 11400000, guid: e7fe5d5c431f1874d9ce841d70c580e9, type: 2}
-  <AnimationData>k__BackingField:
-    wanderParameterName: '@Wander'
-    idleParameterName: Idle
-    walkParameterName: Walk
-    attackParameterName: '@Attack'
-    enemyAttackParameterName: EnemyAttack
-    takeDamageParameterName: '@TakeDamage'
-    deadParameterName: Dead
   movePoint: {fileID: 1800570430}
   moveSpeed: 5
   isEnemyTurn: 0
   isTurnOver: 0
   currentState: 0
+  localTurn: 0
 --- !u!4 &668132846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5720277353491606260, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
