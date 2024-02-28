@@ -22,9 +22,11 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] equipitems;
 
     private Equip equipScript;
+    private PlayerStats playerStats;
 
     public GameObject inventoryWindow;
     public Transform dropPosition;
+    public GameObject player;
 
     [Header("SelectedItem")]
     private ItemSlot selectedItem;
@@ -46,6 +48,7 @@ public class Inventory : MonoBehaviour
     {
         instance = this;
         equipScript = GetComponent<Equip>();
+        playerStats = player.GetComponent<PlayerStats>();
     }
 
     private void Start()
@@ -214,7 +217,7 @@ public class Inventory : MonoBehaviour
             {
                 case ExpendType.Heal:
                     {
-
+                        playerStats.HealHp(selectedItem.items.healPoint);
                     }
                     break;
                 case ExpendType.Cure:
@@ -224,7 +227,7 @@ public class Inventory : MonoBehaviour
                     break;
                 case ExpendType.Hunger:
                     {
-
+                        playerStats.EatFood(selectedItem.items.HungerPoint);
                     }
                     break;
             }
