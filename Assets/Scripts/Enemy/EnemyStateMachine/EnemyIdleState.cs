@@ -22,8 +22,13 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Update()
     {
-        Debug.Log("Idle Update");
-        if (IsInChaseRange())
+        if (IsInAttackRange())
+        {
+            Debug.Log("Attack");
+            stateMachine.ChangeState(stateMachine.E_AttackingState);
+            return;
+        }
+        else if (IsInChaseRange())
         {
             stateMachine.ChangeState(stateMachine.E_ChasingState);
             return;

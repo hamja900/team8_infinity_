@@ -12,7 +12,6 @@ public class EnemyChasingState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Chasing");
         StartAnimation(stateMachine.EnemyController.AnimationData.WanderParameterHash);
         StartAnimation(stateMachine.EnemyController.AnimationData.WalkParameterHash);
     }
@@ -28,21 +27,31 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Update();
 
-        if (!IsInChaseRange())
+        if (!stateMachine.IsMoved)
+        {
+            if (!IsInChaseRange())
+            {
+                stateMachine.ChangeState(stateMachine.E_IdleState);
+                return;
+            }
+        }
+        else
         {
             stateMachine.ChangeState(stateMachine.E_IdleState);
+            stateMachine.EnemyController.isTurnOver = true;
             return;
         }
-        else if (IsInAttackRange())
-        {
-            stateMachine.ChangeState(stateMachine.E_AttackingState);
-        }
-    }
 
-    private bool IsInAttackRange()
-    {
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.EnemyController.transform.position).sqrMagnitude;
+        //if (IsInAttackRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.E_AttackingState);
+        //}
+        //else
+        //{
+        //    stateMachine.ChangeState(stateMachine.E_IdleState);
+        //    stateMachine.EnemyController.isTurnOver = true;
+        //    return;
+        //}
 
-        return playerDistanceSqr <= stateMachine.EnemyController.EnemyData.enemyAttackRange * stateMachine.EnemyController.EnemyData.enemyAttackRange;
     }
 }

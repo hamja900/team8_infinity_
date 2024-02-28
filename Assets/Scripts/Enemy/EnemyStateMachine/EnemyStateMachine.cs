@@ -12,6 +12,8 @@ public class EnemyStateMachine : StateMachine
 
     public int EnemyMovementSpeed { get; private set; }
 
+    public bool IsMoved { get; private set; }
+
     public EnemyStateMachine(EnemyController enemyController)
     {
         EnemyController = enemyController;
@@ -20,5 +22,12 @@ public class EnemyStateMachine : StateMachine
         E_IdleState = new EnemyIdleState(this);
         E_ChasingState = new EnemyChasingState(this);
         E_AttackingState = new EnemyAttackingState(this);
+
+        IsMoved = false;
+    }
+
+    public void EnemyIsMoved(bool isMoved)
+    {
+        IsMoved = isMoved;
     }
 }

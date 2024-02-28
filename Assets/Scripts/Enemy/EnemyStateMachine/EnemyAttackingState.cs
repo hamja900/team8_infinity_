@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyAttackingState : EnemyBaseState
 {
     public EnemyAttackingState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Enter()
     {
-        
+        base.Enter();
+        StartAnimation(stateMachine.EnemyController.AnimationData.AttackParameterHash);
+        StartAnimation(stateMachine.EnemyController.AnimationData.EnemyAttackParameterHash);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit()
     {
-        
+        base.Exit();
+        StopAnimation(stateMachine.EnemyController.AnimationData.AttackParameterHash);
+        StopAnimation(stateMachine.EnemyController.AnimationData.EnemyAttackParameterHash);
     }
 }
