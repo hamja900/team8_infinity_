@@ -20,7 +20,10 @@ public class PlayerInputScript : MonoBehaviour
         move = GetComponent<PlayerMove>();
         attack = GetComponent<PlayerAttack>();
     }
+
+    //몬스터의 동작이 끝난후 동작하도록 추가해야함.
     #region Inputs
+    //-------------move-----------
     public void OnQInput(InputAction.CallbackContext con)
     {
         if (con.phase == InputActionPhase.Started)
@@ -108,8 +111,19 @@ public class PlayerInputScript : MonoBehaviour
     }
     //-------------Stop-----------
     //------------Attack---------
-    public void OnRInput()
+    public void OnRInput(InputAction.CallbackContext con)
     {
+        if (con.phase == InputActionPhase.Started)
+        {
+            attack.CanAttack();
+        }
+    }
+    public void OnFInput(InputAction.CallbackContext con) //targetChange
+    {
+        if (con.phase == InputActionPhase.Started)
+        {
+            attack.ChangeTarget();
+        }
     }
     //---------Attack-----------
     //-----------Toolbar---------
@@ -137,5 +151,6 @@ public class PlayerInputScript : MonoBehaviour
     {
 
     }
+    //---------Toolbar---------
     #endregion
 }
