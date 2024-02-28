@@ -10,7 +10,9 @@ public class Entrance : MonoBehaviour
     private int clearRoomNum;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Player")
+        //TODO
+        //플레이어 받으면 TAG로 변경
+        if(collision.gameObject.name == "Player") 
         {
             makeRandomMap.StartRandomMap();
             clearRoomNum++;
