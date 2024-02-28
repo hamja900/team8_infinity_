@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
         for (int j = 0; j< equipSlots.Length;j++)
         {
             equipSlots[j] = new ItemSlot();
-            equipUiSlot[j].idx = j;
+            equipUiSlot[j].index = j;
             equipUiSlot[j].Clear();
         }
         AddItem(testItem);
@@ -89,6 +89,12 @@ public class Inventory : MonoBehaviour
         }
 
         ThrowItem(item);
+    }
+
+    public void RemoveItem(ItemSlot slot)
+    {
+        slot.items = null;
+        UpdateUI();
     }
 
    
@@ -262,6 +268,7 @@ public class Inventory : MonoBehaviour
                 if (equipSlots[0] != null)
                 {
                     equipSlots[0].items = slots[index].items;
+                    equipSlots[0].quantity = 1;
                     equipUiSlot[0].Set(equipSlots[0].items);
                 }
             }
@@ -270,6 +277,7 @@ public class Inventory : MonoBehaviour
                 if (equipSlots[1] != null)
                 {
                     equipSlots[1].items = slots[index].items;
+                    equipSlots[1].quantity = 1;
                     equipUiSlot[1].Set(equipSlots[1].items);
                 }
             }
@@ -278,6 +286,7 @@ public class Inventory : MonoBehaviour
                 if (equipSlots[2] != null)
                 {
                     equipSlots[2].items = slots[index].items;
+                    equipSlots[2].quantity = 1;
                     equipUiSlot[2].Set(equipSlots[2].items);
                 }
             }
@@ -314,12 +323,12 @@ public class Inventory : MonoBehaviour
         {
             if (!slots[i].items.isEquipped)
             {
-                uiSlot[i].Clear();
                 return;
             }
             else if (slots[i].items.isEquipped)
             {
                 Equip(i);
+                RemoveItem(slots[i]);
             }
         }
         UpdateEquipSlotUI();

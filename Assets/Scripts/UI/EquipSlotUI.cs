@@ -10,15 +10,16 @@ public class EquipSlotUI : MonoBehaviour
     public UnityEngine.UI.Image icon;
     private ItemSlot _curSlot;
 
-    public int idx;
+    public int index;
 
     public void Set(ItemSO so)
     {
-        _curSlot.items = so;
+        _curSlot = Inventory.instance.equipSlots[index];
+        //_curSlot.items = so;
         icon.gameObject.SetActive(true);
         icon.sprite = so.itemSprite;
     }
-   
+
 
     public void Clear()
     {
@@ -28,6 +29,6 @@ public class EquipSlotUI : MonoBehaviour
 
     public void OnButtonClick()
     {
-        Inventory.instance.SelectedItem(idx);
+        Inventory.instance.SelectedItem(index);
     }
 }
