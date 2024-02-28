@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public Transform movePoint;
     public float moveSpeed = 5f;
 
+    public bool isMonsterTurn = false;
     public bool isTurnOver = false;
 
     private void Awake()
@@ -52,7 +53,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        
+        if (isMonsterTurn)
+        {
+            stateMachine.Update();
+        }
+        else
+            EndOfMonsterTurn();
     }
 
     public void TakeDamage(int damage)
@@ -64,18 +70,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         movePoint.parent = null;
         movePoint.position = SetEnemyMovePoint();
-        StartCoroutine(MonsterMove());
-    }
-
-    IEnumerator MonsterMove()
-    {
-        while (!isTurnOver)
-        {
-            stateMachine.Update();
-            yield return new WaitForEndOfFrame();
-        }
-
-        EndOfMonsterTurn();
+        isMonsterTurn = true;
     }
 
     private Vector3 SetEnemyMovePoint()
