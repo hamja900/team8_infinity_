@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 targetPos = direction + (Vector2)transform.position;
         RaycastHit2D hit = Physics2D.Raycast(targetPos, Vector2.zero, 0.1f, LayerMask.GetMask("Wall", "Enemy"));
 
-        if (!IsMoveing && hit.transform == null && !aniScript.IsAttackAnima)//벽이나 몬스터가 있는 쪽으로는 움직이지 못 하게 해야함.
+        if (!IsMoveing && hit.transform == null && !aniScript.IsAttackAnima)
         {
             IsMoveing = true;
             Move(direction);
