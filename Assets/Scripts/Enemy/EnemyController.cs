@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public Transform Target { get; private set; }
 
     public Rigidbody Rigidbody { get; private set; }
-    //public Animator Animator { get; private set; }
+    public SpriteRenderer SpriteRenderer { get; private set; }
 
     public Transform movePoint;
     public float moveSpeed = 5f;
@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         Rigidbody = GetComponent<Rigidbody>();
+        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         EnemyMove = GetComponent<EnemyMove>();
         EnemyAttack = GetComponent<EnemyAttack>();
@@ -125,6 +126,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
         else if (IsInChasingRange())
         {
+            if (movePoint.position.x < 0) SpriteRenderer.flipX = true;
+            else SpriteRenderer.flipX = false;
             Debug.Log("Check Chasing");
             if (!IsTurnOver(EnemyState.Chasing))
                 SetEnemyState(EnemyState.Chasing);
