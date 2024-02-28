@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     PlayerStats stats;
     Rigidbody2D rigi;
     PlayerAnima aniScript;
-    int moveDelay = 10;
+    int moveDelay = 20;
     public static bool IsMoveing { get; private set; } = false;
     private void Awake()
     {
