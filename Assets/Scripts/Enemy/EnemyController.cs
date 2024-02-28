@@ -16,11 +16,14 @@ public class EnemyController : MonoBehaviour, IDamageable
     [field: Header("Animations")]
     [field: SerializeField] public AnimationData AnimationData { get; private set; }
 
-    public Transform Target { get; private set; }
-    public Rigidbody Rigidbody { get; private set; }
-    public Animator Animator { get; private set; }
     public EnemyMove EnemyMove { get; private set; }
     public EnemyAttack EnemyAttack { get; private set; }
+    public EnemyAnimation EnemyAnimation { get; private set; }
+
+    public Transform Target { get; private set; }
+
+    public Rigidbody Rigidbody { get; private set; }
+    //public Animator Animator { get; private set; }
 
     public Transform movePoint;
     public float moveSpeed = 5f;
@@ -38,9 +41,11 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         Rigidbody = GetComponent<Rigidbody>();
-        Animator = GetComponentInChildren<Animator>();
+        //Animator = GetComponentInChildren<Animator>();
+
         EnemyMove = GetComponent<EnemyMove>();
         EnemyAttack = GetComponent<EnemyAttack>();
+        EnemyAnimation = GetComponent<EnemyAnimation>();
     }
 
     void Start()
@@ -70,6 +75,27 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking: 
                 currentState = EnemyState.Attacking;
+                break;
+        }
+    }
+
+    public void ExitState(EnemyState state)
+    {
+        switch (state)
+        {
+            case EnemyState.Idle:
+                currentState = EnemyState.Idle;
+                EnemyAnimation.StopAnimation(AnimationData.IdleParameterHash);
+                EnemyAnimation.StopAnimation(AnimationData.WanderParameterHash);
+                break;
+            case EnemyState.Chasing:
+                currentState = EnemyState.Chasing;
+                EnemyAnimation.StopAnimation(AnimationData.WalkParameterHash);
+                break;
+            case EnemyState.Attacking:
+                currentState = EnemyState.Attacking;
+                EnemyAnimation.StopAnimation(AnimationData.EnemyAttackParameterHash);
+                EnemyAnimation.StopAnimation(AnimationData.AttackParameterHash);
                 break;
         }
     }
