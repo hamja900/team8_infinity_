@@ -6,10 +6,10 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public event Action PlayerDie;
-    int attackSpeed = 10;
+    int attackSpeed  = 10;
     int moveSpeed = 10;
-    float hp = 20;
-    float maxHp = 20;
+    public float hp  = 20;
+    public float maxHp = 20;
     int hpRegenCount = 200;
     int curHpRegenCount;
     int hpRegen = 1;
@@ -20,9 +20,10 @@ public class PlayerStats : MonoBehaviour
     int def = 0;
     int hunger = 4500;
     int maxHunger = 4500;
-    int exp = 0;
-    int maxExp = 20;
+    public int exp  = 0;
+    public int maxExp = 20;
     int attackRange = 1;
+    public int level  = 1;
     private void Start()
     {
         TuenManager.I.MonsterTurn += PlayerTurn;
