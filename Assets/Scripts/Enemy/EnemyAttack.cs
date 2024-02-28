@@ -25,8 +25,9 @@ public class EnemyAttack : MonoBehaviour
     public void Attack()
     {
         Debug.Log("Player Attack");
+        //_controller.EnemyAnimation
         //_playerDamage.TakeDamage(_controller.EnemyData.enemyAtk);
-
+        _controller.ExitState(EnemyState.Attacking);
         _controller.SetEnemyState(EnemyState.Idle);
     }
 }

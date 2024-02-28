@@ -13,9 +13,6 @@ public class EnemyController : MonoBehaviour, IDamageable
     [field: Header("Stats")]
     [field: SerializeField] public EnemySO EnemyData { get; private set; }
 
-    [field: Header("Animations")]
-    [field: SerializeField] public AnimationData AnimationData { get; private set; }
-
     public EnemyMove EnemyMove { get; private set; }
     public EnemyAttack EnemyAttack { get; private set; }
     public EnemyAnimation EnemyAnimation { get; private set; }
@@ -37,11 +34,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        AnimationData.Initialize();
-
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         Rigidbody = GetComponent<Rigidbody>();
-        //Animator = GetComponentInChildren<Animator>();
 
         EnemyMove = GetComponent<EnemyMove>();
         EnemyAttack = GetComponent<EnemyAttack>();
@@ -69,12 +63,15 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             case EnemyState.Idle:
                 currentState = EnemyState.Idle;
+                EnemyAnimation.ToggleAnimation("Idle", true);
                 break;
             case EnemyState.Chasing:
                 currentState = EnemyState.Chasing;
+                EnemyAnimation.ToggleAnimation("Walk", true);
                 break;
             case EnemyState.Attacking: 
                 currentState = EnemyState.Attacking;
+                EnemyAnimation.ToggleAnimation("EnemyAttack", true);
                 break;
         }
     }
@@ -85,17 +82,15 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             case EnemyState.Idle:
                 currentState = EnemyState.Idle;
-                EnemyAnimation.StopAnimation(AnimationData.IdleParameterHash);
-                EnemyAnimation.StopAnimation(AnimationData.WanderParameterHash);
+                EnemyAnimation.ToggleAnimation("Idle", false);
                 break;
             case EnemyState.Chasing:
                 currentState = EnemyState.Chasing;
-                EnemyAnimation.StopAnimation(AnimationData.WalkParameterHash);
+                EnemyAnimation.ToggleAnimation("Walk", false);
                 break;
             case EnemyState.Attacking:
                 currentState = EnemyState.Attacking;
-                EnemyAnimation.StopAnimation(AnimationData.EnemyAttackParameterHash);
-                EnemyAnimation.StopAnimation(AnimationData.AttackParameterHash);
+                EnemyAnimation.ToggleAnimation("EnemyAttack", false);
                 break;
         }
     }
@@ -120,9 +115,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (IsInAttackRange())
         {
-            Debug.Log("Check Attack");
             if (!IsTurnOver(EnemyState.Attacking))
+            {
                 SetEnemyState(EnemyState.Attacking);
+                Debug.Log("Check Attack");
+            }
             else
                 return;
         }

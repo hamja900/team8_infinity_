@@ -8,7 +8,7 @@ public class EnemyAnimation : MonoBehaviour
     private void Awake()
     {
         _controller = GetComponent<EnemyController>();
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
     }
     // Start is called before the first frame update
     void Start()
@@ -22,13 +22,10 @@ public class EnemyAnimation : MonoBehaviour
         
     }
 
-    public void StartAnimation(int animationHash)
+
+
+    public void ToggleAnimation(string animationName, bool toggle)
     {
-
-    }
-
-    public void StopAnimation(int animationHash)
-    {
-
+        Animator.SetBool(animationName, toggle);
     }
 }
