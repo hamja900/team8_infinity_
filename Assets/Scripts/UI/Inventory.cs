@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -194,8 +195,12 @@ public class Inventory : MonoBehaviour
         unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && uiSlots[index].isEquipped);
         dropButton.SetActive(true);
     }
-
-
+    void UpdateButtons()
+    {
+        useButton.SetActive(selectedItem.items.itemType == ItemType.Expendable);
+        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !uiSlots[selectedItemIndex].isEquipped);
+        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && uiSlots[selectedItemIndex].isEquipped);
+    }
     private void ClearSelectedItemWindow()
     {
         selectedItem = null;
@@ -240,12 +245,14 @@ public class Inventory : MonoBehaviour
                 HUD.instance.hotKey[i].items = null;
             }
         }
+        UpdateButtons();
         HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
     public void OnEquipButton()
     {
         equipScript.EquipItem(selectedItemIndex);
+        UpdateButtons();
     }
     public void OnUnEquipButton()
     {
@@ -255,10 +262,13 @@ public class Inventory : MonoBehaviour
             equipScript.UnEquipItem(selectedItemIndex, 1);
         else if (selectedItem.items.equipType == EquipType.Bottom)
             equipScript.UnEquipItem(selectedItemIndex, 2);
+
+        UpdateButtons();
     }
     public void OnDropButton()
     {
         ThrowItem(selectedItem.items);
+        UpdateButtons();
         RemoveSelectedItem();
     }
     public void OnQuitButton()
