@@ -12,6 +12,14 @@ public class TuenManager : SingletoneBase<TuenManager>
     public void PlayerTurns(int useTurn)
     {
         globalTrun += useTurn;
+
+        StartCoroutine(StartMonsterTurn(useTurn));
+        //MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
+    }
+
+    IEnumerator StartMonsterTurn(int useTurn)
+    {
+        yield return new WaitForFixedUpdate();
         MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
     }
 

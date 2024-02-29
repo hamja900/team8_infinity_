@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 0}
   enemyName: Orc
-  enemyHealth: 10
+  enemyHealth: 8
   enemyMaxHealth: 10
   enemyAtk: 5
-  enemyAttackRange: 1.8
+  enemyAttackRange: 1.42
   enemyDetectRange: 10
   enemySafeRange: 0
   enemyDropExp: 10

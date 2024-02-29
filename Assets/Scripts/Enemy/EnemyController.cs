@@ -165,6 +165,12 @@ public class EnemyController : MonoBehaviour, IDamageable
         isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
+        //Invoke("StartEnemyTurn", 1);
+    }
+
+    private void StartEnemyTurn()
+    {
+        
     }
 
     private Vector3 SetEnemyMovePoint()
