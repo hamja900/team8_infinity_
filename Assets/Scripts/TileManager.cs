@@ -27,7 +27,10 @@ public class TileManager : SingletoneBase<TileManager>
 
     public void InitTilemapInfo()
     {
-        foreach(Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+        tilemap = GameObject.FindGameObjectWithTag("Tilemap").gameObject.GetComponent<Tilemap>();
+        isObjectOnTile.Clear();
+
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
             if(!tilemap.HasTile(pos)) continue;
 
