@@ -82,8 +82,6 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking: 
                 currentState = EnemyState.Attacking;
-                //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
-                //EnemyAnimation.TriggerAnimation("EnemyAttack");
                 EnemyAnimation.TriggerAnimation("EnemyAttack");
                 break;
             case EnemyState.Dead:
@@ -106,7 +104,6 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking:
                 currentState = EnemyState.Attacking;
-                //EnemyAnimation.ToggleAnimation("EnemyAttack", false);
                 break;
         }
     }
