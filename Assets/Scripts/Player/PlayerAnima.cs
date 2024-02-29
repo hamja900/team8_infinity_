@@ -25,6 +25,7 @@ public class PlayerAnima : MonoBehaviour
     public void AttackAnima(bool b)
     {
         IsAttackAnima = true;
+        SoundManager.I.Play(SfxIndex.PAttackSound);
         SpriteFileX(b);
         ani.SetTrigger("IsAttack");
     }
