@@ -246,9 +246,15 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        //EnemyAnimation.TriggerAnimation("Dead");
         EndOfEnemyTurn();
+        DropReward();
         SetEnemyState(EnemyState.Dead);
+    }
+
+    private void DropReward()
+    {
+        //TODO : Item Drop
+        //TODO : Drop EXP
     }
 
     private void DestroyEnemy()
