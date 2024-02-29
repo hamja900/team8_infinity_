@@ -82,8 +82,6 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking: 
                 currentState = EnemyState.Attacking;
-                //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
-                //EnemyAnimation.TriggerAnimation("EnemyAttack");
                 EnemyAnimation.TriggerAnimation("EnemyAttack");
                 break;
             case EnemyState.Dead:
@@ -189,6 +187,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         movePoint.x += transform.position.x;
         movePoint.y += transform.position.y;
 
+        while (TileManager.I.HasObjectOnTile(Vector3Int.FloorToInt(movePoint)))
+        {
+
+        }
+
         return movePoint;
     }
 
@@ -259,6 +262,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void DestroyEnemy()
     {
+        if (currentHealth > 0) return;
         Destroy(gameObject);
     }
 

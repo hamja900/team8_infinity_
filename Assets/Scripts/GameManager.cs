@@ -3,6 +3,7 @@ using System;
 public class GameManager : SingletoneBase<GameManager>
 {
     public event Action OnEnemyDie;
+    public event Action OnTilemapReady;
 
     // Start is called before the first frame update
     void Start()
@@ -19,5 +20,10 @@ public class GameManager : SingletoneBase<GameManager>
     public void EnemyDeadAnimationEnd()
     {
         OnEnemyDie?.Invoke();
+    }
+
+    public void TilemapReady()
+    {
+        OnTilemapReady?.Invoke();
     }
 }

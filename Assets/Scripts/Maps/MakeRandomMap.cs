@@ -26,6 +26,7 @@ public class MakeRandomMap : MonoBehaviour
 
     private void Start()
     {
+        //TileManager.I.OnTilemapInfoSet += SetTileState;
         StartRandomMap();
         entrance.SetActive(true);
     }
@@ -58,6 +59,8 @@ public class MakeRandomMap : MonoBehaviour
 
         //출구 스폰위치 <-플레이어에서 제일 먼 방에 생성 + 보스도 같은방에 생성
         Stairs();
+
+        GameManager.I.TilemapReady();
     }
     private void Stairs()
     {
@@ -213,4 +216,10 @@ public class MakeRandomMap : MonoBehaviour
         }
         return boundary;
     }
+
+    //public void SetTileState()
+    //{
+    //    Debug.Log("SetTileState");
+    //    TileManager.I.SetTilemapInfo(Vector3Int.FloorToInt(player.transform.position));
+    //}
 }
