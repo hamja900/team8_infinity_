@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
         }
         
         ClearSelectedItemWindow();
-
+        dropPosition = playerStats.gameObject.transform;
         AddItem(testItems[0]);
         AddItem(testItems[1]);
         AddItem(testItems[2]);
