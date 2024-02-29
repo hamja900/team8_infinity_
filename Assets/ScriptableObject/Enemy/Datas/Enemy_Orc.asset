@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07120cbd6c7c13946b8e672a57f82e34, type: 3}
   m_Name: Enemy_Orc
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 5922680681322542065, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
   enemyName: Orc
-  enemyHealth: 10
-  enemyMaxHealth: 0
-  enemyAtk: 2
-  enemyAttackRange: 1
-  enemyDetectRange: 5
+  enemyHealth: 8
+  enemyMaxHealth: 10
+  enemyAtk: 5
+  enemyAttackRange: 1.42
+  enemyDetectRange: 10
   enemySafeRange: 0
   enemyDropExp: 10
-  enemyMoveCost: 0
-  enemyAttackCost: 0
+  enemyMoveCost: 10
+  enemyAttackCost: 10
   leftOverTurn: 0

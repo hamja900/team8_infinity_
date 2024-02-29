@@ -1,15 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TuenManager : SingletoneBase<TuenManager>
 {
     int globalTrun;
-    public event Action<int> MonsterTurn;//º¯¼ö¸í ¼öÁ¤
+    public event Action<int> MonsterTurn;//ë³€ìˆ˜ëª… ìˆ˜ì •
+    public event Action OnEnemyTurnOver;
+    int curTurn;
+    public bool isPlayerTurn { get; private set; } = true;
     public void PlayerTurns(int useTurn)
     {
         globalTrun += useTurn;
-        MonsterTurn?.Invoke(useTurn); //choice ºÐÇÒÇØ¼­ Àü´Þ
+        
+        isPlayerTurn = false;
+        curTurn = MonsterTurn.GetInvocationList().Count();
+
+        StartCoroutine(StartMonsterTurn(useTurn));
+        //MonsterTurn?.Invoke(useTurn); //choice ë¶„í• í•´ì„œ ì „ë‹¬
+    }
+
+    IEnumerator StartMonsterTurn(int useTurn)
+    {
+        yield return new WaitForFixedUpdate();
+        MonsterTurn?.Invoke(useTurn); //choice ë¶„í• í•´ì„œ ì „ë‹¬
+    }
+
+    public void EnemyTurnOver()
+    {
+        Debug.Log("Enemy Turn Over");
+        curTurn--;
+        if (curTurn == 0)
+        {
+            isPlayerTurn = true;
+        }
+        OnEnemyTurnOver?.Invoke();
     }
 }
