@@ -26,56 +26,56 @@ public class PlayerInputScript : MonoBehaviour
     //-------------move-----------
     public void OnQInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.q);
         }
     }
     public void OnWInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.w);
         }
     }
     public void OnEInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.e);
         }
     }
     public void OnAInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.a);
         }
     }
     public void OnDInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.d);
         }
     }
     public void OnZInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.z);
         }
     }
     public void OnXInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.x);
         }
     }
     public void OnCInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             move.CanMove(Dir.c);
         }
@@ -89,7 +89,7 @@ public class PlayerInputScript : MonoBehaviour
     //------------Attack---------
     public void OnRInput(InputAction.CallbackContext con)
     {
-        if (con.phase == InputActionPhase.Started)
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
         {
             attack.CanAttack();
         }

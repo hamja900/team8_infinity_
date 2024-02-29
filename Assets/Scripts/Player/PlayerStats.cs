@@ -92,6 +92,7 @@ public class PlayerStats : MonoBehaviour
                 }
             }
         }
+        TuenManager.I.EnemyTurnOver();
     }
     public void HealHp(int healing)
     {

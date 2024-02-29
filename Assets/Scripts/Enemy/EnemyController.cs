@@ -251,6 +251,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        Destroy(gameObject);
+        Destroy(gameObject);TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
 }
