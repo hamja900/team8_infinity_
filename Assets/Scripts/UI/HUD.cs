@@ -15,6 +15,8 @@ public class HUD : MonoBehaviour
     public GameObject player;
     public GameObject inventoryParent;
     public GameObject optionParent;
+    public GameObject UseItemConfirm;
+    public UnityEngine.UI.Image confirmIcon;
 
     public int previousSelectedHotKeyIndex = -1;
 
@@ -115,14 +117,38 @@ public class HUD : MonoBehaviour
         Inventory.instance.itemResisterMode = true;
     }
 
-    public void ReadyToItemUse()
+    public void UpdateQuickSlotUI()
     {
-        throw new NotImplementedException();
+        for(int i = 0; i < quickUI.Length; i++)
+        {
+            if (hotKey[i].items == null)
+            {
+                quickUI[i].Clear();
+            }
+        }
     }
 
-    public void OnHotKeyButtons()
+    public void OnUseConfirmUIButton()
     {
-        
-    }
+        switch (hotKey[previousSelectedHotKeyIndex].items.expendType)
+        {
+            case ExpendType.Heal:
+                {
+                    _playerStats.HealHp(hotKey[previousSelectedHotKeyIndex].items.healPoint);
+                }
+                break;
+            case ExpendType.Cure:
+                {
 
+                }
+                break;
+            case ExpendType.Hunger:
+                {
+                    _playerStats.EatFood(hotKey[previousSelectedHotKeyIndex].items.HungerPoint);
+                }
+                break;
+        }
+        hotKey[previousSelectedHotKeyIndex].items = null;
+        UpdateQuickSlotUI();
+    }
 }

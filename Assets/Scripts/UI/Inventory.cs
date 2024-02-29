@@ -234,6 +234,14 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
+        for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+        {
+            if(selectedItem.items == HUD.instance.hotKey[i].items)
+            {
+                HUD.instance.hotKey[i].items = null;
+            }
+        }
+        HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
     public void OnEquipButton()

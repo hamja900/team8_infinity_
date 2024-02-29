@@ -26,12 +26,22 @@ public class QuickSlotsUI : MonoBehaviour
         icon.gameObject.SetActive(false);
 
     }
-   
+
     public void OnButtonClick()
     {
-        HUD.instance.previousSelectedHotKeyIndex = index;
-        HUD.instance.ResisterHotKey();
+        if (curSlot == null)
+        {
+            HUD.instance.previousSelectedHotKeyIndex = index;
+            HUD.instance.ResisterHotKey();
+        }
+        else
+        {
+            Inventory.instance.itemUseMode = true;
+            HUD.instance.UseItemConfirm.SetActive(true);
+            HUD.instance.confirmIcon.sprite = curSlot.items.itemSprite;
+        }
+
 
     }
-   
+
 }
