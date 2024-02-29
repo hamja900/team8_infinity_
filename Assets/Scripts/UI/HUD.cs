@@ -51,6 +51,13 @@ public class HUD : MonoBehaviour
         UpdatePlayerHpBar();
         UpdatePlayerLevelandExpBar();
         UpdatePlayerHungerBar();
+        //TuenManager.I.MonsterTurn += UpdatePlayerHpBar;
+    }
+
+    private void Update()
+    {
+        UpdatePlayerHpBar();
+        UpdatePlayerHungerBar();
     }
 
     public void UpdatePlayerHpBar()
