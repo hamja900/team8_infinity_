@@ -13,15 +13,24 @@ public class QuickSlotsUI : MonoBehaviour
     public int index;
 
 
-    public void Set()
+    public void Set(ItemSlot slot)
     {
-
+        curSlot = slot;
+        icon.gameObject.SetActive(true);
+        icon.sprite = slot.items.itemSprite;
 
     }
     public void Clear()
     {
         curSlot = null;
         icon.gameObject.SetActive(false);
+
+    }
+   
+    public void OnButtonClick()
+    {
+        HUD.instance.previousSelectedHotKeyIndex = index;
+        HUD.instance.ResisterHotKey();
 
     }
    

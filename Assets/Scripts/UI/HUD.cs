@@ -16,6 +16,8 @@ public class HUD : MonoBehaviour
     public GameObject inventoryParent;
     public GameObject optionParent;
 
+    public int previousSelectedHotKeyIndex = -1;
+
     private PlayerStats _playerStats { get;  set; }
 
 
@@ -28,9 +30,12 @@ public class HUD : MonoBehaviour
     public GameObject inventory;
     public GameObject option;
 
+    public static HUD instance;
+
     private void Awake()
     {
         _playerStats = player.GetComponent<PlayerStats>();
+        instance = this;
     }
     private void Start()
     {
@@ -99,8 +104,15 @@ public class HUD : MonoBehaviour
 
     public void ResisterHotKey()
     {
+        try
+        {
+            inventoryParent.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        catch
+        {
+            Instantiate(inventory, inventoryParent.transform);
+        }
         Inventory.instance.itemResisterMode = true;
-        OnInventoryButton();
     }
 
     public void ReadyToItemUse()

@@ -16,13 +16,13 @@ public class ItemSlotUI : MonoBehaviour
     public bool isEquipped;
     private void Awake()
     {
-       
+
     }
     private void OnEnable()
     {
         if (_curSlot == null)
             return;
-        equipMark.SetActive(isEquipped); 
+        equipMark.SetActive(isEquipped);
     }
 
     public void Set(ItemSlot slot)
@@ -30,8 +30,8 @@ public class ItemSlotUI : MonoBehaviour
         _curSlot = slot;
         icon.gameObject.SetActive(true);
         icon.sprite = slot.items.itemSprite;
-        quantityText.text = slot.quantity > 1? slot.quantity.ToString() : string.Empty;
-        
+        quantityText.text = slot.quantity > 1 ? slot.quantity.ToString() : string.Empty;
+
     }
 
     public void Clear()
@@ -42,6 +42,19 @@ public class ItemSlotUI : MonoBehaviour
     }
     public void OnButtonClick()
     {
-        Inventory.instance.SelectedItem(index);
+        if (Inventory.instance.itemResisterMode)
+        {
+            int hotkeyIndex = HUD.instance.previousSelectedHotKeyIndex;
+            if (_curSlot.items == null || _curSlot.items.itemType == ItemType.Equipable)
+                return;
+
+            HUD.instance.hotKey[hotkeyIndex].items = _curSlot.items;
+            HUD.instance.quickUI[hotkeyIndex].Set(_curSlot);
+
+            Inventory.instance.itemResisterMode = false;
+            Inventory.instance.inventoryWindow.SetActive(false);
+        }
+        else
+            Inventory.instance.SelectedItem(index);
     }
 }
