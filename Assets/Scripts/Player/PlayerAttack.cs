@@ -34,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out IDamageable damageable))
         {
             targets.Remove(damageable);
-            if (curTarget == damageable) // 정확히 동작하는지 체크 해야함.
+            if (curTarget == damageable)
             {
                 ChangeTarget();
             }
