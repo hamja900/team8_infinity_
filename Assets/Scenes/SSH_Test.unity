@@ -744,9 +744,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 246170592104541412, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006226857227019788, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057601908590197617, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5922680681322542065, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
       propertyPath: m_Name
       value: Orc
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922680681322542065, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7764176077789176339, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8849599274039509318, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
       propertyPath: m_RootOrder
