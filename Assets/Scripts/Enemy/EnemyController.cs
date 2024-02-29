@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     void Start()
     {
         movePoint.parent = null;
+        localTurn = 0;
 
         TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
@@ -133,7 +134,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
         else if (IsInChasingRange())
         {
-            if (movePoint.position.x < 0) SpriteRenderer.flipX = true;
+            if (Target.transform.position.x - transform.position.x < 0) SpriteRenderer.flipX = true;
             else SpriteRenderer.flipX = false;
 
             Debug.Log("IsInChasingRange");
@@ -162,7 +163,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         movePoint.parent = null;
         movePoint.position = SetEnemyMovePoint();
 
-        localTurn = turn;
+        localTurn += turn;
         isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
@@ -218,7 +219,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
-        
+
         TuenManager.I.EnemyTurnOver();
         isEnemyTurn = false;
     }
