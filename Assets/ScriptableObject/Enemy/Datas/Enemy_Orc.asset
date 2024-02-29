@@ -16,11 +16,11 @@ MonoBehaviour:
   enemyName: Orc
   enemyHealth: 10
   enemyMaxHealth: 0
-  enemyAtk: 2
-  enemyAttackRange: 1
-  enemyDetectRange: 5
+  enemyAtk: 5
+  enemyAttackRange: 2
+  enemyDetectRange: 10
   enemySafeRange: 0
   enemyDropExp: 10
-  enemyMoveCost: 0
-  enemyAttackCost: 0
+  enemyMoveCost: 3
+  enemyAttackCost: 3
   leftOverTurn: 0

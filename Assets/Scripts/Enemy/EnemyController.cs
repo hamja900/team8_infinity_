@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public enum EnemyState
 {
@@ -16,71 +15,160 @@ public class EnemyController : MonoBehaviour, IDamageable
     [field: Header("Stats")]
     [field: SerializeField] public EnemySO EnemyData { get; private set; }
 
-    [field: Header("Animations")]
-    [field: SerializeField] public AnimationData AnimationData { get; private set; }
+    public EnemyMove EnemyMove { get; private set; }
+    public EnemyAttack EnemyAttack { get; private set; }
+    public EnemyAnimation EnemyAnimation { get; private set; }
+
+    public Transform Target { get; private set; }
 
     public Rigidbody Rigidbody { get; private set; }
-    public Animator Animator { get; private set; }
-    public CharacterController Controller { get; private set; }
+    public SpriteRenderer SpriteRenderer { get; private set; }
 
-    private EnemyStateMachine stateMachine;
     public Transform movePoint;
     public float moveSpeed = 5f;
 
+    public bool isEnemyTurn = false;
     public bool isTurnOver = false;
+
+    public EnemyState currentState;
+
+    public int localTurn;
 
     private void Awake()
     {
-        AnimationData.Initialize();
-
+        Target = GameObject.FindGameObjectWithTag("Player").transform;
         Rigidbody = GetComponent<Rigidbody>();
-        Animator = GetComponentInChildren<Animator>();
-        Controller = GetComponent<CharacterController>();
+        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        stateMachine = new EnemyStateMachine(this);
+        EnemyMove = GetComponent<EnemyMove>();
+        EnemyAttack = GetComponent<EnemyAttack>();
+        EnemyAnimation = GetComponent<EnemyAnimation>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        stateMachine.ChangeState(stateMachine.E_IdleState);
         movePoint.parent = null;
 
-        TuenManager.I.MonsterTurn += UpdateMonsterTurn;
+        TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (isEnemyTurn)
+        {
+            UpdateState();
+        }           
     }
 
-    public void TakeDamage(int damage)
+    public void SetEnemyState(EnemyState state)
     {
-
+        switch (state)
+        {
+            case EnemyState.Idle:
+                currentState = EnemyState.Idle;
+                EnemyAnimation.ToggleAnimation("Idle", true);
+                break;
+            case EnemyState.Chasing:
+                currentState = EnemyState.Chasing;
+                EnemyAnimation.ToggleAnimation("Walk", true);
+                break;
+            case EnemyState.Attacking: 
+                currentState = EnemyState.Attacking;
+                //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
+                //EnemyAnimation.TriggerAnimation("EnemyAttack");
+                EnemyAnimation.PlayAttackAnimation();
+                break;
+        }
     }
 
-    private void UpdateMonsterTurn(int turn)
+    public void ExitState(EnemyState state)
+    {
+        IsStillEnemyTurn();
+        switch (state)
+        {
+            case EnemyState.Idle:
+                currentState = EnemyState.Idle;
+                EnemyAnimation.ToggleAnimation("Idle", false);
+                break;
+            case EnemyState.Chasing:
+                currentState = EnemyState.Chasing;
+                EnemyAnimation.ToggleAnimation("Walk", false);
+                break;
+            case EnemyState.Attacking:
+                currentState = EnemyState.Attacking;
+                //EnemyAnimation.ToggleAnimation("EnemyAttack", false);
+                break;
+        }
+    }
+
+    public void UpdateState()
+    {
+        switch (currentState)
+        {
+            case EnemyState.Idle:
+                CheckPlayerInRange();
+                break;
+            case EnemyState.Chasing:
+                EnemyMove.Move();
+                break;
+            case EnemyState.Attacking:
+                EnemyAttack.Attack();
+                break;
+        }
+    }
+
+    private void CheckPlayerInRange()
+    {
+        if (IsInAttackRange())
+        {
+            if (!IsTurnOver(EnemyState.Attacking))
+            {
+                SetEnemyState(EnemyState.Attacking);
+                Debug.Log("Check Attack");
+            }
+            else
+                return;
+        }
+        else if (IsInChasingRange())
+        {
+            if (movePoint.position.x < 0) SpriteRenderer.flipX = true;
+            else SpriteRenderer.flipX = false;
+
+            Debug.Log("IsInChasingRange");
+
+            if (!IsTurnOver(EnemyState.Chasing))
+                SetEnemyState(EnemyState.Chasing);
+            else
+                return;
+        }
+    }
+
+    private bool IsInChasingRange()
+    {
+        float playerDistanceSqr = (Target.transform.position - transform.position).sqrMagnitude;
+        return playerDistanceSqr <= EnemyData.enemyDetectRange * EnemyData.enemyDetectRange;
+    }
+
+    private bool IsInAttackRange()
+    {
+        float playerDistanceSqr = (Target.transform.position - transform.position).sqrMagnitude;
+        return playerDistanceSqr <= EnemyData.enemyAttackRange * EnemyData.enemyAttackRange;
+    }
+
+    private void UpdateEnemyTurn(int turn)
     {
         movePoint.parent = null;
         movePoint.position = SetEnemyMovePoint();
-        StartCoroutine(MonsterMove());
-    }
 
-    IEnumerator MonsterMove()
-    {
-        while (!isTurnOver)
-        {
-            stateMachine.Update();
-            yield return new WaitForEndOfFrame();
-        }
+        localTurn = turn;
+        isEnemyTurn = true;
 
-        EndOfMonsterTurn();
+        SetEnemyState(EnemyState.Idle);
     }
 
     private Vector3 SetEnemyMovePoint()
     {
-        Vector3 movePoint = (stateMachine.Target.transform.position - stateMachine.EnemyController.transform.position).normalized;
+        Vector3 movePoint = (Target.transform.position - transform.position).normalized;
 
         if (Mathf.Abs(movePoint.x) < 0.5f) movePoint.x = 0f;
         else movePoint.x = movePoint.x > 0 ? 1f : -1f;
@@ -94,20 +182,75 @@ public class EnemyController : MonoBehaviour, IDamageable
         return movePoint;
     }
 
-    private void EndOfMonsterTurn()
+    public bool IsTurnOver(EnemyState state)
+    {
+        switch(state)
+        {
+            case EnemyState.Chasing:
+                if(localTurn < EnemyData.enemyMoveCost)
+                {
+                    EndOfEnemyTurn();
+                    return true;
+                }
+                localTurn -= EnemyData.enemyMoveCost;
+                movePoint.position = SetEnemyMovePoint();
+                return false;
+            case EnemyState.Attacking:
+                if(localTurn < EnemyData.enemyAttackCost)
+                {
+                    EndOfEnemyTurn();
+                    return true;
+                }
+                localTurn -= EnemyData.enemyAttackCost;
+                return false;
+                default: return false;
+        }
+    }
+
+    public void IsStillEnemyTurn()
+    {
+        if (!isTurnOver)
+        {
+            StartCoroutine("PrintEnemyTurn");
+        }
+    }
+
+    IEnumerator PrintEnemyturn()
+    {
+        Debug.Log("Is Still Enemy Turn...");
+        yield return new WaitForEndOfFrame();
+    }
+
+    private void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
-        stateMachine.EnemyIsMoved(false);
-        isTurnOver = false;
+        
+        TuenManager.I.EnemyTurnOver();
+        isEnemyTurn = false;
     }
 
     public void OnTestBtn()
     {
-        UpdateMonsterTurn(10);
+        UpdateEnemyTurn(10);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        EnemyData.enemyHealth -= damage;
+        if(EnemyData.enemyHealth <= 0)
+        {
+            EnemyData.enemyHealth = 0;
+            Die();
+        }
     }
 
     public Vector2 Pos()
     {
         return (Vector2)transform.position;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
 }
