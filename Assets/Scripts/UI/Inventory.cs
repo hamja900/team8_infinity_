@@ -40,7 +40,8 @@ public class Inventory : MonoBehaviour
     public GameObject unEquipButton;
     public GameObject dropButton;
 
-    private int curEquipIndex;
+    public bool itemResisterMode = false;
+    public bool itemUseMode = false;
 
     public static Inventory instance;
 
@@ -67,6 +68,7 @@ public class Inventory : MonoBehaviour
             equipUiSlots[j].index = j;
             equipUiSlots[j].Clear();
         }
+        
         ClearSelectedItemWindow();
 
         AddItem(testItems[0]);
@@ -232,6 +234,14 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
+        for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+        {
+            if(selectedItem.items == HUD.instance.hotKey[i].items)
+            {
+                HUD.instance.hotKey[i].items = null;
+            }
+        }
+        HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
     public void OnEquipButton()
@@ -304,4 +314,6 @@ public class Inventory : MonoBehaviour
         }
         return -1;
     }
+
+   
 }

@@ -1772,10 +1772,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1852,9 +1852,10 @@ MonoBehaviour:
   - {fileID: 799808526126568570}
   - {fileID: 1915603425989429046}
   slots: []
-  equipSlots: []
+  equipitems: []
   inventoryWindow: {fileID: 7008319410841112275}
   dropPosition: {fileID: 0}
+  player: {fileID: 4094845363229649311, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
   selectedItemName: {fileID: 3179996537492345778}
   selectedItemDescription: {fileID: 4439369008432904990}
   selectedItemStatName: {fileID: 4700807086598536079}
@@ -1863,6 +1864,8 @@ MonoBehaviour:
   equipButton: {fileID: 4742284022278220637}
   unEquipButton: {fileID: 8234332923781164843}
   dropButton: {fileID: 1852150725428243468}
+  itemResisterMode: 0
+  itemUseMode: 0
 --- !u!1 &7134630619629512300
 GameObject:
   m_ObjectHideFlags: 0

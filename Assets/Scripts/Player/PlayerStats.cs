@@ -18,10 +18,10 @@ public class PlayerStats : MonoBehaviour
     int hpDeduction = 1; //Á¶Àý later
     int atk = 2;
     int def = 0;
-    int hunger = 4500;
-    int maxHunger = 4500;
-    public int exp  = 0;
-    public int maxExp = 20;
+    public float hunger = 4500;
+    public float maxHunger = 4500;
+    public float exp  = 0;
+    public float maxExp = 20;
     int attackRange = 1;
     public int level  = 1;
     private void Start()
