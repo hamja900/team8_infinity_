@@ -130,5 +130,17 @@ public class PlayerInputScript : MonoBehaviour
 
     }
     //---------Toolbar---------
+    //---------PickUp---------
+    public void OnVInput(InputAction.CallbackContext con)
+    {
+        if (con.phase == InputActionPhase.Started)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position,Vector2.zero,0.1f,LayerMask.GetMask("Item"));
+            if (hit.transform != null)
+            {
+                hit.transform.gameObject.GetComponent<ItemScript>().GetItem();
+            }
+        }
+    }
     #endregion
 }
