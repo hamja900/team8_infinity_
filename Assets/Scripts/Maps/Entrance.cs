@@ -20,7 +20,7 @@ public class Entrance : MonoBehaviour
 
     IEnumerator PuzGame()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0;
     }
 

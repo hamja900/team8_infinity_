@@ -62,19 +62,22 @@ public class MakeRandomMap : MonoBehaviour
     private void Stairs()
     {
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
-        Debug.Log(clearRoomNum);
         if (clearRoomNum == 2)
         {
+            //entrance.SetActive(false);
+            //중간보스 최종보스 처리했을때 true로 바꾸기
+            //if
             Debug.Log("중간보스룸");
         }
-        //else if(clearRoomNum == 4)
-        //{
-        //    Debug.Log("최종보스룸");
-        //}
-        //else if(clearRoomNum == 5)
-        //{
-        //    Debug.Log("게임 완료");
-        //}
+        else if(clearRoomNum == 4)
+        {
+            Debug.Log("최종보스룸");
+        }
+        else if(clearRoomNum == 5)
+        {
+            //엔딩씬 출력
+            Debug.Log("게임 완료");
+        }
     }
 
     // space리스트에 있는 모든 리스트의 MakeARandomRectangleRoom을 콜하고 리턴되는 방의좌표들을 UnionWith를 통해 floor에 추가
