@@ -298,7 +298,7 @@ public class Inventory : MonoBehaviour
     {
 
     }
-    public int EquippedItemIndex()
+    public int EquippedItemIndex()//?
     {
         for (int i = 0; i<equipitems.Length; i++)
         {
