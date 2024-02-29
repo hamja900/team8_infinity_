@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RectangleSpace : MonoBehaviour
+public class RectangleSpace
 {
     // 직사각형 왼쪽아래 좌표 leftDown / 아래 3개가있으면 직사각형을 표현할수있다.
     public Vector2Int leftDown;

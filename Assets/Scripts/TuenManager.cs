@@ -7,16 +7,25 @@ using UnityEngine;
 public class TuenManager : SingletoneBase<TuenManager>
 {
     int globalTrun;
-    public event Action<int> MonsterTurn;//º¯¼ö¸í ¼öÁ¤
+    public event Action<int> MonsterTurn;//ë³€ìˆ˜ëª… ìˆ˜ì •
     public event Action OnEnemyTurnOver;
     int curTurn;
     public bool isPlayerTurn { get; private set; } = true;
     public void PlayerTurns(int useTurn)
     {
         globalTrun += useTurn;
+        
         isPlayerTurn = false;
         curTurn = MonsterTurn.GetInvocationList().Count();
-        MonsterTurn?.Invoke(useTurn); //choice ºÐÇÒÇØ¼­ Àü´Þ
+
+        StartCoroutine(StartMonsterTurn(useTurn));
+        //MonsterTurn?.Invoke(useTurn); //choice ë¶„í• í•´ì„œ ì „ë‹¬
+    }
+
+    IEnumerator StartMonsterTurn(int useTurn)
+    {
+        yield return new WaitForFixedUpdate();
+        MonsterTurn?.Invoke(useTurn); //choice ë¶„í• í•´ì„œ ì „ë‹¬
     }
 
     public void EnemyTurnOver()

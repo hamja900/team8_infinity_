@@ -22,16 +22,20 @@ public class MakeRandomMap : MonoBehaviour
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
+    private int clearRoomNum = 0;
+
     private void Start()
     {
         StartRandomMap();
         entrance.SetActive(true);
     }
-
+    public void PlusCount()
+    {
+        clearRoomNum++;
+    }
     public void StartRandomMap()
     {
         spreadTilemap.ClearAllTiles(); //깔려있는 모든타일 제거
-
         divideSpace.totalSpace = new RectangleSpace(new Vector2Int(0, 0), divideSpace.totalWidth, divideSpace.totalHeight);
         divideSpace.spaceList = new List<RectangleSpace>();
 
@@ -48,8 +52,32 @@ public class MakeRandomMap : MonoBehaviour
         spreadTilemap.SpreadFloorTilemap(floor);
         spreadTilemap.SpreadWallTilemap(wall);
 
+        //플레이어 스폰위치
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
+        //몬스터 스폰위치
+
+        //출구 스폰위치 <-플레이어에서 제일 먼 방에 생성 + 보스도 같은방에 생성
+        Stairs();
+    }
+    private void Stairs()
+    {
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
+        if (clearRoomNum == 2)
+        {
+            //entrance.SetActive(false);
+            //중간보스 최종보스 처리했을때 true로 바꾸기
+            //if
+            Debug.Log("중간보스룸");
+        }
+        else if(clearRoomNum == 4)
+        {
+            Debug.Log("최종보스룸");
+        }
+        else if(clearRoomNum == 5)
+        {
+            //엔딩씬 출력
+            Debug.Log("게임 완료");
+        }
     }
 
     // space리스트에 있는 모든 리스트의 MakeARandomRectangleRoom을 콜하고 리턴되는 방의좌표들을 UnionWith를 통해 floor에 추가
