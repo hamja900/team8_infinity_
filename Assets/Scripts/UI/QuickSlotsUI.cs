@@ -29,19 +29,8 @@ public class QuickSlotsUI : MonoBehaviour
 
     public void OnButtonClick()
     {
-        if (curSlot == null)
-        {
             HUD.instance.previousSelectedHotKeyIndex = index;
             HUD.instance.ResisterHotKey();
-        }
-        else
-        {
-            Inventory.instance.itemUseMode = true;
-            HUD.instance.UseItemConfirm.SetActive(true);
-            HUD.instance.confirmIcon.sprite = curSlot.items.itemSprite;
-        }
-
-
     }
 
 }
