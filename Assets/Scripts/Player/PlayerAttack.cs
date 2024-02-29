@@ -13,10 +13,15 @@ public class PlayerAttack : MonoBehaviour
     IDamageable curTarget = null;
     int targetIndex;
     bool isAttack = false;
-    [SerializeField] RawImage targetUi;
+    RawImage targetUi;
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
+        if (targetUi == null)
+        {
+            GameObject temp = Instantiate(Resources.Load<GameObject>("TargetCanvas"));
+            targetUi = temp.GetComponentInChildren<RawImage>();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -46,6 +51,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (curTarget == null)
         {
+            if (targetUi == null)
+            {
+                return;
+            }
             targetUi.enabled = false;
             return;
         }
