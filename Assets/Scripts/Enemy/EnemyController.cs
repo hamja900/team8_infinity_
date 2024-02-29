@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -35,6 +36,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     public int localTurn;
     private int currentHealth;
 
+    public event Action OnDie;
+
     private void Awake()
     {
         Target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -51,7 +54,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     void Start()
     {
         movePoint.parent = null;
+        localTurn = 0;
 
+        GameManager.I.OnEnemyDie += DestroyEnemy;
         TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
 
@@ -79,7 +84,10 @@ public class EnemyController : MonoBehaviour, IDamageable
                 currentState = EnemyState.Attacking;
                 //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
                 //EnemyAnimation.TriggerAnimation("EnemyAttack");
-                EnemyAnimation.PlayAttackAnimation();
+                EnemyAnimation.TriggerAnimation("EnemyAttack");
+                break;
+            case EnemyState.Dead:
+                currentState = EnemyState.Dead;
                 break;
         }
     }
@@ -133,7 +141,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
         else if (IsInChasingRange())
         {
-            if (movePoint.position.x < 0) SpriteRenderer.flipX = true;
+            if (Target.transform.position.x - transform.position.x < 0) SpriteRenderer.flipX = true;
             else SpriteRenderer.flipX = false;
 
             Debug.Log("IsInChasingRange");
@@ -162,16 +170,10 @@ public class EnemyController : MonoBehaviour, IDamageable
         movePoint.parent = null;
         movePoint.position = SetEnemyMovePoint();
 
-        localTurn = turn;
+        localTurn += turn;
         isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
-        //Invoke("StartEnemyTurn", 1);
-    }
-
-    private void StartEnemyTurn()
-    {
-        
     }
 
     private Vector3 SetEnemyMovePoint()
@@ -218,24 +220,23 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
-        
+
         TuenManager.I.EnemyTurnOver();
         isEnemyTurn = false;
-    }
-
-    public void OnTestBtn()
-    {
-        UpdateEnemyTurn(10);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+
         if(currentHealth <= 0)
         {
             currentHealth = 0;
+            EnemyAnimation.TriggerAnimation("Dead");
             Die();
+            return;
         }
+        EnemyAnimation.TriggerAnimation("TakeDamage");
     }
 
     public Vector2 Pos()
@@ -245,6 +246,25 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        Destroy(gameObject);TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
+        EndOfEnemyTurn();
+        DropReward();
+        SetEnemyState(EnemyState.Dead);
+    }
+
+    private void DropReward()
+    {
+        //TODO : Item Drop
+        //TODO : Drop EXP
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.I.OnEnemyDie -= DestroyEnemy;
+        TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
 }

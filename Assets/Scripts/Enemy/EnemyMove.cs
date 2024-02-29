@@ -19,9 +19,10 @@ public class EnemyMove : MonoBehaviour
         _controller.movePoint.position = moveDirection;
         _controller.transform.position = Vector3.MoveTowards(_controller.transform.position, _controller.movePoint.position, _controller.moveSpeed * Time.deltaTime);
 
-        Debug.Log("Enemy Chasing");
+        // Enemy가 목표 위치까지 이동을 완료했을 시
         if (_controller.transform.position.Equals(_controller.movePoint.position))
         {
+            // 상태 전환
             _controller.ExitState(EnemyState.Chasing);
             _controller.SetEnemyState(EnemyState.Idle);
         }
