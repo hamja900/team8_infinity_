@@ -13,10 +13,15 @@ public class PlayerAttack : MonoBehaviour
     IDamageable curTarget = null;
     int targetIndex;
     bool isAttack = false;
-    [SerializeField] RawImage targetUi;
+    RawImage targetUi;
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
+        if (targetUi == null)
+        {
+            GameObject temp = Instantiate(Resources.Load<GameObject>("TargetCanvas"));
+            targetUi = temp.GetComponentInChildren<RawImage>();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
             if (curTarget == null)
             {
                 curTarget = damageable;
+                TargetUiUpdate();
             }
         }
     }
@@ -37,17 +43,18 @@ public class PlayerAttack : MonoBehaviour
             if (curTarget == damageable)
             {
                 ChangeTarget();
+                TargetUiUpdate();
             }
         }
-    }
-    private void Update()
-    {
-        TargetUiUpdate();
     }
     void TargetUiUpdate()
     {
         if (curTarget == null)
         {
+            if (targetUi == null)
+            {
+                return;
+            }
             targetUi.enabled = false;
             return;
         }
@@ -67,6 +74,7 @@ public class PlayerAttack : MonoBehaviour
             targetIndex = 0;
         }
         curTarget = targets[targetIndex];
+        TargetUiUpdate();
     }
     public void CanAttack()
     {
@@ -86,6 +94,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void AttackEvent()
     {
+        SoundManager.I.Play(SfxIndex.PAttackSound);
         curTarget.TakeDamage(stats.Attack());
         TuenManager.I.PlayerTurns(stats.AttackSpeed());
         isAttack = false;

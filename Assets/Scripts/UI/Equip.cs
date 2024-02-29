@@ -15,7 +15,11 @@ public class Equip : MonoBehaviour
         if (item.items.equipType == EquipType.Weapon)
         {
             if (Inventory.instance.equipitems[0].items != null)
-                UnEquipItem(Inventory.instance.EquippedItemIndex(), 0);
+            {
+                UnEquipItem(index, 0);
+                Inventory.instance.equipUiSlots[0].Set(item);
+                Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
+            }
             else
             {
                 Inventory.instance.equipUiSlots[0].Set(item);
@@ -25,7 +29,11 @@ public class Equip : MonoBehaviour
         else if (item.items.equipType == EquipType.Top)
         {
             if (Inventory.instance.equipitems[1].items != null)
-                UnEquipItem(Inventory.instance.EquippedItemIndex(), 1);
+            {
+                UnEquipItem(index, 1);
+                Inventory.instance.equipUiSlots[1].Set(item);
+                Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
+            }
             else
                 Inventory.instance.equipUiSlots[1].Set(item);
             Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
@@ -33,7 +41,11 @@ public class Equip : MonoBehaviour
         else if (item.items.equipType == EquipType.Bottom)
         {
             if (Inventory.instance.equipitems[2].items != null)
-                UnEquipItem(Inventory.instance.EquippedItemIndex(), 2);
+            {
+                UnEquipItem(index, 2);
+                Inventory.instance.equipUiSlots[2].Set(item);
+                Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
+            }
             else
                 Inventory.instance.equipUiSlots[2].Set(item);
             Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
