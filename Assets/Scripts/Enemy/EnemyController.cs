@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public EnemyState currentState;
 
     public int localTurn;
+    private int currentHealth;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         EnemyAttack = GetComponent<EnemyAttack>();
         EnemyAnimation = GetComponent<EnemyAnimation>();
 
-        EnemyData.enemyHealth = EnemyData.enemyMaxHealth;
+        currentHealth = EnemyData.enemyMaxHealth;
     }
 
     void Start()
@@ -229,10 +230,10 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        EnemyData.enemyHealth -= damage;
-        if(EnemyData.enemyHealth <= 0)
+        currentHealth -= damage;
+        if(currentHealth <= 0)
         {
-            EnemyData.enemyHealth = 0;
+            currentHealth = 0;
             Die();
         }
     }
