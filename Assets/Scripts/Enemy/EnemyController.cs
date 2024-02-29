@@ -56,6 +56,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         movePoint.parent = null;
         localTurn = 0;
 
+        GameManager.I.OnEnemyDie += DestroyEnemy;
         TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
 
@@ -84,6 +85,9 @@ public class EnemyController : MonoBehaviour, IDamageable
                 //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
                 //EnemyAnimation.TriggerAnimation("EnemyAttack");
                 EnemyAnimation.TriggerAnimation("EnemyAttack");
+                break;
+            case EnemyState.Dead:
+                currentState = EnemyState.Dead;
                 break;
         }
     }
@@ -229,7 +233,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             currentHealth = 0;
             EnemyAnimation.TriggerAnimation("Dead");
-            //Die();
+            Die();
             return;
         }
         EnemyAnimation.TriggerAnimation("TakeDamage");
@@ -244,8 +248,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         //EnemyAnimation.TriggerAnimation("Dead");
         EndOfEnemyTurn();
+        SetEnemyState(EnemyState.Dead);
+    }
 
+    private void DestroyEnemy()
+    {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.I.OnEnemyDie -= DestroyEnemy;
         TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
 }

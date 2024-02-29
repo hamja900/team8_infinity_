@@ -20,6 +20,7 @@ public class EnemyAnimation : MonoBehaviour
     public void TriggerAnimation(string animationName)
     {
         StartCoroutine(PlayerAnimation(animationName));
+        Animator.SetTrigger(animationName);
     }
 
     IEnumerator PlayerAnimation(string animationName)
@@ -28,7 +29,7 @@ public class EnemyAnimation : MonoBehaviour
 
         while (true)
         {
-            if (Animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+            if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f)
             {
                 break;
             }
