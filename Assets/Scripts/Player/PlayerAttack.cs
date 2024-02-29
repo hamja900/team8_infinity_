@@ -86,6 +86,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void AttackEvent()
     {
+        SoundManager.I.Play(SfxIndex.PAttackSound);
         curTarget.TakeDamage(stats.Attack());
         TuenManager.I.PlayerTurns(stats.AttackSpeed());
         isAttack = false;

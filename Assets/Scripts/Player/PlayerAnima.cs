@@ -25,7 +25,6 @@ public class PlayerAnima : MonoBehaviour
     public void AttackAnima(bool b)
     {
         IsAttackAnima = true;
-        SoundManager.I.Play(SfxIndex.PAttackSound);
         SpriteFileX(b);
         ani.SetTrigger("IsAttack");
     }
@@ -36,7 +35,7 @@ public class PlayerAnima : MonoBehaviour
             if (ani.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack") == true)
             {
                 float animTime = ani.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                if (animTime >= 1.0f)
+                if (animTime >= 0.9f)
                 {
                     Pattack.AttackEvent();
                     IsAttackAnima = false;
