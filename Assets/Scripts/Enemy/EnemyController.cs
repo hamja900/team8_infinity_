@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public EnemyState currentState;
 
     public int localTurn;
+    private int currentHealth;
 
     private void Awake()
     {
@@ -43,6 +44,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         EnemyMove = GetComponent<EnemyMove>();
         EnemyAttack = GetComponent<EnemyAttack>();
         EnemyAnimation = GetComponent<EnemyAnimation>();
+
+        currentHealth = EnemyData.enemyMaxHealth;
     }
 
     void Start()
@@ -83,7 +86,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void ExitState(EnemyState state)
     {
-        IsStillEnemyTurn();
         switch (state)
         {
             case EnemyState.Idle:
@@ -164,6 +166,12 @@ public class EnemyController : MonoBehaviour, IDamageable
         isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
+        //Invoke("StartEnemyTurn", 1);
+    }
+
+    private void StartEnemyTurn()
+    {
+        
     }
 
     private Vector3 SetEnemyMovePoint()
@@ -207,20 +215,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
     }
 
-    public void IsStillEnemyTurn()
-    {
-        if (!isTurnOver)
-        {
-            StartCoroutine("PrintEnemyTurn");
-        }
-    }
-
-    IEnumerator PrintEnemyturn()
-    {
-        Debug.Log("Is Still Enemy Turn...");
-        yield return new WaitForEndOfFrame();
-    }
-
     private void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
@@ -236,10 +230,10 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        EnemyData.enemyHealth -= damage;
-        if(EnemyData.enemyHealth <= 0)
+        currentHealth -= damage;
+        if(currentHealth <= 0)
         {
-            EnemyData.enemyHealth = 0;
+            currentHealth = 0;
             Die();
         }
     }
