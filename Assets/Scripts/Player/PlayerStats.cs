@@ -53,7 +53,7 @@ public class PlayerStats : MonoBehaviour
         this.exp += exp;
         while (this.exp >= maxExp)
         {
-            //lvup
+            LvUp();
         }
     }
     public void EatFood(int foodCount)
@@ -109,5 +109,12 @@ public class PlayerStats : MonoBehaviour
         {
             PlayerDie?.Invoke();
         }
+    }
+    void LvUp()
+    {
+        exp -= maxExp;
+        level++;
+        hp += 5;
+        maxHp += 5;
     }
 }
