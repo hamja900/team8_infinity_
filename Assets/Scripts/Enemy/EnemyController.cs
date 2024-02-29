@@ -246,6 +246,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
         EndOfEnemyTurn();
         DropReward();
         SetEnemyState(EnemyState.Dead);
