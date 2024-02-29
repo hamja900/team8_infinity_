@@ -135,27 +135,27 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void OnUseConfirmUIButton()
-    {
-        switch (hotKey[previousSelectedHotKeyIndex].items.expendType)
-        {
-            case ExpendType.Heal:
-                {
-                    _playerStats.HealHp(hotKey[previousSelectedHotKeyIndex].items.healPoint);
-                }
-                break;
-            case ExpendType.Cure:
-                {
+    //public void OnUseConfirmUIButton()
+    //{
+    //    switch (hotKey[previousSelectedHotKeyIndex].items.expendType)
+    //    {
+    //        case ExpendType.Heal:
+    //            {
+    //                _playerStats.HealHp(hotKey[previousSelectedHotKeyIndex].items.healPoint);
+    //            }
+    //            break;
+    //        case ExpendType.Cure:
+    //            {
 
-                }
-                break;
-            case ExpendType.Hunger:
-                {
-                    _playerStats.EatFood(hotKey[previousSelectedHotKeyIndex].items.HungerPoint);
-                }
-                break;
-        }
-        hotKey[previousSelectedHotKeyIndex].items = null;
-        UpdateQuickSlotUI();
-    }
+    //            }
+    //            break;
+    //        case ExpendType.Hunger:
+    //            {
+    //                _playerStats.EatFood(hotKey[previousSelectedHotKeyIndex].items.HungerPoint);
+    //            }
+    //            break;
+    //    }
+    //    hotKey[previousSelectedHotKeyIndex].items = null;
+    //    UpdateQuickSlotUI();
+    //}
 }

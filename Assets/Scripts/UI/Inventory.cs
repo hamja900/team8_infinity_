@@ -26,7 +26,6 @@ public class Inventory : MonoBehaviour
 
     public GameObject inventoryWindow;
     public Transform dropPosition;
-    public GameObject player;
 
     [Header("SelectedItem")]
     private ItemSlot selectedItem;
@@ -49,7 +48,7 @@ public class Inventory : MonoBehaviour
     {
         instance = this;
         equipScript = GetComponent<Equip>();
-        playerStats = player.GetComponent<PlayerStats>();
+        playerStats = HUD.instance.player.GetComponent<PlayerStats>();
     }
 
     private void Start()
