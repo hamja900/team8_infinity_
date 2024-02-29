@@ -1855,7 +1855,7 @@ MonoBehaviour:
   equipitems: []
   inventoryWindow: {fileID: 7008319410841112275}
   dropPosition: {fileID: 0}
-  player: {fileID: 4094845363229649311, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
+  player: {fileID: 0}
   selectedItemName: {fileID: 3179996537492345778}
   selectedItemDescription: {fileID: 4439369008432904990}
   selectedItemStatName: {fileID: 4700807086598536079}
