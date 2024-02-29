@@ -26,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
             if (curTarget == null)
             {
                 curTarget = damageable;
+                TargetUiUpdate();
             }
         }
     }
@@ -37,12 +38,9 @@ public class PlayerAttack : MonoBehaviour
             if (curTarget == damageable)
             {
                 ChangeTarget();
+                TargetUiUpdate();
             }
         }
-    }
-    private void Update()
-    {
-        TargetUiUpdate();
     }
     void TargetUiUpdate()
     {
@@ -67,6 +65,7 @@ public class PlayerAttack : MonoBehaviour
             targetIndex = 0;
         }
         curTarget = targets[targetIndex];
+        TargetUiUpdate();
     }
     public void CanAttack()
     {
