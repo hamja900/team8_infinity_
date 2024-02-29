@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: "\uBCA0\uC774\uCEE8\uB9CC \uC788\uC73C\uBA74 \uB531\uC778\uB370..."
   itemSprite: {fileID: -841225165, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
   itemType: 1
-  dropPrefab: {fileID: 0}
+  dropPrefab: {fileID: 9183976415729574656, guid: 831fc19277cfc9a43ad6b92c08c5389f, type: 3}
   canStack: 0
   maxStack: 0
   expendType: 3

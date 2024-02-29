@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
@@ -10,11 +9,6 @@ public class EnemyAttack : MonoBehaviour
     {
         _controller = GetComponent<EnemyController>();
         _playerDamage = _controller.Target.GetComponent<PlayerGetDmg>();
-    }
-
-    void Update()
-    {
-        
     }
 
     public void Attack()

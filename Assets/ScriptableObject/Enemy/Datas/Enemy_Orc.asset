@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5922680681322542065, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
   enemyName: Orc
-  enemyHealth: 8
+  enemyHealth: 10
   enemyMaxHealth: 10
   enemyAtk: 5
   enemyAttackRange: 1.42

@@ -17,18 +17,19 @@ public class EnemyAnimation : MonoBehaviour
         Animator.SetBool(animationName, toggle);
     }
 
-    public void PlayAttackAnimation()
+    public void TriggerAnimation(string animationName)
     {
-        StartCoroutine("PlayAttack");
+        StartCoroutine(PlayerAnimation(animationName));
+        Animator.SetTrigger(animationName);
     }
 
-    IEnumerator PlayAttack()
+    IEnumerator PlayerAnimation(string animationName)
     {
-        Animator.SetTrigger("EnemyAttack");
+        Animator.SetTrigger(animationName);
 
         while (true)
         {
-            if (Animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack"))
+            if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f)
             {
                 break;
             }
