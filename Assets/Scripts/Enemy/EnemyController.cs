@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -34,6 +35,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public int localTurn;
     private int currentHealth;
+
+    public event Action OnDie;
 
     private void Awake()
     {
@@ -80,7 +83,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 currentState = EnemyState.Attacking;
                 //EnemyAnimation.ToggleAnimation("EnemyAttack", true);
                 //EnemyAnimation.TriggerAnimation("EnemyAttack");
-                EnemyAnimation.PlayAttackAnimation();
+                EnemyAnimation.TriggerAnimation("EnemyAttack");
                 break;
         }
     }
@@ -167,12 +170,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
-        //Invoke("StartEnemyTurn", 1);
-    }
-
-    private void StartEnemyTurn()
-    {
-        
     }
 
     private Vector3 SetEnemyMovePoint()
@@ -224,19 +221,18 @@ public class EnemyController : MonoBehaviour, IDamageable
         isEnemyTurn = false;
     }
 
-    public void OnTestBtn()
-    {
-        UpdateEnemyTurn(10);
-    }
-
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+
         if(currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            EnemyAnimation.TriggerAnimation("Dead");
+            //Die();
+            return;
         }
+        EnemyAnimation.TriggerAnimation("TakeDamage");
     }
 
     public Vector2 Pos()
@@ -246,6 +242,10 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        Destroy(gameObject);TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
+        //EnemyAnimation.TriggerAnimation("Dead");
+        EndOfEnemyTurn();
+
+        Destroy(gameObject);
+        TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
 }
