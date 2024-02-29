@@ -20,8 +20,6 @@ public class PlayerInputScript : MonoBehaviour
         move = GetComponent<PlayerMove>();
         attack = GetComponent<PlayerAttack>();
     }
-
-    //몬스터의 동작이 끝난후 동작하도록 추가해야함.
     #region Inputs
     //-------------move-----------
     public void OnQInput(InputAction.CallbackContext con)
@@ -82,8 +80,12 @@ public class PlayerInputScript : MonoBehaviour
     }
     //---------------Move----------
     //--------------Stop-----------
-    public void OnSInput()
+    public void OnSInput(InputAction.CallbackContext con)
     {
+        if (con.phase == InputActionPhase.Started && TuenManager.I.isPlayerTurn)
+        {
+            TuenManager.I.PlayerTurns(10);
+        }
     }
     //-------------Stop-----------
     //------------Attack---------
