@@ -114,7 +114,9 @@ public class PlayerStats : MonoBehaviour
     {
         exp -= maxExp;
         level++;
-        hp += 5;
         maxHp += 5;
+        hp = maxHp;
+        atk += 4;
+        def += 3;
     }
 }
