@@ -223,6 +223,7 @@ public class Inventory : MonoBehaviour
             {
                 case ExpendType.Heal:
                     {
+                        SoundManager.I.Play(SfxIndex.UsePotion);
                         playerStats.HealHp(selectedItem.items.healPoint);
                     }
                     break;
@@ -250,6 +251,7 @@ public class Inventory : MonoBehaviour
             {
                 case ExpendType.Heal:
                     {
+                        SoundManager.I.Play(SfxIndex.UsePotion);
                         playerStats.HealHp(selectedItem.items.healPoint);
                     }
                     break;
