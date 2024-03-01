@@ -281,6 +281,7 @@ public class Inventory : MonoBehaviour
             }
         }
         HUD.instance.hotKey[hotkey].items = null;
+        selectedItem = HUD.instance.quickUI[hotkey].CurSlot;
         HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
