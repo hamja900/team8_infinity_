@@ -17,8 +17,20 @@ public class ItemScript : MonoBehaviour
         float distance = Vector2.Distance(player.position,transform.position); 
         if (distance <= 1)
         {
+            if (Inventory.instance == null)
+            {
+                HUD.instance.OnInventoryButton();
+                StartCoroutine(WaitForInven());
+                return;
+            }
             Inventory.instance.AddItem(itemSO);
             Destroy(gameObject);
         }
+    }
+    IEnumerator WaitForInven()
+    {
+        yield return null;
+        Inventory.instance.AddItem(itemSO);
+        Destroy(gameObject);
     }
 }
