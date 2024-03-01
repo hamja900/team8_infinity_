@@ -58,8 +58,16 @@ public class Equip : MonoBehaviour
     {
         if (index == -1)
             return;
-        Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
+        if (Inventory.instance.equipUiSlots[slotIndex].index == -1)
+        {
+            Inventory.instance.equipUiSlots[slotIndex].Clear();
+            Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
+            UpdateEquipUI();
+            return;
+        }
         Inventory.instance.uiSlots[Inventory.instance.equipUiSlots[slotIndex].index].isEquipped = false;
+        Inventory.instance.equipUiSlots[slotIndex].Clear();
+        Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
         UpdateEquipUI();
     }
 
