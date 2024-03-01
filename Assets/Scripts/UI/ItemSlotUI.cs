@@ -48,6 +48,13 @@ public class ItemSlotUI : MonoBehaviour
             if (_curSlot.items == null || _curSlot.items.itemType == ItemType.Equipable)
                 return;
 
+            for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+            {
+                if (HUD.instance.quickUI[i].CurSlot != null && HUD.instance.quickUI[i].CurSlot.items == _curSlot.items)
+                {
+                    HUD.instance.quickUI[i].Clear();
+                }
+            }
             HUD.instance.hotKey[hotkeyIndex].items = _curSlot.items;
             HUD.instance.quickUI[hotkeyIndex].Set(_curSlot);
 
