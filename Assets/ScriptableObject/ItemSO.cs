@@ -40,7 +40,9 @@ public class ItemSO : ScriptableObject
     
     [Header("Equipable")]
     public EquipType equipType;
+    [Tooltip("짝수로 설정해야 합니다.")]
     public int attackRange = 0;
+    [Tooltip("숫자가 높을수록 공격이 느려지고 최저 속도는 -9 입니다.")]
     public int attackSpeed = 0;
     public int atk;
     public int def;
