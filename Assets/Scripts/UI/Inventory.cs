@@ -249,6 +249,41 @@ public class Inventory : MonoBehaviour
         HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
+    public void OnUsebutton(int hotkey)
+    {
+        selectedItem = HUD.instance.hotKey[hotkey];
+        if (selectedItem.items.itemType == ItemType.Expendable)
+        {
+            switch (selectedItem.items.expendType)
+            {
+                case ExpendType.Heal:
+                    {
+                        playerStats.HealHp(selectedItem.items.healPoint);
+                    }
+                    break;
+                case ExpendType.Cure:
+                    {
+
+                    }
+                    break;
+                case ExpendType.Hunger:
+                    {
+                        playerStats.EatFood(selectedItem.items.HungerPoint);
+                    }
+                    break;
+            }
+        }
+        for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+        {
+            if (selectedItem.items == HUD.instance.hotKey[i].items)
+            {
+                HUD.instance.hotKey[i].items = null;
+            }
+        }
+        HUD.instance.hotKey[hotkey].items = null;
+        HUD.instance.UpdateQuickSlotUI();
+        RemoveSelectedItem();
+    }
     public void OnEquipButton()
     {
         equipScript.EquipItem(selectedItemIndex);

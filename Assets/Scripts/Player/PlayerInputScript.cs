@@ -102,29 +102,69 @@ public class PlayerInputScript : MonoBehaviour
     }
     //---------Attack-----------
     //-----------Toolbar---------
-    public void On1()
+    public void On_1()
     {
-
+        if (HUD.instance.hotKey[0].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(0);
     }
-    public void On2()
+    public void On_2()
     {
-
+        if (HUD.instance.hotKey[1].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(1);
     }
-    public void On3()
+    public void On_3()
     {
-
+        if (HUD.instance.hotKey[2].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(2);
     }
-    public void On4()
+    public void On_4()
     {
-
+        if (HUD.instance.hotKey[3].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(3);
     }
-    public void On5()
+    public void On_5()
     {
-
+        if (HUD.instance.hotKey[4].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(4);
     }
-    public void On6()
+    public void On_6()
     {
-
+        if (HUD.instance.hotKey[5].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(5);
+    }
+    public void On_7()
+    {
+        if (HUD.instance.hotKey[6].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(6);
+    }
+    public void On_8()
+    {
+        if (HUD.instance.hotKey[7].items == null)
+        {
+            return;
+        }
+        Inventory.instance.OnUsebutton(7);
     }
     //---------Toolbar---------
     //---------PickUp---------
