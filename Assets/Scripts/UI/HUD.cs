@@ -109,6 +109,7 @@ public class HUD : MonoBehaviour
         {
             Instantiate(inventory,inventoryParent.transform);
         }
+        Inventory.instance.itemResisterMode = false;
     }
 
     public void ResisterHotKey()
