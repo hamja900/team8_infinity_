@@ -30,11 +30,30 @@ public class PlayerStats : MonoBehaviour
     }
     public int Attack()
     {
-        return atk;//장비 여부 반영
+        if (Inventory.instance != null && Inventory.instance.equipitems[0].items != null)
+        {
+            return atk + Inventory.instance.equipitems[0].items.atk;
+        }
+        return atk;
     }
     public int GetDef()
     {
-        return def;//장비 여부 반영
+        if (Inventory.instance != null)
+        {
+            if (Inventory.instance.equipitems[1].items != null && Inventory.instance.equipitems[2].items != null)
+            {
+                return def + Inventory.instance.equipitems[1].items.def + Inventory.instance.equipitems[2].items.def;
+            }
+            if (Inventory.instance.equipitems[1].items != null)
+            {
+                return def + Inventory.instance.equipitems[1].items.def;
+            }
+            if (Inventory.instance.equipitems[2].items != null)
+            {
+                return def + Inventory.instance.equipitems[2].items.def;
+            }
+        }
+        return def;
     }
     public int AttackSpeed()
     {
