@@ -23,6 +23,7 @@ public class ItemScript : MonoBehaviour
                 StartCoroutine(WaitForInven());
                 return;
             }
+            SoundManager.I.Play(SfxIndex.PickUpSound);
             Inventory.instance.AddItem(itemSO);
             Destroy(gameObject);
         }
@@ -30,6 +31,7 @@ public class ItemScript : MonoBehaviour
     IEnumerator WaitForInven()
     {
         yield return null;
+        SoundManager.I.Play(SfxIndex.PickUpSound);
         Inventory.instance.AddItem(itemSO);
         HUD.instance.inventoryParent.transform.GetChild(0).gameObject.SetActive(false);
         Destroy(gameObject);
