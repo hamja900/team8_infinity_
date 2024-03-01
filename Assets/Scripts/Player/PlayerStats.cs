@@ -30,9 +30,9 @@ public class PlayerStats : MonoBehaviour
     }
     public int Attack()
     {
-        if (Inventory.instance != null && Inventory.instance.equipitems[0].items != null)
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
         {
-            return atk + Inventory.instance.equipitems[0].items.atk;
+            return atk + Inventory.instance.equipUiSlots[0].curSlot.items.atk;
         }
         return atk;
     }
@@ -40,32 +40,41 @@ public class PlayerStats : MonoBehaviour
     {
         if (Inventory.instance != null)
         {
-            if (Inventory.instance.equipitems[1].items != null && Inventory.instance.equipitems[2].items != null)
+            if (Inventory.instance.equipUiSlots[1].curSlot != null && Inventory.instance.equipUiSlots[2].curSlot != null)
             {
-                return def + Inventory.instance.equipitems[1].items.def + Inventory.instance.equipitems[2].items.def;
+                return def + Inventory.instance.equipUiSlots[1].curSlot.items.def + Inventory.instance.equipUiSlots[2].curSlot.items.def;
             }
-            if (Inventory.instance.equipitems[1].items != null)
+            if (Inventory.instance.equipUiSlots[1].curSlot != null)
             {
-                return def + Inventory.instance.equipitems[1].items.def;
+                return def + Inventory.instance.equipUiSlots[1].curSlot.items.def;
             }
-            if (Inventory.instance.equipitems[2].items != null)
+            if (Inventory.instance.equipUiSlots[2].curSlot != null)
             {
-                return def + Inventory.instance.equipitems[2].items.def;
+                return def + Inventory.instance.equipUiSlots[2].curSlot.items.def;
             }
         }
         return def;
     }
     public int AttackSpeed()
     {
-        return attackSpeed;//장비 여부 반영
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            return attackSpeed + Inventory.instance.equipUiSlots[0].curSlot.items.attackSpeed;
+        }
+        return attackSpeed;
     }
     public int MoveSpeed()
     {
         return moveSpeed;//상태 여부 반영
     }
-    public int AttackRange()
+    public void SetAttackRange()
     {
-        return attackRange;//장비 여부 반영
+        int totalRange = attackRange;
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            totalRange = attackRange + Inventory.instance.equipUiSlots[0].curSlot.items.attackRange;
+        }
+        GetComponent<BoxCollider2D>().size = new Vector2(totalRange, totalRange);
     }
     public void GetExp(int exp)
     {
