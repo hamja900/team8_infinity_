@@ -7,7 +7,8 @@ public class ItemScript : MonoBehaviour
     public ItemSO itemSO;
     public Transform player;
 
-    private void Awake()
+
+    private void Start()
     {
         player = HUD.instance.player.transform;
     }
