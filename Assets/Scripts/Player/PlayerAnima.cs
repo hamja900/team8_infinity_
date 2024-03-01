@@ -35,7 +35,7 @@ public class PlayerAnima : MonoBehaviour
             if (ani.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack") == true)
             {
                 float animTime = ani.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                if (animTime >= 0.9f)
+                if (animTime >= 1f)
                 {
                     Pattack.AttackEvent();
                     IsAttackAnima = false;
