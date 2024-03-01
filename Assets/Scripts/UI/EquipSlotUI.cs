@@ -11,8 +11,9 @@ public class EquipSlotUI : MonoBehaviour
 
     public int index;
 
-    public void Set(ItemSlot slot)
+    public void Set(ItemSlot slot,int ind)
     {
+        index = ind;
         curSlot = slot;
         icon.gameObject.SetActive(true);
         icon.sprite = slot.items.itemSprite;
@@ -21,6 +22,7 @@ public class EquipSlotUI : MonoBehaviour
     {
         curSlot = null;
         icon.gameObject.SetActive(false);
+        index = -1;
     }
 
    

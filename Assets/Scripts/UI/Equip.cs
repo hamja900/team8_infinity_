@@ -17,12 +17,12 @@ public class Equip : MonoBehaviour
             if (Inventory.instance.equipitems[0].items != null)
             {
                 UnEquipItem(index, 0);
-                Inventory.instance.equipUiSlots[0].Set(item);
+                Inventory.instance.equipUiSlots[0].Set(item, index);
                 Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
             }
             else
             {
-                Inventory.instance.equipUiSlots[0].Set(item);
+                Inventory.instance.equipUiSlots[0].Set(item, index);
                 Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
             }
         }
@@ -31,11 +31,11 @@ public class Equip : MonoBehaviour
             if (Inventory.instance.equipitems[1].items != null)
             {
                 UnEquipItem(index, 1);
-                Inventory.instance.equipUiSlots[1].Set(item);
+                Inventory.instance.equipUiSlots[1].Set(item, index);
                 Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
             }
             else
-                Inventory.instance.equipUiSlots[1].Set(item);
+                Inventory.instance.equipUiSlots[1].Set(item, index);
             Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
         }
         else if (item.items.equipType == EquipType.Bottom)
@@ -43,11 +43,11 @@ public class Equip : MonoBehaviour
             if (Inventory.instance.equipitems[2].items != null)
             {
                 UnEquipItem(index, 2);
-                Inventory.instance.equipUiSlots[2].Set(item);
+                Inventory.instance.equipUiSlots[2].Set(item, index);
                 Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
             }
             else
-                Inventory.instance.equipUiSlots[2].Set(item);
+                Inventory.instance.equipUiSlots[2].Set(item, index);
             Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
         }
         Inventory.instance.uiSlots[index].isEquipped = true;
@@ -59,7 +59,7 @@ public class Equip : MonoBehaviour
         if (index == -1)
             return;
         Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
-        Inventory.instance.uiSlots[index].isEquipped = false;
+        Inventory.instance.uiSlots[Inventory.instance.equipUiSlots[slotIndex].index].isEquipped = false;
         UpdateEquipUI();
     }
 
