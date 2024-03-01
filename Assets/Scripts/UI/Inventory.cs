@@ -195,7 +195,7 @@ public class Inventory : MonoBehaviour
         unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && uiSlots[index].isEquipped);
         dropButton.SetActive(true);
     }
-    void UpdateButtons()
+    public void UpdateButtons()
     {
         useButton.SetActive(selectedItem.items.itemType == ItemType.Expendable);
         equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !uiSlots[selectedItemIndex].isEquipped);
@@ -325,7 +325,7 @@ public class Inventory : MonoBehaviour
     {
 
     }
-    public int EquippedItemIndex()//?
+    public int EquippedItemIndex()//장비 아이템의 타입에 따라 0,1,2번 장비슬롯의 번호를 반환합니다. 매개변수로 사용됩니다.
     {
         for (int i = 0; i<equipitems.Length; i++)
         {

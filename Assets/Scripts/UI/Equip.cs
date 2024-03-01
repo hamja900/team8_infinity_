@@ -20,11 +20,10 @@ public class Equip : MonoBehaviour
                 Inventory.instance.equipUiSlots[0].Set(item, index);
                 Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
             }
-            else
-            {
-                Inventory.instance.equipUiSlots[0].Set(item, index);
-                Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
-            }
+
+            Inventory.instance.equipUiSlots[0].Set(item, index);
+            Inventory.instance.equipitems[0].items = Inventory.instance.slots[index].items;
+
         }
         else if (item.items.equipType == EquipType.Top)
         {
@@ -34,10 +33,12 @@ public class Equip : MonoBehaviour
                 Inventory.instance.equipUiSlots[1].Set(item, index);
                 Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
             }
-            else
-                Inventory.instance.equipUiSlots[1].Set(item, index);
+
+            Inventory.instance.equipUiSlots[1].Set(item, index);
             Inventory.instance.equipitems[1].items = Inventory.instance.slots[index].items;
         }
+
+
         else if (item.items.equipType == EquipType.Bottom)
         {
             if (Inventory.instance.equipitems[2].items != null)
@@ -46,15 +47,19 @@ public class Equip : MonoBehaviour
                 Inventory.instance.equipUiSlots[2].Set(item, index);
                 Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
             }
-            else
-                Inventory.instance.equipUiSlots[2].Set(item, index);
+
+            Inventory.instance.equipUiSlots[2].Set(item, index);
             Inventory.instance.equipitems[2].items = Inventory.instance.slots[index].items;
+
+
         }
+        Inventory.instance.UpdateButtons();
         Inventory.instance.uiSlots[index].isEquipped = true;
         UpdateEquipUI();
+        
 
     }
-    public void UnEquipItem(int index,int slotIndex)
+    public void UnEquipItem(int index, int slotIndex)
     {
         if (index == -1)
             return;
