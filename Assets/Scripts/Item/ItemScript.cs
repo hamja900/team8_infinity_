@@ -31,6 +31,7 @@ public class ItemScript : MonoBehaviour
     {
         yield return null;
         Inventory.instance.AddItem(itemSO);
+        HUD.instance.inventoryParent.transform.GetChild(0).gameObject.SetActive(false);
         Destroy(gameObject);
     }
 }
