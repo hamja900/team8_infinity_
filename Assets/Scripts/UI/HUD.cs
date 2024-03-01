@@ -128,7 +128,7 @@ public class HUD : MonoBehaviour
     {
         for(int i = 0; i < quickUI.Length; i++)
         {
-            if (hotKey[i].items == null)
+            if (hotKey[i] == null)
             {
                 quickUI[i].Clear();
             }

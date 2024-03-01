@@ -45,7 +45,7 @@ public class ItemSlotUI : MonoBehaviour
         if (Inventory.instance.itemResisterMode)
         {
             int hotkeyIndex = HUD.instance.previousSelectedHotKeyIndex;
-            if (_curSlot.items == null || _curSlot.items.itemType == ItemType.Equipable)
+            if (_curSlot == null || _curSlot.items == null || _curSlot.items.itemType == ItemType.Equipable)
                 return;
 
             for (int i = 0; i < HUD.instance.quickUI.Length; i++)
@@ -55,7 +55,7 @@ public class ItemSlotUI : MonoBehaviour
                     HUD.instance.quickUI[i].Clear();
                 }
             }
-            HUD.instance.hotKey[hotkeyIndex].items = _curSlot.items;
+            HUD.instance.hotKey[hotkeyIndex] = _curSlot;
             HUD.instance.quickUI[hotkeyIndex].Set(_curSlot);
 
             Inventory.instance.itemResisterMode = false;

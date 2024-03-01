@@ -238,15 +238,7 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
-        for (int i = 0; i < HUD.instance.quickUI.Length; i++)
-        {
-            if(selectedItem.items == HUD.instance.hotKey[i].items)
-            {
-                HUD.instance.hotKey[i].items = null;
-            }
-        }
         UpdateButtons();
-        HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
     public void OnUsebutton(int hotkey)
@@ -273,16 +265,7 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
-        for (int i = 0; i < HUD.instance.quickUI.Length; i++)
-        {
-            if (selectedItem.items == HUD.instance.hotKey[i].items)
-            {
-                HUD.instance.hotKey[i].items = null;
-            }
-        }
-        HUD.instance.hotKey[hotkey].items = null;
         selectedItem = HUD.instance.quickUI[hotkey].CurSlot;
-        HUD.instance.UpdateQuickSlotUI();
         RemoveSelectedItem();
     }
     public void OnEquipButton()
@@ -325,8 +308,16 @@ public class Inventory : MonoBehaviour
                 else if (selectedItem.items.equipType == EquipType.Bottom)
                     equipScript.UnEquipItem(selectedItemIndex, 2);
             }
+            for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+            {
+                if (HUD.instance.hotKey[i] != null && selectedItem.items == HUD.instance.hotKey[i].items)
+                {
+                    HUD.instance.hotKey[i] = null;
+                }
+            }
             selectedItem.items = null;
             ClearSelectedItemWindow();
+            HUD.instance.UpdateQuickSlotUI();
         }
         UpdateUI();
     }

@@ -104,7 +104,7 @@ public class PlayerInputScript : MonoBehaviour
     //-----------Toolbar---------
     public void On_1()
     {
-        if (HUD.instance.hotKey[0].items == null)
+        if (HUD.instance.hotKey[0] == null || HUD.instance.hotKey[0].items == null)
         {
             return;
         }
@@ -112,7 +112,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_2()
     {
-        if (HUD.instance.hotKey[1].items == null)
+        if (HUD.instance.hotKey[1] == null || HUD.instance.hotKey[1].items == null)
         {
             return;
         }
@@ -120,7 +120,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_3()
     {
-        if (HUD.instance.hotKey[2].items == null)
+        if (HUD.instance.hotKey[2] == null || HUD.instance.hotKey[2].items == null)
         {
             return;
         }
@@ -128,7 +128,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_4()
     {
-        if (HUD.instance.hotKey[3].items == null)
+        if (HUD.instance.hotKey[3] == null || HUD.instance.hotKey[3].items == null)
         {
             return;
         }
@@ -136,7 +136,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_5()
     {
-        if (HUD.instance.hotKey[4].items == null)
+        if (HUD.instance.hotKey[4] == null || HUD.instance.hotKey[4].items == null)
         {
             return;
         }
@@ -144,7 +144,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_6()
     {
-        if (HUD.instance.hotKey[5].items == null)
+        if (HUD.instance.hotKey[5] == null || HUD.instance.hotKey[5].items == null)
         {
             return;
         }
@@ -152,7 +152,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_7()
     {
-        if (HUD.instance.hotKey[6].items == null)
+        if (HUD.instance.hotKey[6] == null || HUD.instance.hotKey[6].items == null)
         {
             return;
         }
@@ -160,7 +160,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void On_8()
     {
-        if (HUD.instance.hotKey[7].items == null)
+        if (HUD.instance.hotKey[7] == null || HUD.instance.hotKey[7].items == null)
         {
             return;
         }
