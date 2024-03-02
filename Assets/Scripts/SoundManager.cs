@@ -12,7 +12,7 @@ public class SoundManager : SingletoneBase<SoundManager>
 {
     SoundData soundData;
     [Header("Bgm")]
-    AudioSource audio;
+    AudioSource _audio;
     [Range(0, 1)] public float volum = 1;
     [Header("Sfx")]
     AudioSource[] chan;
@@ -26,8 +26,8 @@ public class SoundManager : SingletoneBase<SoundManager>
             this.gameObject.AddComponent<AudioSource>().playOnAwake = false;
             chan[i] = gameObject.GetComponents<AudioSource>()[i];
         }
-        audio = gameObject.AddComponent<AudioSource>();
-        audio.playOnAwake = false;
+        _audio = gameObject.AddComponent<AudioSource>();
+        _audio.playOnAwake = false;
     }
     public void Play(SfxIndex index)
     {
