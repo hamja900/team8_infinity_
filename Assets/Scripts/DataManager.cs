@@ -17,11 +17,11 @@ public class SaveData
     public float exp;
     public float maxExp;
     public int level;
-    
-    //public ItemSlot[] slots = new ItemSlot[Inventory.instance.slots.Length];
-    //public ItemSlot[] equipitems = new ItemSlot[Inventory.instance.equipitems.Length];
 
-    //public ItemSlot[] hotKey = new ItemSlot[HUD.instance.hotKey.Length];
+    public ItemSlot[] slots = new ItemSlot[Inventory.instance.slots.Length];
+    public ItemSlot[] equipitems = new ItemSlot[Inventory.instance.equipitems.Length];
+
+    public ItemSlot[] hotKey = new ItemSlot[HUD.instance.hotKey.Length];
 }
 public class DataManager : SingletoneBase<DataManager>
 {
@@ -34,75 +34,78 @@ public class DataManager : SingletoneBase<DataManager>
 
     void Start()
     {
-        path = Path.Combine(Application.dataPath,"database.json");
+        path = Path.Combine(Application.dataPath, "database.json");
         playerStats = HUD.instance.player.GetComponent<PlayerStats>();
     }
 
-    public void JsonLoad()
+    IEnumerator WaitForThreeTime()
     {
-        path = Path.Combine(Application.dataPath,"database.json");
-
+        yield return null;
+        yield return null;
+        yield return null;
         if (!File.Exists(path))
         {
-           
+            JsonSave();
         }
         else
         {
             string loadJson = File.ReadAllText(path);
-            //saveData = JsonUtility.FromJson<SaveData>(loadJson);
+            saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
-            if (saveData == null)
+            if (saveData != null)
             {
-                if (saveData != null)
+
+                for (int i = 0; i < saveData.slots.Length; i++)
                 {
-                    //for (int i = 0; i < saveData.slots.Length; i++)
-                    //{
-                    //    Inventory.instance.AddItem(saveData.slots[i].items);
-                    //}
+                    Inventory.instance.slots[i] = saveData.slots[i];
                 }
-                //if (saveData.equipitems != null)
-                //{
-                //    //for (int j = 0; j < saveData.equipitems.Length; j++)
-                //    //{
-                //    //    Inventory.instance.equipitems[j].items = saveData.equipitems[j].items;
-                //    //}
-                //}
-                //if (saveData.hotKey != null)
-                //{
-                //    //for (int k = 0; k < saveData.hotKey.Length; k++)
-                //    //{
-                //    //    HUD.instance.hotKey[k].items = saveData.hotKey[k].items;
-                //    //}
-                //}
+
+                for (int j = 0; j < saveData.equipitems.Length; j++)
+                {
+                    Inventory.instance.equipitems[j] = saveData.equipitems[j];
+                }
+
+                for (int k = 0; k < saveData.hotKey.Length; k++)
+                {
+                    HUD.instance.hotKey[k] = saveData.hotKey[k];
+                }
+
                 playerStats.hp = saveData.hp;
                 playerStats.maxHp = saveData.maxHp;
-                playerStats.hunger = JsonUtility.FromJson<SaveData>(loadJson).hunger;
+                playerStats.hunger = saveData.hunger;
                 playerStats.maxHunger = saveData.maxHunger;
                 playerStats.exp = saveData.exp;
                 playerStats.maxExp = saveData.maxExp;
                 playerStats.level = saveData.level;
             }
         }
+
+    }
+    public void JsonLoad()
+    {
+
+        StartCoroutine(WaitForThreeTime());
+      
     }
     public void JsonSave()
     {
         SaveData saveData = new SaveData();
 
-        //for (int i = 0; i < Inventory.instance.slots.Length; i++)
-        //{
-        //    saveData.slots[i] = new ItemSlot();
-        //    saveData.slots[i] = Inventory.instance.slots[i];
-        //}
-        //for (int j = 0; j < Inventory.instance.equipitems.Length; j++)
-        //{
-        //    saveData.equipitems[j] = new ItemSlot();
-        //    saveData.equipitems[j] = Inventory.instance.equipitems[j];
-        //}
-        //for (int k = 0; k < HUD.instance.hotKey.Length; k++)
-        //{
-        //    saveData.hotKey[k] = new ItemSlot();
-        //    saveData.hotKey[k] = HUD.instance.hotKey[k];
-        //}
+        for (int i = 0; i < Inventory.instance.slots.Length; i++)
+        {
+            saveData.slots[i] = new ItemSlot();
+            saveData.slots[i] = Inventory.instance.slots[i];
+        }
+        for (int j = 0; j < Inventory.instance.equipitems.Length; j++)
+        {
+            saveData.equipitems[j] = new ItemSlot();
+            saveData.equipitems[j] = Inventory.instance.equipitems[j];
+        }
+        for (int k = 0; k < HUD.instance.hotKey.Length; k++)
+        {
+            saveData.hotKey[k] = new ItemSlot();
+            saveData.hotKey[k] = HUD.instance.hotKey[k];
+        }
         saveData.hp = playerStats.hp;
         saveData.maxHp = playerStats.maxHp;
         saveData.hunger = playerStats.hunger;
