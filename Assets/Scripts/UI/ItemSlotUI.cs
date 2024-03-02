@@ -50,7 +50,7 @@ public class ItemSlotUI : MonoBehaviour
 
             for (int i = 0; i < HUD.instance.quickUI.Length; i++)
             {
-                if (HUD.instance.quickUI[i].CurSlot != null && HUD.instance.quickUI[i].CurSlot.items == _curSlot.items)
+                if (HUD.instance.quickUI[i].curSlot != null && HUD.instance.quickUI[i].curSlot.items == _curSlot.items)
                 {
                     HUD.instance.quickUI[i].Clear();
                 }

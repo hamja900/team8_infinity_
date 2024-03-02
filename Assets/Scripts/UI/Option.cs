@@ -17,6 +17,7 @@ public class Option : MonoBehaviour
 
     public void OnMainMenuButton()
     {
+        DataManager.I.JsonSave();
         SceneManager.LoadScene("StartScene");
     }
     public void OnQuitOption()

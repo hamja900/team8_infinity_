@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] slots;
     public ItemSlot[] equipitems;
 
-    private Equip equipScript;
+    public Equip equipScript;
     private PlayerStats playerStats;
 
     public GameObject inventoryWindow;
@@ -50,10 +50,7 @@ public class Inventory : MonoBehaviour
         instance = this;
         equipScript = GetComponent<Equip>();
         playerStats = HUD.instance.player.GetComponent<PlayerStats>();
-    }
 
-    private void Start()
-    {
         slots = new ItemSlot[uiSlots.Length];
         for (int i = 0; i < slots.Length; i++)
         {
@@ -68,12 +65,17 @@ public class Inventory : MonoBehaviour
             equipUiSlots[j].index = j;
             equipUiSlots[j].Clear();
         }
-        
+
         ClearSelectedItemWindow();
         dropPosition = playerStats.gameObject.transform;
         AddItem(testItems[0]);
         AddItem(testItems[1]);
         AddItem(testItems[2]);
+    }
+
+    private void Start()
+    {
+       
     }
 
     public void AddItem(ItemSO item)
@@ -267,7 +269,7 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
-        selectedItem = HUD.instance.quickUI[hotkey].CurSlot;
+        selectedItem = HUD.instance.quickUI[hotkey].curSlot;
         RemoveSelectedItem();
     }
     public void OnEquipButton()
