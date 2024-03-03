@@ -1,7 +1,7 @@
 {
-    "hp": 15.0,
+    "hp": 20.0,
     "maxHp": 20.0,
-    "hunger": 4430.0,
+    "hunger": 4480.0,
     "maxHunger": 4500.0,
     "exp": 0.0,
     "maxExp": 20.0,
@@ -27,7 +27,7 @@
         },
         {
             "items": {
-                "instanceID": 25782
+                "instanceID": 25774
             },
             "quantity": 1
         },
@@ -119,7 +119,7 @@
     "equipitems": [
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 25774
             },
             "quantity": 0
         },
@@ -145,9 +145,9 @@
         },
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 25842
             },
-            "quantity": 0
+            "quantity": 1
         },
         {
             "items": {
@@ -184,6 +184,88 @@
                 "instanceID": 0
             },
             "quantity": 0
+        }
+    ],
+    "uiSlots": [
+        {
+            "instanceID": 47114
+        },
+        {
+            "instanceID": 46886
+        },
+        {
+            "instanceID": 47110
+        },
+        {
+            "instanceID": 46842
+        },
+        {
+            "instanceID": 47172
+        },
+        {
+            "instanceID": 47208
+        },
+        {
+            "instanceID": 47116
+        },
+        {
+            "instanceID": 47106
+        },
+        {
+            "instanceID": 46806
+        },
+        {
+            "instanceID": 47162
+        },
+        {
+            "instanceID": 47152
+        },
+        {
+            "instanceID": 47050
+        },
+        {
+            "instanceID": 47042
+        },
+        {
+            "instanceID": 46860
+        },
+        {
+            "instanceID": 47080
+        },
+        {
+            "instanceID": 46918
+        },
+        {
+            "instanceID": 47026
+        },
+        {
+            "instanceID": 46940
+        }
+    ],
+    "quickSlotUi": [
+        {
+            "instanceID": 47150
+        },
+        {
+            "instanceID": 47158
+        },
+        {
+            "instanceID": 47086
+        },
+        {
+            "instanceID": 46984
+        },
+        {
+            "instanceID": 47016
+        },
+        {
+            "instanceID": 46966
+        },
+        {
+            "instanceID": 46858
+        },
+        {
+            "instanceID": 46926
         }
     ]
 }

@@ -20,13 +20,13 @@ public class SaveData
 
     public ItemSlot[] slots = new ItemSlot[Inventory.instance.slots.Length];
     public ItemSlot[] equipitems = new ItemSlot[Inventory.instance.equipitems.Length];
-
     public ItemSlot[] hotKey = new ItemSlot[HUD.instance.hotKey.Length];
+    public ItemSlotUI[] uiSlots = new ItemSlotUI[Inventory.instance.uiSlots.Length];
+    public QuickSlotsUI[] quickSlotUi = new QuickSlotsUI[HUD.instance.quickUI.Length];
 }
 public class DataManager : SingletoneBase<DataManager>
 {
     public SaveData saveData;
-
     private string path;
 
     private PlayerStats playerStats;
@@ -70,6 +70,19 @@ public class DataManager : SingletoneBase<DataManager>
                     HUD.instance.hotKey[k] = saveData.hotKey[k];
                 }
 
+                for (int i = 0; i< saveData.uiSlots.Length; i++)
+                {
+                    Inventory.instance.uiSlots[i] = saveData.uiSlots[i];
+                }
+                for (int i = 0; i< saveData.quickSlotUi.Length; i++)
+                {
+                    HUD.instance.quickUI[i] = saveData.quickSlotUi[i];
+                }
+
+                Inventory.instance.UpdateUI();
+                Inventory.instance.equipScript.UpdateEquipUI();
+                HUD.instance.UpdateQuickSlotUI();   
+
                 playerStats.hp = saveData.hp;
                 playerStats.maxHp = saveData.maxHp;
                 playerStats.hunger = saveData.hunger;
@@ -105,6 +118,16 @@ public class DataManager : SingletoneBase<DataManager>
         {
             saveData.hotKey[k] = new ItemSlot();
             saveData.hotKey[k] = HUD.instance.hotKey[k];
+        }
+        for( int i = 0; i<Inventory.instance.uiSlots.Length; i++)
+        {
+            saveData.uiSlots[i] = new ItemSlotUI();
+            saveData.uiSlots[i] = Inventory.instance.uiSlots[i];
+        }
+        for(int i = 0; i<HUD.instance.quickUI.Length; i++)
+        {
+            saveData.quickSlotUi[i] = new QuickSlotsUI();
+            saveData.quickSlotUi[i] = HUD.instance.quickUI[i];
         }
         saveData.hp = playerStats.hp;
         saveData.maxHp = playerStats.maxHp;

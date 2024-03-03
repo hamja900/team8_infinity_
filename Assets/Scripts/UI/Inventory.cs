@@ -73,11 +73,6 @@ public class Inventory : MonoBehaviour
         AddItem(testItems[2]);
     }
 
-    private void Start()
-    {
-       
-    }
-
     public void AddItem(ItemSO item)
     {
         if (item.canStack)
@@ -106,7 +101,7 @@ public class Inventory : MonoBehaviour
         Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one));
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {

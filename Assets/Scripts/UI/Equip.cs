@@ -55,7 +55,7 @@ public class Equip : MonoBehaviour
         }
         Inventory.instance.UpdateButtons();
         Inventory.instance.uiSlots[index].isEquipped = true;
-        UpdateEquipUI();
+        UpdateEquipMark();
         
 
     }
@@ -67,17 +67,26 @@ public class Equip : MonoBehaviour
         {
             Inventory.instance.equipUiSlots[slotIndex].Clear();
             Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
-            UpdateEquipUI();
+            UpdateEquipMark();
             return;
         }
         Inventory.instance.uiSlots[Inventory.instance.equipUiSlots[slotIndex].index].isEquipped = false;
         Inventory.instance.equipUiSlots[slotIndex].Clear();
         Inventory.instance.equipUiSlots[slotIndex].icon.gameObject.SetActive(false);
-        UpdateEquipUI();
+        UpdateEquipMark();
+    }
+    public void UpdateEquipUI()
+    {
+        for(int i = 0; i< Inventory.instance.equipUiSlots.Length; i++)
+        {
+            if (Inventory.instance.equipitems[i].items != null)
+            {
+                Inventory.instance.equipUiSlots[i].Set(Inventory.instance.equipitems[i], i);
+            }
+        }
     }
 
-
-    private void UpdateEquipUI()
+    private void UpdateEquipMark()
     {
         for (int i = 0; i < Inventory.instance.slots.Length; i++)
         {
