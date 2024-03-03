@@ -17,12 +17,13 @@ public class SaveData
     public float exp;
     public float maxExp;
     public int level;
+    public bool isEquipped;
 
     public ItemSlot[] slots = new ItemSlot[Inventory.instance.slots.Length];
     public ItemSlot[] equipitems = new ItemSlot[Inventory.instance.equipitems.Length];
     public ItemSlot[] hotKey = new ItemSlot[HUD.instance.hotKey.Length];
-    public ItemSlotUI[] uiSlots = new ItemSlotUI[Inventory.instance.uiSlots.Length];
-    public QuickSlotsUI[] quickSlotUi = new QuickSlotsUI[HUD.instance.quickUI.Length];
+    //public ItemSlotUI[] uiSlots = new ItemSlotUI[Inventory.instance.uiSlots.Length];
+    //public QuickSlotsUI[] quickSlotUi = new QuickSlotsUI[HUD.instance.quickUI.Length];
 }
 public class DataManager : SingletoneBase<DataManager>
 {
@@ -40,8 +41,6 @@ public class DataManager : SingletoneBase<DataManager>
 
     IEnumerator WaitForThreeTime()
     {
-        yield return null;
-        yield return null;
         yield return null;
         if (!File.Exists(path))
         {
@@ -63,25 +62,27 @@ public class DataManager : SingletoneBase<DataManager>
                 for (int j = 0; j < saveData.equipitems.Length; j++)
                 {
                     Inventory.instance.equipitems[j] = saveData.equipitems[j];
+                    Inventory.instance.equipScript.UpdateEquipUI();
                 }
 
                 for (int k = 0; k < saveData.hotKey.Length; k++)
                 {
                     HUD.instance.hotKey[k] = saveData.hotKey[k];
+                   
                 }
 
-                for (int i = 0; i< saveData.uiSlots.Length; i++)
-                {
-                    Inventory.instance.uiSlots[i] = saveData.uiSlots[i];
-                }
-                for (int i = 0; i< saveData.quickSlotUi.Length; i++)
-                {
-                    HUD.instance.quickUI[i] = saveData.quickSlotUi[i];
-                }
-
+                //for (int i = 0; i< saveData.uiSlots.Length; i++)
+                //{
+                //    Inventory.instance.uiSlots[i] = saveData.uiSlots[i];
+                //}
+                //for (int i = 0; i< saveData.quickSlotUi.Length; i++)
+                //{
+                //    HUD.instance.quickUI[i] = saveData.quickSlotUi[i];
+                //}
+                HUD.instance.UpdateQuickSlotUI();
                 Inventory.instance.UpdateUI();
-                Inventory.instance.equipScript.UpdateEquipUI();
-                HUD.instance.UpdateQuickSlotUI();   
+                
+                
 
                 playerStats.hp = saveData.hp;
                 playerStats.maxHp = saveData.maxHp;
@@ -119,16 +120,16 @@ public class DataManager : SingletoneBase<DataManager>
             saveData.hotKey[k] = new ItemSlot();
             saveData.hotKey[k] = HUD.instance.hotKey[k];
         }
-        for( int i = 0; i<Inventory.instance.uiSlots.Length; i++)
-        {
-            saveData.uiSlots[i] = new ItemSlotUI();
-            saveData.uiSlots[i] = Inventory.instance.uiSlots[i];
-        }
-        for(int i = 0; i<HUD.instance.quickUI.Length; i++)
-        {
-            saveData.quickSlotUi[i] = new QuickSlotsUI();
-            saveData.quickSlotUi[i] = HUD.instance.quickUI[i];
-        }
+        //for( int i = 0; i<Inventory.instance.uiSlots.Length; i++)
+        //{
+        //    saveData.uiSlots[i] = new ItemSlotUI();
+        //    saveData.uiSlots[i] = Inventory.instance.uiSlots[i];
+        //}
+        //for(int i = 0; i<HUD.instance.quickUI.Length; i++)
+        //{
+        //    saveData.quickSlotUi[i] = new QuickSlotsUI();
+        //    saveData.quickSlotUi[i] = HUD.instance.quickUI[i];
+        //}
         saveData.hp = playerStats.hp;
         saveData.maxHp = playerStats.maxHp;
         saveData.hunger = playerStats.hunger;

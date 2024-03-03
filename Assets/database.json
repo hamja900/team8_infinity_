@@ -1,11 +1,12 @@
 {
     "hp": 20.0,
     "maxHp": 20.0,
-    "hunger": 4480.0,
+    "hunger": 4460.0,
     "maxHunger": 4500.0,
     "exp": 0.0,
     "maxExp": 20.0,
     "level": 1,
+    "isEquipped": false,
     "slots": [
         {
             "items": {
@@ -27,21 +28,21 @@
         },
         {
             "items": {
-                "instanceID": 25774
+                "instanceID": 25782
+            },
+            "quantity": 2
+        },
+        {
+            "items": {
+                "instanceID": 26036
             },
             "quantity": 1
         },
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 25774
             },
-            "quantity": 0
-        },
-        {
-            "items": {
-                "instanceID": 0
-            },
-            "quantity": 0
+            "quantity": 1
         },
         {
             "items": {
@@ -125,7 +126,7 @@
         },
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 26036
             },
             "quantity": 0
         },
@@ -145,9 +146,15 @@
         },
         {
             "items": {
-                "instanceID": 25842
+                "instanceID": 0
             },
-            "quantity": 1
+            "quantity": 0
+        },
+        {
+            "items": {
+                "instanceID": 25782
+            },
+            "quantity": 2
         },
         {
             "items": {
@@ -178,94 +185,6 @@
                 "instanceID": 0
             },
             "quantity": 0
-        },
-        {
-            "items": {
-                "instanceID": 0
-            },
-            "quantity": 0
-        }
-    ],
-    "uiSlots": [
-        {
-            "instanceID": 47114
-        },
-        {
-            "instanceID": 46886
-        },
-        {
-            "instanceID": 47110
-        },
-        {
-            "instanceID": 46842
-        },
-        {
-            "instanceID": 47172
-        },
-        {
-            "instanceID": 47208
-        },
-        {
-            "instanceID": 47116
-        },
-        {
-            "instanceID": 47106
-        },
-        {
-            "instanceID": 46806
-        },
-        {
-            "instanceID": 47162
-        },
-        {
-            "instanceID": 47152
-        },
-        {
-            "instanceID": 47050
-        },
-        {
-            "instanceID": 47042
-        },
-        {
-            "instanceID": 46860
-        },
-        {
-            "instanceID": 47080
-        },
-        {
-            "instanceID": 46918
-        },
-        {
-            "instanceID": 47026
-        },
-        {
-            "instanceID": 46940
-        }
-    ],
-    "quickSlotUi": [
-        {
-            "instanceID": 47150
-        },
-        {
-            "instanceID": 47158
-        },
-        {
-            "instanceID": 47086
-        },
-        {
-            "instanceID": 46984
-        },
-        {
-            "instanceID": 47016
-        },
-        {
-            "instanceID": 46966
-        },
-        {
-            "instanceID": 46858
-        },
-        {
-            "instanceID": 46926
         }
     ]
 }
