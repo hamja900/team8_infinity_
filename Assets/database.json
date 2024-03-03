@@ -1,7 +1,7 @@
 {
-    "hp": 15.0,
+    "hp": 20.0,
     "maxHp": 20.0,
-    "hunger": 4450.0,
+    "hunger": 4480.0,
     "maxHunger": 4500.0,
     "exp": 0.0,
     "maxExp": 20.0,
@@ -9,38 +9,38 @@
     "slots": [
         {
             "items": {
-                "instanceID": 26004
+                "instanceID": 26016
             },
             "quantity": 1,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 26006
+                "instanceID": 26018
+            },
+            "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 25854
+            },
+            "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 25786
             },
             "quantity": 1,
             "isEquipped": true
         },
         {
             "items": {
-                "instanceID": 25842
+                "instanceID": 26048
             },
             "quantity": 1,
             "isEquipped": false
-        },
-        {
-            "items": {
-                "instanceID": 26036
-            },
-            "quantity": 1,
-            "isEquipped": false
-        },
-        {
-            "items": {
-                "instanceID": 25774
-            },
-            "quantity": 1,
-            "isEquipped": true
         },
         {
             "items": {
@@ -137,14 +137,14 @@
     "equipitems": [
         {
             "items": {
-                "instanceID": 25774
+                "instanceID": 25786
             },
             "quantity": 0,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 26036
+                "instanceID": 0
             },
             "quantity": 0,
             "isEquipped": false
