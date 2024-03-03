@@ -8,21 +8,21 @@ public class QuickSlotsUI : MonoBehaviour
 {
     public UnityEngine.UI.Image icon;
     public Button button;
-    public ItemSlot CurSlot { get; private set; }
+    public ItemSlot curSlot { get; private set; }
 
     public int index;
 
 
     public void Set(ItemSlot slot)
     {
-        CurSlot = slot;
+        curSlot = slot;
         icon.gameObject.SetActive(true);
         icon.sprite = slot.items.itemSprite;
 
     }
     public void Clear()
     {
-        CurSlot = null;
+        curSlot = null;
         icon.gameObject.SetActive(false);
 
     }

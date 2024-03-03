@@ -9,6 +9,8 @@ public class PopupManager : MonoBehaviour
 
     public GameObject popupB; //선택팝업
 
+    public GameObject DeadPopup; //사망 UI
+
     public static PopupManager instance;
 
     private void Awake()
@@ -23,10 +25,11 @@ public class PopupManager : MonoBehaviour
         script.MainText.text = "장착 중인 장비는 버릴 수 없습니다.";
     }
 
-    public void popupForInvestigate(string investigeteText)
+    public void PopupForPlayerDead()
     {
-        GameObject popup = Instantiate(popupA);
-        Popups script = popup.GetComponent<Popups>();
-        script.MainText.text = investigeteText;
+        GameObject deadPopup = Instantiate(DeadPopup);
+        Popups script = deadPopup.GetComponent<Popups>();
+        script.MainText.text = "You're Dead";
     }
+   
 }

@@ -1,0 +1,218 @@
+{
+    "hp": 20.0,
+    "maxHp": 20.0,
+    "hunger": 4480.0,
+    "maxHunger": 4500.0,
+    "exp": 0.0,
+    "maxExp": 20.0,
+    "level": 1,
+    "slots": [
+        {
+            "items": {
+                "instanceID": 26016
+            },
+            "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 26018
+            },
+            "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 25854
+            },
+            "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 25786
+            },
+            "quantity": 1,
+            "isEquipped": true
+        },
+        {
+            "items": {
+                "instanceID": 26048
+            },
+            "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        }
+    ],
+    "equipitems": [
+        {
+            "items": {
+                "instanceID": 25786
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        }
+    ],
+    "hotKey": [
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
+        }
+    ]
+}

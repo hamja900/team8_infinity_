@@ -12,6 +12,7 @@ public class ItemSlot
 {
     public ItemSO items;
     public int quantity;
+    public bool isEquipped = false;
 }
 public class Inventory : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] slots;
     public ItemSlot[] equipitems;
 
-    private Equip equipScript;
+    public Equip equipScript;
     private PlayerStats playerStats;
 
     public GameObject inventoryWindow;
@@ -50,10 +51,7 @@ public class Inventory : MonoBehaviour
         instance = this;
         equipScript = GetComponent<Equip>();
         playerStats = HUD.instance.player.GetComponent<PlayerStats>();
-    }
 
-    private void Start()
-    {
         slots = new ItemSlot[uiSlots.Length];
         for (int i = 0; i < slots.Length; i++)
         {
@@ -68,7 +66,7 @@ public class Inventory : MonoBehaviour
             equipUiSlots[j].index = j;
             equipUiSlots[j].Clear();
         }
-        
+
         ClearSelectedItemWindow();
         dropPosition = playerStats.gameObject.transform;
         AddItem(testItems[0]);
@@ -104,7 +102,7 @@ public class Inventory : MonoBehaviour
         Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one));
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -191,15 +189,15 @@ public class Inventory : MonoBehaviour
             }
         }
         useButton.SetActive(selectedItem.items.itemType == ItemType.Expendable);
-        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !uiSlots[index].isEquipped);
-        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && uiSlots[index].isEquipped);
+        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !slots[index].isEquipped);
+        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && slots[index].isEquipped);
         dropButton.SetActive(true);
     }
     public void UpdateButtons()
     {
         useButton.SetActive(selectedItem.items.itemType == ItemType.Expendable);
-        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !uiSlots[selectedItemIndex].isEquipped);
-        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && uiSlots[selectedItemIndex].isEquipped);
+        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !slots[selectedItemIndex].isEquipped);
+        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && slots[selectedItemIndex].isEquipped);
     }
     private void ClearSelectedItemWindow()
     {
@@ -267,7 +265,13 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
-        selectedItem = HUD.instance.quickUI[hotkey].CurSlot;
+        for (int i = 0; i < Inventory.instance.slots.Length; i++)
+        {
+            if(HUD.instance.hotKey[hotkey].items == Inventory.instance.slots[i].items)
+            {
+                selectedItem = Inventory.instance.slots[i];
+            }
+        }
         RemoveSelectedItem();
     }
     public void OnEquipButton()
@@ -277,12 +281,14 @@ public class Inventory : MonoBehaviour
     }
     public void OnUnEquipButton()
     {
+        selectedItem.isEquipped = false;
         if (selectedItem.items.equipType == EquipType.Weapon)
             equipScript.UnEquipItem(selectedItemIndex, 0);
         else if (selectedItem.items.equipType == EquipType.Top)
             equipScript.UnEquipItem(selectedItemIndex, 1);
         else if (selectedItem.items.equipType == EquipType.Bottom)
             equipScript.UnEquipItem(selectedItemIndex, 2);
+        
 
         UpdateButtons();
     }
@@ -291,6 +297,7 @@ public class Inventory : MonoBehaviour
         ThrowItem(selectedItem.items);
         UpdateButtons();
         RemoveSelectedItem();
+        selectedItem.isEquipped = false;
     }
     public void OnQuitButton()
     {
@@ -323,19 +330,16 @@ public class Inventory : MonoBehaviour
         }
         UpdateUI();
     }
-    public void RemoveItem(ItemSO item)
-    {
-
-    }
+  
     public int EquippedItemIndex()//장비 아이템의 타입에 따라 0,1,2번 장비슬롯의 번호를 반환합니다. 매개변수로 사용됩니다.
     {
-        for (int i = 0; i<equipitems.Length; i++)
+        for (int i = 0; i < equipitems.Length; i++)
         {
             if (equipitems[i].items == null)
                 return -1;
             else
             {
-                if(equipitems[i].items.equipType == EquipType.Weapon)
+                if (equipitems[i].items.equipType == EquipType.Weapon)
                 {
                     return 0;
                 }
@@ -348,10 +352,10 @@ public class Inventory : MonoBehaviour
                     return 2;
                 }
             }
-                
+
         }
         return -1;
     }
 
-   
+
 }

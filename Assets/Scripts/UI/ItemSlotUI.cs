@@ -22,7 +22,7 @@ public class ItemSlotUI : MonoBehaviour
     {
         if (_curSlot == null)
             return;
-        equipMark.SetActive(isEquipped);
+        equipMark.SetActive(_curSlot.isEquipped);
     }
 
     public void Set(ItemSlot slot)
@@ -31,6 +31,7 @@ public class ItemSlotUI : MonoBehaviour
         icon.gameObject.SetActive(true);
         icon.sprite = slot.items.itemSprite;
         quantityText.text = slot.quantity > 1 ? slot.quantity.ToString() : string.Empty;
+        equipMark.SetActive(_curSlot.isEquipped);
 
     }
 
@@ -50,7 +51,7 @@ public class ItemSlotUI : MonoBehaviour
 
             for (int i = 0; i < HUD.instance.quickUI.Length; i++)
             {
-                if (HUD.instance.quickUI[i].CurSlot != null && HUD.instance.quickUI[i].CurSlot.items == _curSlot.items)
+                if (HUD.instance.quickUI[i].curSlot != null && HUD.instance.quickUI[i].curSlot.items == _curSlot.items)
                 {
                     HUD.instance.quickUI[i].Clear();
                 }
