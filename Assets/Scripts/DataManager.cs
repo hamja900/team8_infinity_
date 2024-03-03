@@ -17,7 +17,6 @@ public class SaveData
     public float exp;
     public float maxExp;
     public int level;
-    public bool isEquipped;
 
     public ItemSlot[] slots = new ItemSlot[Inventory.instance.slots.Length];
     public ItemSlot[] equipitems = new ItemSlot[Inventory.instance.equipitems.Length];
@@ -57,12 +56,14 @@ public class DataManager : SingletoneBase<DataManager>
                 for (int i = 0; i < saveData.slots.Length; i++)
                 {
                     Inventory.instance.slots[i] = saveData.slots[i];
+                    Inventory.instance.slots[i].isEquipped = saveData.slots[i].isEquipped;
                 }
 
                 for (int j = 0; j < saveData.equipitems.Length; j++)
                 {
                     Inventory.instance.equipitems[j] = saveData.equipitems[j];
-                    Inventory.instance.equipScript.UpdateEquipUI();
+
+                    
                 }
 
                 for (int k = 0; k < saveData.hotKey.Length; k++)
@@ -81,7 +82,8 @@ public class DataManager : SingletoneBase<DataManager>
                 //}
                 HUD.instance.UpdateQuickSlotUI();
                 Inventory.instance.UpdateUI();
-                
+                Inventory.instance.equipScript.UpdateEquipMark();
+                Inventory.instance.equipScript.UpdateEquipUI();
                 
 
                 playerStats.hp = saveData.hp;
@@ -109,11 +111,13 @@ public class DataManager : SingletoneBase<DataManager>
         {
             saveData.slots[i] = new ItemSlot();
             saveData.slots[i] = Inventory.instance.slots[i];
+            saveData.slots[i].isEquipped = Inventory.instance.slots[i].isEquipped;
         }
         for (int j = 0; j < Inventory.instance.equipitems.Length; j++)
         {
             saveData.equipitems[j] = new ItemSlot();
             saveData.equipitems[j] = Inventory.instance.equipitems[j];
+          
         }
         for (int k = 0; k < HUD.instance.hotKey.Length; k++)
         {

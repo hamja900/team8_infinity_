@@ -1,120 +1,137 @@
 {
-    "hp": 20.0,
+    "hp": 15.0,
     "maxHp": 20.0,
-    "hunger": 4460.0,
+    "hunger": 4450.0,
     "maxHunger": 4500.0,
     "exp": 0.0,
     "maxExp": 20.0,
     "level": 1,
-    "isEquipped": false,
     "slots": [
         {
             "items": {
                 "instanceID": 26004
             },
-            "quantity": 1
+            "quantity": 1,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 26006
             },
-            "quantity": 1
+            "quantity": 1,
+            "isEquipped": true
         },
         {
             "items": {
                 "instanceID": 25842
             },
-            "quantity": 1
-        },
-        {
-            "items": {
-                "instanceID": 25782
-            },
-            "quantity": 2
+            "quantity": 1,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 26036
             },
-            "quantity": 1
+            "quantity": 1,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 25774
             },
-            "quantity": 1
+            "quantity": 1,
+            "isEquipped": true
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
         }
     ],
     "equipitems": [
@@ -122,19 +139,22 @@
             "items": {
                 "instanceID": 25774
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 26036
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         }
     ],
     "hotKey": [
@@ -142,49 +162,57 @@
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
-        },
-        {
-            "items": {
-                "instanceID": 25782
-            },
-            "quantity": 2
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
         },
         {
             "items": {
                 "instanceID": 0
             },
-            "quantity": 0
+            "quantity": 0,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
+            "isEquipped": false
         }
     ]
 }

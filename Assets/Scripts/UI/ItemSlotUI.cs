@@ -22,7 +22,7 @@ public class ItemSlotUI : MonoBehaviour
     {
         if (_curSlot == null)
             return;
-        equipMark.SetActive(isEquipped);
+        equipMark.SetActive(_curSlot.isEquipped);
     }
 
     public void Set(ItemSlot slot)
@@ -31,7 +31,7 @@ public class ItemSlotUI : MonoBehaviour
         icon.gameObject.SetActive(true);
         icon.sprite = slot.items.itemSprite;
         quantityText.text = slot.quantity > 1 ? slot.quantity.ToString() : string.Empty;
-        equipMark.SetActive(isEquipped);
+        equipMark.SetActive(_curSlot.isEquipped);
 
     }
 
