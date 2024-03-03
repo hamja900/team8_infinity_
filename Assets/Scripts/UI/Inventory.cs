@@ -264,7 +264,13 @@ public class Inventory : MonoBehaviour
                     break;
             }
         }
-        selectedItem = HUD.instance.quickUI[hotkey].curSlot;
+        for (int i = 0; i < Inventory.instance.slots.Length; i++)
+        {
+            if(HUD.instance.hotKey[hotkey].items == Inventory.instance.slots[i].items)
+            {
+                selectedItem = Inventory.instance.slots[i];
+            }
+        }
         RemoveSelectedItem();
     }
     public void OnEquipButton()
@@ -326,13 +332,13 @@ public class Inventory : MonoBehaviour
     }
     public int EquippedItemIndex()//장비 아이템의 타입에 따라 0,1,2번 장비슬롯의 번호를 반환합니다. 매개변수로 사용됩니다.
     {
-        for (int i = 0; i<equipitems.Length; i++)
+        for (int i = 0; i < equipitems.Length; i++)
         {
             if (equipitems[i].items == null)
                 return -1;
             else
             {
-                if(equipitems[i].items.equipType == EquipType.Weapon)
+                if (equipitems[i].items.equipType == EquipType.Weapon)
                 {
                     return 0;
                 }
@@ -345,10 +351,10 @@ public class Inventory : MonoBehaviour
                     return 2;
                 }
             }
-                
+
         }
         return -1;
     }
 
-   
+
 }
