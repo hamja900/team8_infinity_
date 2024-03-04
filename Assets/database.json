@@ -6,40 +6,41 @@
     "exp": 0.0,
     "maxExp": 20.0,
     "level": 1,
+    "dungeonLevel": 0,
     "slots": [
         {
             "items": {
-                "instanceID": 26016
+                "instanceID": 26004
             },
             "quantity": 1,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 26018
-            },
-            "quantity": 1,
-            "isEquipped": false
-        },
-        {
-            "items": {
-                "instanceID": 25854
-            },
-            "quantity": 1,
-            "isEquipped": false
-        },
-        {
-            "items": {
-                "instanceID": 25786
+                "instanceID": 26006
             },
             "quantity": 1,
             "isEquipped": true
         },
         {
             "items": {
-                "instanceID": 26048
+                "instanceID": 25842
             },
             "quantity": 1,
+            "isEquipped": false
+        },
+        {
+            "items": {
+                "instanceID": 25774
+            },
+            "quantity": 1,
+            "isEquipped": true
+        },
+        {
+            "items": {
+                "instanceID": 0
+            },
+            "quantity": 0,
             "isEquipped": false
         },
         {
@@ -137,14 +138,14 @@
     "equipitems": [
         {
             "items": {
-                "instanceID": 25786
+                "instanceID": 25774
             },
             "quantity": 0,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 26006
             },
             "quantity": 0,
             "isEquipped": false
@@ -174,9 +175,9 @@
         },
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 25842
             },
-            "quantity": 0,
+            "quantity": 1,
             "isEquipped": false
         },
         {

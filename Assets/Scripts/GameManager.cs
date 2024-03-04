@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : SingletoneBase<GameManager>
 {
     public event Action OnEnemyDie;
-    
+
+    public int clearRoomNum = 0;
+
 
 
     // Start is called before the first frame update
