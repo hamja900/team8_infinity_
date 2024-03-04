@@ -93,6 +93,8 @@ public class GameManager : SingletoneBase<GameManager>
     {
         foreach(var go in CurrentEnemyList)
         {
+            if (go == null) continue;
+            go.GetComponent<EnemyController>().ReleaseEnemyTurn();
             Destroy(go);
         }
         CurrentEnemyList.Clear();

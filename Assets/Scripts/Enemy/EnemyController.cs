@@ -266,7 +266,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        //if (currentHealth > 0) return;
+        ReleaseEnemyTurn();
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         EndOfEnemyTurn();
         DropReward();
@@ -298,7 +298,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    private void OnDestroy()
+    public void ReleaseEnemyTurn()
     {
         TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
