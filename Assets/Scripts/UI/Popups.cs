@@ -20,7 +20,6 @@ public class Popups : MonoBehaviour
 
     public void OnRetryButton()
     {
-
+        SceneManager.LoadScene("MainScene");
     }
-
 }
