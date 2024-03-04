@@ -31,8 +31,8 @@ public class MakeRandomMap : MonoBehaviour
 
     private void Start()
     {
-        //TileManager.I.OnTilemapInfoSet += SetTileState;
-        StartRandomMap();
+        GameManager.I.OnEnemyPrefabReady += StartRandomMap;
+        //StartRandomMap();
         entrance.SetActive(true);
     }
     public void PlusCount()
@@ -72,8 +72,18 @@ public class MakeRandomMap : MonoBehaviour
         //플레이어 스폰위치
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //몬스터 스폰위치
-        //Instantiate(Orc);
-        //Instantiate(Slime);
+
+        foreach (var go in GameManager.I.RandomEnemyPrefab)
+        {
+            int randomAmount = Random.Range(0, 2);
+
+            for (int i = 0; i < divideSpace.spaceList.Count; i++)
+            {
+                Debug.Log($"Enemy Instantiate {go.name}");
+                Instantiate(go);
+                go.transform.position = (Vector2)divideSpace.spaceList[i].GetRandomPosition();
+            }
+        }
 
         //출구, 함정 스폰
         Stairs();

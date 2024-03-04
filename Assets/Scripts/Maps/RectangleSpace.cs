@@ -22,4 +22,21 @@ public class RectangleSpace
     {
         return new Vector2Int(((leftDown.x * 2) + width - 1) / 2, ((leftDown.y * 2) + height - 1) / 2);
     }
+
+    public Vector2Int GetRandomPosition()
+    {
+        //Vector2Int maxPosition = new Vector2Int(leftDown.x + width, leftDown.y + height);
+
+        //int posX = leftDown.x + Random.Range(0, maxPosition.x);
+        //int posY = leftDown.y + Random.Range(0, maxPosition.y);
+
+        //return new Vector2Int(posX, posY);
+
+        Vector2Int pos = Center();
+
+        int posX = Random.Range(pos.x - width / 2 + 3, pos.x + width / 2 - 3);
+        int posY = Random.Range(pos.y - height / 2 + 3, pos.y + height / 2 - 3);
+
+        return new Vector2Int(posX, posY);
+    }
 }
