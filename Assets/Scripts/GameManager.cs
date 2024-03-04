@@ -8,7 +8,9 @@ public class GameManager : SingletoneBase<GameManager>
     public event Action OnTilemapReady;
     public event Action OnEnemyPrefabReady;
 
-    public int clearRoomNum = 0;
+    public int clearRoomNum = 1;
+
+
 
     public List<GameObject> EnemyPrefab = new List<GameObject>();
 
@@ -61,12 +63,10 @@ public class GameManager : SingletoneBase<GameManager>
                 }
             }
         }
-
         foreach (var go in RandomEnemyPrefab)
         {
             Debug.Log(go.name.ToString());
         }
-
         OnEnemyPrefabReady?.Invoke();
     }
 
