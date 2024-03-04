@@ -7,75 +7,75 @@
             "actions": [
                 {
                     "name": "Q",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "3380c869-2583-4577-8834-8e2d9ec158bb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "W",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "5df9f53e-7b75-4430-9ab7-0de235948806",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "E",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "4d617a0b-62cc-4c06-86cf-cc0efd1c41ce",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "A",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "01bb0bc5-8cec-43a5-804c-ad5f77f55ff0",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "D",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "9a0258c0-fd52-4247-af81-389cb6390302",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Z",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6120e152-4823-46df-b49d-906b3dd83096",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "X",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "708fbf0a-3ac1-4c52-813d-f76950d8618a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "C",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "8b1d63ab-1e6e-4676-a424-8f32b3e56018",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "1",

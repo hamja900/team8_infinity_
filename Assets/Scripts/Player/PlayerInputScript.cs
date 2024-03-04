@@ -15,6 +15,7 @@ public class PlayerInputScript : MonoBehaviour
 {
     PlayerAttack attack;
     PlayerMove move;
+    Coroutine MoveCorCheck;
     private void Awake()
     {
         move = GetComponent<PlayerMove>();
@@ -22,61 +23,96 @@ public class PlayerInputScript : MonoBehaviour
     }
     #region Inputs
     //-------------move-----------
+    IEnumerator MoveCor(Dir dir)
+    {
+        while (true)
+        {
+            if (TuenManager.I.isPlayerTurn)
+            {
+                move.CanMove(dir);
+            }
+            yield return null;
+        }
+    }
     public void OnQ()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.q);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.q));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnW()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.w);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.w));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnE()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.e);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.e));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnA()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.a);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.a));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnD()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.d);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.d));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnZ()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.z);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.z));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnX()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.x);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.x));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnC()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.c);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.c));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     //---------------Move----------
     //--------------Stop-----------
