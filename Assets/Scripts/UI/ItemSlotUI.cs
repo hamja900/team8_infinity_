@@ -22,7 +22,7 @@ public class ItemSlotUI : MonoBehaviour
     {
         if (_curSlot == null)
             return;
-        equipMark.SetActive(isEquipped);
+        equipMark.SetActive(_curSlot.isEquipped);
     }
 
     public void Set(ItemSlot slot)
@@ -31,6 +31,7 @@ public class ItemSlotUI : MonoBehaviour
         icon.gameObject.SetActive(true);
         icon.sprite = slot.items.itemSprite;
         quantityText.text = slot.quantity > 1 ? slot.quantity.ToString() : string.Empty;
+        equipMark.SetActive(_curSlot.isEquipped);
 
     }
 
@@ -45,10 +46,17 @@ public class ItemSlotUI : MonoBehaviour
         if (Inventory.instance.itemResisterMode)
         {
             int hotkeyIndex = HUD.instance.previousSelectedHotKeyIndex;
-            if (_curSlot.items == null || _curSlot.items.itemType == ItemType.Equipable)
+            if (_curSlot == null || _curSlot.items == null || _curSlot.items.itemType == ItemType.Equipable)
                 return;
 
-            HUD.instance.hotKey[hotkeyIndex].items = _curSlot.items;
+            for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+            {
+                if (HUD.instance.quickUI[i].curSlot != null && HUD.instance.quickUI[i].curSlot.items == _curSlot.items)
+                {
+                    HUD.instance.quickUI[i].Clear();
+                }
+            }
+            HUD.instance.hotKey[hotkeyIndex] = _curSlot;
             HUD.instance.quickUI[hotkeyIndex].Set(_curSlot);
 
             Inventory.instance.itemResisterMode = false;

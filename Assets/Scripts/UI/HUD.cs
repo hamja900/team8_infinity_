@@ -51,6 +51,7 @@ public class HUD : MonoBehaviour
         UpdatePlayerHpBar();
         UpdatePlayerLevelandExpBar();
         UpdatePlayerHungerBar();
+        UpdateDungeonLevel();
         //TuenManager.I.MonsterTurn += UpdatePlayerHpBar;
     }
 
@@ -76,7 +77,7 @@ public class HUD : MonoBehaviour
     }
     public void UpdateDungeonLevel()
     {
-
+        _dungeonLevelText.text = GameManager.I.clearRoomNum.ToString()+"Ãþ";
     }
 
     public void OnNextTurnButton()
@@ -109,6 +110,7 @@ public class HUD : MonoBehaviour
         {
             Instantiate(inventory,inventoryParent.transform);
         }
+        Inventory.instance.itemResisterMode = false;
     }
 
     public void ResisterHotKey()
@@ -128,10 +130,17 @@ public class HUD : MonoBehaviour
     {
         for(int i = 0; i < quickUI.Length; i++)
         {
-            if (hotKey[i].items == null)
+            if (hotKey[i] == null || hotKey[i].items == null)
             {
                 quickUI[i].Clear();
             }
+            else if (hotKey[i].items != null)
+            {
+                
+                quickUI[i].Set(hotKey[i]);
+
+            }
+          
         }
     }
 

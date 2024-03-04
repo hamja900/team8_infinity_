@@ -149,7 +149,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.612985, g: 0.8962264, b: 0.8513281, a: 0}
+  m_BackGroundColor: {r: 0.44028127, g: 0.9622642, b: 0.8764587, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -238,7 +238,7 @@ Transform:
   - {fileID: 5956502642687781482}
   - {fileID: 3324904456073014787}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3275774499645778815
 MonoBehaviour:
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 74ec6e7f0289d924093abee20b9bddec, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -549,6 +549,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3b955721-1ecf-4327-a07b-c405fad701b6
     m_ActionName: Player/F[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3275774499645778815}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnVInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b5f2c212-68f9-4bc7-b764-5c41a7e9fd96
+    m_ActionName: Player/V[/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -566,7 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cc2e37befca51478deda791c64e0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetUi: {fileID: 0}
 --- !u!114 &8741120154184103365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +606,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c02e9cadf93b34e83dad201e59fc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 20
+  maxHp: 20
+  hunger: 4500
+  maxHunger: 4500
+  exp: 0
+  maxExp: 20
+  level: 1
 --- !u!114 &2516298656691468794
 MonoBehaviour:
   m_ObjectHideFlags: 0

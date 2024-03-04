@@ -29,9 +29,11 @@ public class Entrance : MonoBehaviour
 
     public void YesButton()
     {
+        SoundManager.I.Play(SfxIndex.Walk,3);
         player.gameObject.GetComponent<PlayerInput>().enabled = true;
         makeRandomMap.PlusCount();
         makeRandomMap.StartRandomMap();
+        HUD.instance.UpdateDungeonLevel();
         MoveUI.SetActive(false);
     }
 

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public event Action PlayerDie;
+    public GameObject deadPopup;
+
     int attackSpeed  = 10;
     int moveSpeed = 10;
     public float hp  = 20;
@@ -30,23 +31,51 @@ public class PlayerStats : MonoBehaviour
     }
     public int Attack()
     {
-        return atk;//장비 여부 반영
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            return atk + Inventory.instance.equipUiSlots[0].curSlot.items.atk;
+        }
+        return atk;
     }
     public int GetDef()
     {
-        return def;//장비 여부 반영
+        if (Inventory.instance != null)
+        {
+            if (Inventory.instance.equipUiSlots[1].curSlot != null && Inventory.instance.equipUiSlots[2].curSlot != null)
+            {
+                return def + Inventory.instance.equipUiSlots[1].curSlot.items.def + Inventory.instance.equipUiSlots[2].curSlot.items.def;
+            }
+            if (Inventory.instance.equipUiSlots[1].curSlot != null)
+            {
+                return def + Inventory.instance.equipUiSlots[1].curSlot.items.def;
+            }
+            if (Inventory.instance.equipUiSlots[2].curSlot != null)
+            {
+                return def + Inventory.instance.equipUiSlots[2].curSlot.items.def;
+            }
+        }
+        return def;
     }
     public int AttackSpeed()
     {
-        return attackSpeed;//장비 여부 반영
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            return attackSpeed + Inventory.instance.equipUiSlots[0].curSlot.items.attackSpeed;
+        }
+        return attackSpeed;
     }
     public int MoveSpeed()
     {
         return moveSpeed;//상태 여부 반영
     }
-    public int AttackRange()
+    public void SetAttackRange()
     {
-        return attackRange;//장비 여부 반영
+        int totalRange = attackRange;
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            totalRange = attackRange + Inventory.instance.equipUiSlots[0].curSlot.items.attackRange;
+        }
+        GetComponent<BoxCollider2D>().size = new Vector2(totalRange, totalRange);
     }
     public void GetExp(int exp)
     {
@@ -107,14 +136,22 @@ public class PlayerStats : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
-            PlayerDie?.Invoke();
+            PlayerDie();
         }
     }
     void LvUp()
     {
         exp -= maxExp;
         level++;
-        hp += 5;
         maxHp += 5;
+        hp = maxHp;
+        atk += 4;
+        def += 3;
     }
+
+    public void PlayerDie()
+    {
+        deadPopup.SetActive(true);
+    }
+    
 }

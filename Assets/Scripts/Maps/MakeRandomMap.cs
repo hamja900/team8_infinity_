@@ -25,7 +25,7 @@ public class MakeRandomMap : MonoBehaviour
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
-    private int clearRoomNum = 0;
+    //private int clearRoomNum = 0;
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class MakeRandomMap : MonoBehaviour
     }
     public void PlusCount()
     {
-        clearRoomNum++;
+        GameManager.I.clearRoomNum++;
     }
     public void StartRandomMap()
     {
@@ -70,18 +70,18 @@ public class MakeRandomMap : MonoBehaviour
     private void Stairs()
     {
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
-        if (clearRoomNum == 2)
+        if (GameManager.I.clearRoomNum == 2)
         {
             //entrance.SetActive(false);
             //중간보스 최종보스 처리했을때 true로 바꾸기
             //if
             Debug.Log("중간보스룸");
         }
-        else if(clearRoomNum == 4)
+        else if(GameManager.I.clearRoomNum == 4)
         {
             Debug.Log("최종보스룸");
         }
-        else if(clearRoomNum == 5)
+        else if(GameManager.I.clearRoomNum == 5)
         {
             //엔딩씬 출력
             Debug.Log("게임 완료");

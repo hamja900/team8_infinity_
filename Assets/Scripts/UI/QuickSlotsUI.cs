@@ -8,7 +8,7 @@ public class QuickSlotsUI : MonoBehaviour
 {
     public UnityEngine.UI.Image icon;
     public Button button;
-    private ItemSlot curSlot;
+    public ItemSlot curSlot { get; private set; }
 
     public int index;
 

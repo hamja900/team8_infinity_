@@ -7,7 +7,8 @@ public class ItemScript : MonoBehaviour
     public ItemSO itemSO;
     public Transform player;
 
-    private void Awake()
+
+    private void Start()
     {
         player = HUD.instance.player.transform;
     }
@@ -16,8 +17,23 @@ public class ItemScript : MonoBehaviour
         float distance = Vector2.Distance(player.position,transform.position); 
         if (distance <= 1)
         {
+            if (Inventory.instance == null)
+            {
+                HUD.instance.OnInventoryButton();
+                StartCoroutine(WaitForInven());
+                return;
+            }
+            SoundManager.I.Play(SfxIndex.PickUpSound);
             Inventory.instance.AddItem(itemSO);
             Destroy(gameObject);
         }
+    }
+    IEnumerator WaitForInven()
+    {
+        yield return null;
+        SoundManager.I.Play(SfxIndex.PickUpSound);
+        Inventory.instance.AddItem(itemSO);
+        HUD.instance.inventoryParent.transform.GetChild(0).gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
