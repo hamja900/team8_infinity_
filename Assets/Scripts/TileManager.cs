@@ -8,7 +8,9 @@ public class TileManager : SingletoneBase<TileManager>
     public Dictionary<Vector3Int, bool> isObjectOnTile = new Dictionary<Vector3Int, bool>();
     public Tilemap tilemap;
     public Tilemap Wall;
-    public Transform Player {  get; private set; }
+    public Transform Player { get; private set; }
+
+    public List<GameObject> enemyPrefab = new List<GameObject>();
 
     public event Action OnTilemapInfoSet;
 
@@ -21,12 +23,11 @@ public class TileManager : SingletoneBase<TileManager>
     void Start()
     {
         GameManager.I.OnTilemapReady += InitTilemapInfo;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach(var enemy in GameManager.I.enemySO)
+        {
+            enemyPrefab.Add(enemy.enemyPrefab);
+        }
     }
 
     public void InitTilemapInfo()
