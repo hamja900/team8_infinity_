@@ -294,10 +294,10 @@ public class Inventory : MonoBehaviour
     }
     public void OnDropButton()
     {
+        selectedItem.isEquipped = false;
         ThrowItem(selectedItem.items);
         UpdateButtons();
         RemoveSelectedItem();
-        selectedItem.isEquipped = false;
     }
     public void OnQuitButton()
     {
