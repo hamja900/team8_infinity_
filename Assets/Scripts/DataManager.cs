@@ -150,4 +150,9 @@ public class DataManager : SingletoneBase<DataManager>
         File.WriteAllText(path, json);
 
     }
+
+    public void RemoveSaveData()
+    {
+        File.Delete(path);
+    }
 }
