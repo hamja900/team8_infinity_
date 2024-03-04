@@ -18,7 +18,7 @@ MonoBehaviour:
   itemType: 1
   dropPrefab: {fileID: 9183976415729574656, guid: 95789d7d79299324798f5343ae147182, type: 3}
   canStack: 1
-  maxStack: 10
+  maxStack: 99
   expendType: 1
   healPoint: 10
   HungerPoint: 0
