@@ -18,6 +18,7 @@ public class MakeRandomMap : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject entrance;
+    [SerializeField] private GameObject trap;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
@@ -32,6 +33,17 @@ public class MakeRandomMap : MonoBehaviour
     public void PlusCount()
     {
         clearRoomNum++;
+    }
+    public void MinusCount()
+    {
+        if (clearRoomNum == 0)
+        {
+            clearRoomNum = 0;
+        }
+        else
+        {
+            clearRoomNum--;
+        }
     }
     public void StartRandomMap()
     {
@@ -58,6 +70,19 @@ public class MakeRandomMap : MonoBehaviour
 
         //출구 스폰위치 <-플레이어에서 제일 먼 방에 생성 + 보스도 같은방에 생성
         Stairs();
+        //함정 스폰위치
+        ShowTrap();
+        Debug.Log("현재 클리어한 방 개수는 " + clearRoomNum);
+    }
+    private void ShowTrap()
+    {
+        int num = Random.Range(1, 4);
+        Debug.Log(num);
+        if(num >= 2)
+        {
+            trap.SetActive(true);
+        }
+        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
     }
     private void Stairs()
     {
