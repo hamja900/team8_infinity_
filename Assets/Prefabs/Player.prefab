@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: -6342241245146142518, guid: d90d7a221c51b3d47a20a1c27617d7c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -238,7 +238,7 @@ Transform:
   - {fileID: 5956502642687781482}
   - {fileID: 3324904456073014787}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3275774499645778815
 MonoBehaviour:
@@ -606,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c02e9cadf93b34e83dad201e59fc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadPopup: {fileID: 0}
   hp: 20
   maxHp: 20
   hunger: 4500

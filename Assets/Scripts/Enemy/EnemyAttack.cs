@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using static UnityEditor.PlayerSettings;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -32,7 +30,7 @@ public class EnemyAttack : MonoBehaviour
             if (!_controller.isChargeAttack)
             {
                 _controller.EnemyAnimation.TriggerAnimation("Charge");
-                ToggleAttackRange(0, 1, 0, 65);
+                //ToggleAttackRange(0, 1, 0, 65);
                 _controller.ExitState(EnemyState.Attacking);
                 _controller.SetEnemyState(EnemyState.Idle);
             }
@@ -45,7 +43,7 @@ public class EnemyAttack : MonoBehaviour
                 Collider2D hit = Physics2D.OverlapBox(attackPoint.transform.position, new Vector2(1.5f, 1.5f), 0, LayerMask.GetMask("Player"));
                 if(hit != null) _playerDamage.TakeDamage(_controller.EnemyData.enemyAtk);
 
-                ToggleAttackRange(0, 1, 0, 0);
+                //ToggleAttackRange(0, 1, 0, 0);
             }
 
             _controller.isChargeAttack = !_controller.isChargeAttack;
@@ -55,7 +53,7 @@ public class EnemyAttack : MonoBehaviour
             if (!_controller.isChargeAttack)
             {
                 _controller.EnemyAnimation.TriggerAnimation("Charge");
-                ToggleAttackRange(0, 0, 1, 65);
+                //ToggleAttackRange(0, 0, 1, 65);
                 _controller.ExitState(EnemyState.Attacking);
                 _controller.SetEnemyState(EnemyState.Idle);
             }
@@ -68,7 +66,7 @@ public class EnemyAttack : MonoBehaviour
                 Collider2D hit = Physics2D.OverlapBox(attackPoint.transform.position, new Vector2(3.5f, 3.5f), 0, LayerMask.GetMask("Player"));
                 if (hit != null) _playerDamage.TakeDamage(_controller.EnemyData.enemyAtk);
 
-                ToggleAttackRange(0, 0, 1, 0);
+                //ToggleAttackRange(0, 0, 1, 0);
             }
 
             _controller.isChargeAttack = !_controller.isChargeAttack;
