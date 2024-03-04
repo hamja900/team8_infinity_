@@ -287,7 +287,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             return;
         foreach (var item in EnemyData.dropTable)
         {
-            if (UnityEngine.Random.Range(0,1) <= item.percent)
+            if (UnityEngine.Random.Range(0f,2f) < item.percent)
             {
                 Instantiate(item.dropTable, transform.position, Quaternion.Euler(Vector3.one));
             }
