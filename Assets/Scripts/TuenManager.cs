@@ -18,7 +18,7 @@ public class TuenManager : SingletoneBase<TuenManager>
         
         isPlayerTurn = false;
         curTurn = MonsterTurn.GetInvocationList().Count();
-        HowManyEntity = MonsterTurn.GetInvocationList().Count();
+        HowManyEntity = curTurn;
         StartCoroutine(StartMonsterTurn(useTurn));
         //MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
     }
@@ -38,9 +38,5 @@ public class TuenManager : SingletoneBase<TuenManager>
             isPlayerTurn = true;
         }
         OnEnemyTurnOver?.Invoke();
-    }
-    public void EntityDie()
-    {
-        HowManyEntity--;
     }
 }
