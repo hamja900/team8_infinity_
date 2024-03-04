@@ -5,15 +5,12 @@ using UnityEngine;
 
 public enum SfxIndex
 {
-    PAttackSound,PickUpSound,UsePotion,Walk
+    PAttackSound,PickUpSound,UsePotion,Walk,LvUp
 }
 
 public class SoundManager : SingletoneBase<SoundManager>
 {
     SoundData soundData;
-    [Header("Bgm")]
-    AudioSource _audio;
-    [Range(0, 1)] public float volum = 1;
     [Header("Sfx")]
     AudioSource[] chan;
     [Range(0, 1f)] public float volume = 1;
@@ -26,8 +23,6 @@ public class SoundManager : SingletoneBase<SoundManager>
             this.gameObject.AddComponent<AudioSource>().playOnAwake = false;
             chan[i] = gameObject.GetComponents<AudioSource>()[i];
         }
-        _audio = gameObject.AddComponent<AudioSource>();
-        _audio.playOnAwake = false;
     }
     public void Play(SfxIndex index)
     {
