@@ -10,6 +10,8 @@ public class GameManager : SingletoneBase<GameManager>
 
     public int clearRoomNum = 0;
 
+
+
     public List<EnemySO> enemySO = new List<EnemySO>();
 
     // Start is called before the first frame update

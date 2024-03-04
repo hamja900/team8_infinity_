@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class Option : MonoBehaviour
 {
-    [Range(0f,1f)]public float volume;
     public Slider volumeSlider;
     public GameObject optionWindow;
 
-    private void Start()
+ 
+    public void Update()
     {
-        volumeSlider.value = volume;
+         SoundManager.I.volume = volumeSlider.value;
     }
 
     public void OnMainMenuButton()
