@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 230666004120779753, guid: 63a38fb0130192c4e8011f5aada008ab, type: 3}
   enemyName: Slime
+  enemyType: 1
   enemyHealth: 20
   enemyMaxHealth: 20
   enemyAtk: 4
@@ -21,6 +22,7 @@ MonoBehaviour:
   enemyDetectRange: 5
   enemySafeRange: 0
   enemyDropExp: 0
+  dropTable: []
   enemyMoveCost: 20
   enemyAttackCost: 20
   leftOverTurn: 0

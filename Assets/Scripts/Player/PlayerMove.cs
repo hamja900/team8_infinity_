@@ -60,7 +60,6 @@ public class PlayerMove : MonoBehaviour
     }
     void Move(Vector2 direction)
     {
-        TileManager.I.ReleaceTilemapInfo(Vector3Int.FloorToInt(rigi.position));
         StartCoroutine(CharacterMove(direction));
     }
     IEnumerator CharacterMove(Vector2 dir)
@@ -75,7 +74,6 @@ public class PlayerMove : MonoBehaviour
         }
         //rigi.MovePosition(new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)));
         aniScript.MoveAnima(false);
-        TileManager.I.SetTilemapInfo(Vector3Int.FloorToInt(rigi.position));
         TuenManager.I.PlayerTurns(stats.MoveSpeed());
         IsMoveing = false;
     }

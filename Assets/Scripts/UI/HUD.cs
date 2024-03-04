@@ -20,7 +20,7 @@ public class HUD : MonoBehaviour
 
     public int previousSelectedHotKeyIndex = -1;
 
-    private PlayerStats _playerStats { get;  set; }
+    public PlayerStats _playerStats { get;  set; }
 
 
     [SerializeField] private Slider _playerHpSlider;

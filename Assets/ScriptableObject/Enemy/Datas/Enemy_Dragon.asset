@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4057527581106726761, guid: 5ed95df2ba4d6ca46b886a0ee63f4228, type: 3}
   enemyName: Dragon
+  enemyType: 1
   enemyHealth: 100
   enemyMaxHealth: 100
   enemyAtk: 5
@@ -21,6 +22,7 @@ MonoBehaviour:
   enemyDetectRange: 6
   enemySafeRange: 0
   enemyDropExp: 0
+  dropTable: []
   enemyMoveCost: 15
   enemyAttackCost: 20
   leftOverTurn: 0

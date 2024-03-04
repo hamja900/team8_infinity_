@@ -1,11 +1,18 @@
 using System;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Normal,
+    Boss
+}
+
 [CreateAssetMenu(menuName = "Enemy", fileName = "Enemy_")]
 public class EnemySO : ScriptableObject
 {
     public GameObject enemyPrefab;
     public string enemyName;
+    public EnemyType enemyType;
     public int enemyHealth;
     public int enemyMaxHealth;
     public int enemyAtk;
