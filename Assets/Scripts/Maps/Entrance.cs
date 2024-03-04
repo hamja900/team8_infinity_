@@ -7,7 +7,9 @@ public class Entrance : MonoBehaviour
 {
     [SerializeField] MakeRandomMap makeRandomMap;
     [SerializeField] private GameObject MoveUI;
+    
     GameObject player;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //TODO
