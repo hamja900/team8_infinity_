@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -151,6 +152,7 @@ public class PlayerStats : MonoBehaviour
 
     public void PlayerDie()
     {
+        gameObject.GetComponent<PlayerInput>().enabled = false;
         deadPopup.SetActive(true);
     }
     
