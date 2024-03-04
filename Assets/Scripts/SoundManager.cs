@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum SfxIndex
 {
-    PAttackSound,PickUpSound,UsePotion,Walk
+    PAttackSound,PickUpSound,UsePotion,Walk,LvUp
 }
 
 public class SoundManager : SingletoneBase<SoundManager>

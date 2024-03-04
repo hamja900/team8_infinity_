@@ -142,7 +142,7 @@ public class PlayerStats : MonoBehaviour
     }
     void LvUp()
     {
-        //LvUpSFX
+        SoundManager.I.Play(SfxIndex.LvUp);
         exp -= maxExp;
         level++;
         maxHp += 5;
