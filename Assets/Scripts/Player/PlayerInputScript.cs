@@ -35,7 +35,7 @@ public class PlayerInputScript : MonoBehaviour
             }
             if (TuenManager.I.HowManyEntity == 1) // 1 == player Only
             {
-                yield return MoveCorCheck;
+                yield return MoveDelay;
                 continue;
             }
             yield return null;

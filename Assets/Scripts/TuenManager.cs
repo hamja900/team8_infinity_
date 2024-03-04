@@ -39,4 +39,8 @@ public class TuenManager : SingletoneBase<TuenManager>
         }
         OnEnemyTurnOver?.Invoke();
     }
+    public void EntityDie()
+    {
+        HowManyEntity--;
+    }
 }
