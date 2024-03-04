@@ -1,5 +1,5 @@
 {
-    "hp": 20.0,
+    "hp": 15.0,
     "maxHp": 20.0,
     "hunger": 4480.0,
     "maxHunger": 4500.0,
@@ -13,7 +13,7 @@
                 "instanceID": 26004
             },
             "quantity": 1,
-            "isEquipped": false
+            "isEquipped": true
         },
         {
             "items": {
@@ -31,10 +31,10 @@
         },
         {
             "items": {
-                "instanceID": 25774
+                "instanceID": 25782
             },
             "quantity": 1,
-            "isEquipped": true
+            "isEquipped": false
         },
         {
             "items": {
@@ -138,7 +138,7 @@
     "equipitems": [
         {
             "items": {
-                "instanceID": 25774
+                "instanceID": 26004
             },
             "quantity": 0,
             "isEquipped": false
@@ -175,16 +175,16 @@
         },
         {
             "items": {
-                "instanceID": 25842
+                "instanceID": 0
             },
-            "quantity": 1,
+            "quantity": 0,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 0
+                "instanceID": 25842
             },
-            "quantity": 0,
+            "quantity": 1,
             "isEquipped": false
         },
         {
