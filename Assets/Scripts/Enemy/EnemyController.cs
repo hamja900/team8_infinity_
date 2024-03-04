@@ -145,7 +145,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             if (Target.transform.position.x - transform.position.x < 0) SpriteRenderer.flipX = true;
             else SpriteRenderer.flipX = false;
 
-            Debug.Log("IsInChasingRange");
+            //Debug.Log("IsInChasingRange");
 
             if (!IsTurnOver(EnemyState.Chasing))
                 SetEnemyState(EnemyState.Chasing);

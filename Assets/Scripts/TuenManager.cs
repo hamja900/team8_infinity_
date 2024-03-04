@@ -36,7 +36,7 @@ public class TuenManager : SingletoneBase<TuenManager>
 
     public void EnemyTurnOver()
     {
-        Debug.Log("Enemy Turn Over");
+        //Debug.Log("Enemy Turn Over");
         curTurn--;
         if (curTurn == 0)
         {

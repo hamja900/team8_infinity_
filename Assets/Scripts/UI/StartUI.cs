@@ -33,7 +33,7 @@ public class StartUI : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("TutorialScene");
         }
     }
 
@@ -52,7 +52,7 @@ public class StartUI : MonoBehaviour
     public void YesButton()
     {
         File.Delete(path);
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void NoAndConfirmButton()
