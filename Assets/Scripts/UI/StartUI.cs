@@ -10,7 +10,7 @@ public class StartUI : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("TutorialScene");
         }
     }
 }
