@@ -13,12 +13,15 @@ public class Entrance : MonoBehaviour
         //TODO
         //플레이어 받으면 TAG로 변경
         //플레이어가 계단에 닿으면 팝업? 선택지? 출현
-        if (collision.gameObject.name == "Player")
+        if (makeRandomMap.MidBoss == null && makeRandomMap.FinalBoss == null)
         {
-            MoveUI.SetActive(true);
-            player = collision.gameObject;
-            collision.gameObject.GetComponent<PlayerInput>().enabled = false;
-            StartCoroutine(PuzGame());
+            if (collision.gameObject.name == "Player")
+            {
+                MoveUI.SetActive(true);
+                player = collision.gameObject;
+                collision.gameObject.GetComponent<PlayerInput>().enabled = false;
+                StartCoroutine(PuzGame());
+            }
         }
     }
 

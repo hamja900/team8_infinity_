@@ -25,11 +25,14 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField] private GameObject Orc;
     [SerializeField] private GameObject Slime;
 
+    public GameObject MidBoss;
+    public GameObject FinalBoss;
+
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
     private int clearRoomNum = 0;
-    
+
     private void Start()
     {
         GameManager.I.OnEnemyPrefabReady += StartRandomMap;
@@ -92,9 +95,9 @@ public class MakeRandomMap : MonoBehaviour
     }
     private void Stairs()
     {
-        int num = Random.Range(2, 6);
+        int num = Random.Range(2, 4);
         Debug.Log(num);
-        if(num >= 2)
+        if(num >= 3)
         {
             trap.SetActive(true);
             damageTrap.SetActive(true);
@@ -102,27 +105,24 @@ public class MakeRandomMap : MonoBehaviour
         trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num - 1)].Center();
         damageTrap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num + 1)].Center();
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
+
         if (clearRoomNum == 2)
         {
-            SceneManager.LoadScene("EndingScene");
-            //entrance.SetActive(false);
-            //중간보스 최종보스 처리했을때 true로 바꾸기
-            //if
-            Debug.Log("중간보스룸");
+            MidBoss = Instantiate(GameManager.I.bossEnemyPrefab[1]);
+            MidBoss.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
         }
         else if(clearRoomNum == 4)
         {
-            Debug.Log("최종보스룸");
+            FinalBoss = Instantiate(GameManager.I.bossEnemyPrefab[0]);
+            FinalBoss.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
         }
         else if(clearRoomNum == 5)
         {
-            Debug.Log("게임 완료");
+            SceneManager.LoadScene("EndingScene");
         }
-        
     }
 
     // space리스트에 있는 모든 리스트의 MakeARandomRectangleRoom을 콜하고 리턴되는 방의좌표들을 UnionWith를 통해 floor에 추가
-    // UnionWith 는 HashSet의 함수인데 합집합이라고 생각하면 된다.
     private void MakeRandomRooms()
     {
         foreach(var space in divideSpace.spaceList)
