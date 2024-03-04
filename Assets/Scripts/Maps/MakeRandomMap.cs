@@ -40,9 +40,9 @@ public class MakeRandomMap : MonoBehaviour
     }
     public void MinusCount()
     {
-        if (GameManager.I.clearRoomNum == 0)
+        if (GameManager.I.clearRoomNum <= 1)
         {
-            GameManager.I.clearRoomNum = 0;
+            GameManager.I.clearRoomNum = 1;
         }
         else
         {
@@ -92,7 +92,7 @@ public class MakeRandomMap : MonoBehaviour
     {
         int num = Random.Range(2, 4);
         Debug.Log(num);
-        if(num >= 3)
+        if(num >= 2)
         {
             trap.SetActive(true);
         }
