@@ -1,31 +1,31 @@
 {
     "hp": 20.0,
     "maxHp": 20.0,
-    "hunger": 4440.0,
+    "hunger": 4500.0,
     "maxHunger": 4500.0,
     "exp": 0.0,
     "maxExp": 20.0,
     "level": 1,
-    "dungeonLevel": 0,
-    "volume": 0.054691195487976077,
+    "dungeonLevel": 1,
+    "volume": 1.0,
     "slots": [
         {
             "items": {
-                "instanceID": 26004
+                "instanceID": 26734
             },
             "quantity": 1,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 26006
+                "instanceID": 26736
             },
             "quantity": 1,
             "isEquipped": false
         },
         {
             "items": {
-                "instanceID": 25842
+                "instanceID": 10852
             },
             "quantity": 1,
             "isEquipped": false

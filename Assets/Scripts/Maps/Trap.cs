@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class Trap : MonoBehaviour
 {
     [SerializeField] MakeRandomMap makeRandomMap;
-    GameObject player;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,7 +19,9 @@ public class Trap : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         makeRandomMap.MinusCount(); // ¼öÁ¤
+        HUD.instance.UpdateDungeonLevel();
+        //makeRandomMap.StartRandomMap();
         GameManager.I.ReleaseAllEnemy();
-        makeRandomMap.StartRandomMap();
+        GameManager.I.MakeRandomEnemyList();
     }
 }

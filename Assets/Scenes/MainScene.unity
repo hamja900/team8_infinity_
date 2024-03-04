@@ -3219,15 +3219,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1541603584556895365, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.8764587
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1541603584556895365, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.9622642
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1541603584556895365, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.44028127
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1713022626032424387, guid: d00c82ba86f2bfb489034365c92a7368, type: 3}
       propertyPath: m_RootOrder
