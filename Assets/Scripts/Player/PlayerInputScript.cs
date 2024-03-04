@@ -16,8 +16,10 @@ public class PlayerInputScript : MonoBehaviour
     PlayerAttack attack;
     PlayerMove move;
     Coroutine MoveCorCheck;
+    WaitForSeconds MoveDelay;
     private void Awake()
     {
+        MoveDelay = new WaitForSeconds(0.3f);
         move = GetComponent<PlayerMove>();
         attack = GetComponent<PlayerAttack>();
     }
@@ -30,6 +32,11 @@ public class PlayerInputScript : MonoBehaviour
             if (TuenManager.I.isPlayerTurn)
             {
                 move.CanMove(dir);
+            }
+            if (TuenManager.I.HowManyEntity == 1) // 1 == player Only
+            {
+                yield return MoveCorCheck;
+                continue;
             }
             yield return null;
         }
