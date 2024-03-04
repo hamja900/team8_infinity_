@@ -19,7 +19,7 @@ public class PlayerInputScript : MonoBehaviour
     WaitForSeconds MoveDelay;
     private void Awake()
     {
-        MoveDelay = new WaitForSeconds(0.3f);
+        MoveDelay = new WaitForSeconds(0.2f);
         move = GetComponent<PlayerMove>();
         attack = GetComponent<PlayerAttack>();
     }
@@ -33,12 +33,7 @@ public class PlayerInputScript : MonoBehaviour
             {
                 move.CanMove(dir);
             }
-            if (TuenManager.I.HowManyEntity == 1) // 1 == player Only
-            {
-                yield return MoveDelay;
-                continue;
-            }
-            yield return null;
+            yield return MoveDelay;
         }
     }
     public void OnQ()
