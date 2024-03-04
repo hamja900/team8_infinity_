@@ -24,19 +24,19 @@ MonoBehaviour:
   enemyDropExp: 30
   dropTable:
   - dropTable: {fileID: 9183976415729574656, guid: 9eb59b590752a4e43b64369c91196cf2, type: 3}
-    percent: 0.1
+    percent: 0.05
   - dropTable: {fileID: 9183976415729574656, guid: e33b72e2816497548864ff6fb4d2486b, type: 3}
-    percent: 0.1
+    percent: 0.05
   - dropTable: {fileID: 9183976415729574656, guid: 7f15b9c7f11f1e34986dd7b151c0d3e6, type: 3}
-    percent: 0.1
+    percent: 0.05
   - dropTable: {fileID: 9183976415729574656, guid: d66fdae4fd91a2748b38c0154ab972f9, type: 3}
-    percent: 0.1
+    percent: 0.05
   - dropTable: {fileID: 9183976415729574656, guid: 95789d7d79299324798f5343ae147182, type: 3}
-    percent: 0.3
+    percent: 0.15
   - dropTable: {fileID: 9183976415729574656, guid: 7fa5a1ed0611c8a46902f5487093b689, type: 3}
-    percent: 0.1
+    percent: 0.05
   - dropTable: {fileID: 9183976415729574656, guid: 0d55b809077f26e4e84be0adcc2cf2e4, type: 3}
-    percent: 0.3
+    percent: 0.15
   enemyMoveCost: 10
   enemyAttackCost: 10
   leftOverTurn: 0
