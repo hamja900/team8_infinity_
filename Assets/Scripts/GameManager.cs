@@ -20,6 +20,7 @@ public class GameManager : SingletoneBase<GameManager>
     public List<GameObject> RandomEnemyPrefab = new List<GameObject>();
 
     public List<GameObject> CurrentEnemyList = new List<GameObject>();
+    public List<GameObject> ItemList = new List<GameObject>(); 
 
     // Start is called before the first frame update
     void Start()
@@ -98,5 +99,12 @@ public class GameManager : SingletoneBase<GameManager>
             Destroy(go);
         }
         CurrentEnemyList.Clear();
+    }
+    public void DestroyItem()
+    {
+        foreach (var item in ItemList)
+        {
+            Destroy(item.gameObject);
+        }
     }
 }
