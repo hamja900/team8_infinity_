@@ -33,10 +33,7 @@ public class TuenManager : SingletoneBase<TuenManager>
     IEnumerator StartMonsterTurn(int useTurn)
     {
         yield return new WaitForFixedUpdate();
-        for (currentMovingEnemy = 0; currentMovingEnemy < GameManager.I.CurrentEnemyList.Count; currentMovingEnemy++)
-        {
-            MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
-        }
+        MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
     }
 
     public void EnemyTurnOver()
