@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07120cbd6c7c13946b8e672a57f82e34, type: 3}
+  m_Name: Enemy_Slime
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 230666004120779753, guid: 63a38fb0130192c4e8011f5aada008ab, type: 3}
+  enemyName: Slime
+  enemyType: 1
+  enemyHealth: 20
+  enemyMaxHealth: 20
+  enemyAtk: 4
+  enemyAttackRange: 2
+  enemyDetectRange: 5
+  enemySafeRange: 0
+  enemyDropExp: 0
+  dropTable: []
+  enemyMoveCost: 20
+  enemyAttackCost: 20
+  leftOverTurn: 0

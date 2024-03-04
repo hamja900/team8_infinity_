@@ -5,30 +5,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EquipSlotUI : MonoBehaviour
-{
-    public Button button;
+{ 
     public UnityEngine.UI.Image icon;
-    private ItemSlot _curSlot;
+    public ItemSlot curSlot;
 
     public int index;
 
-    public void Set(ItemSO so)
+    public void Set(ItemSlot slot,int ind)
     {
-        _curSlot = Inventory.instance.equipSlots[index];
-        //_curSlot.items = so;
+        index = ind;
+        curSlot = slot;
         icon.gameObject.SetActive(true);
-        icon.sprite = so.itemSprite;
+        icon.sprite = slot.items.itemSprite;
+        HUD.instance.player.GetComponent<PlayerStats>().SetAttackRange();
     }
-
-
     public void Clear()
     {
-        _curSlot = null;
+        curSlot = null;
         icon.gameObject.SetActive(false);
+        index = -1;
+        HUD.instance.player.GetComponent<PlayerStats>().SetAttackRange();
     }
 
-    public void OnButtonClick()
-    {
-        Inventory.instance.SelectedItem(index);
-    }
+   
 }

@@ -12,10 +12,15 @@ public class PlayerGetDmg : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         damage -= stats.GetDef();
-        if (damage > 0)
+        if (damage <= 0)
         {
             damage = 0;
         }
         stats.GetDmg(damage);
+    }
+
+    public Vector2 Pos()
+    {
+        return (Vector2)transform.position;
     }
 }

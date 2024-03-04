@@ -3,17 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
     PlayerStats stats;
-    public event Action PAttackEvent;
+    public event Action<bool> PAttackEvent;
     public List<IDamageable> targets = new List<IDamageable>();
     IDamageable curTarget = null;
     int targetIndex;
+    bool isAttack = false;
+    RawImage targetUi;
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
+        if (targetUi == null)
+        {
+            GameObject temp = Instantiate(Resources.Load<GameObject>("TargetCanvas"));
+            targetUi = temp.GetComponentInChildren<RawImage>();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
             if (curTarget == null)
             {
                 curTarget = damageable;
+                TargetUiUpdate();
             }
         }
     }
@@ -31,11 +40,26 @@ public class PlayerAttack : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out IDamageable damageable))
         {
             targets.Remove(damageable);
-            if (curTarget == damageable) // 정확히 동작하는지 체크 해야함.
+            if (curTarget == damageable)
             {
                 ChangeTarget();
+                TargetUiUpdate();
             }
         }
+    }
+    void TargetUiUpdate()
+    {
+        if (curTarget == null)
+        {
+            if (targetUi == null)
+            {
+                return;
+            }
+            targetUi.enabled = false;
+            return;
+        }
+        targetUi.enabled = true;
+        targetUi.transform.position = curTarget.Pos();
     }
     public void ChangeTarget()
     {
@@ -50,18 +74,28 @@ public class PlayerAttack : MonoBehaviour
             targetIndex = 0;
         }
         curTarget = targets[targetIndex];
+        TargetUiUpdate();
     }
     public void CanAttack()
     {
-        if (curTarget == null || PlayerMove.IsMoveing)
+        if (curTarget == null || PlayerMove.IsMoveing || isAttack)
         {
             return;
         }
-        PAttackEvent?.Invoke();
+        isAttack = true;
+        Vector2 targetPos = curTarget.Pos();
+        Vector2 dir = (Vector2)transform.position - targetPos;
+        if (dir.x > 0)
+        {
+            PAttackEvent?.Invoke(true);
+            return;
+        }
+        PAttackEvent?.Invoke(false);
     }
     public void AttackEvent()
     {
         curTarget.TakeDamage(stats.Attack());
         TuenManager.I.PlayerTurns(stats.AttackSpeed());
+        isAttack = false;
     }
 }

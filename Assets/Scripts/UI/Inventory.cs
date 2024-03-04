@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -10,61 +12,67 @@ public class ItemSlot
 {
     public ItemSO items;
     public int quantity;
+    public bool isEquipped = false;
 }
 public class Inventory : MonoBehaviour
 {
-    public ItemSO testItem; ///테스트용장비
+    public ItemSO[] testItems;
 
-    public ItemSlotUI[] uiSlot;
+    public ItemSlotUI[] uiSlots;
+    public EquipSlotUI[] equipUiSlots;
     public ItemSlot[] slots;
-    public EquipSlotUI[] equipUiSlot;
-    public ItemSlot[] equipSlots = new ItemSlot[3];
+    public ItemSlot[] equipitems;
 
-    public GameObject inventoryPopup;
+    public Equip equipScript;
+    private PlayerStats playerStats;
+
+    public GameObject inventoryWindow;
     public Transform dropPosition;
 
     [Header("SelectedItem")]
-    private ItemSlot _selectedItem;
-    private int _selectedItemIndex;
+    private ItemSlot selectedItem;
+    private int selectedItemIndex;
     public TextMeshProUGUI selectedItemName;
     public TextMeshProUGUI selectedItemDescription;
     public TextMeshProUGUI selectedItemStatName;
     public TextMeshProUGUI selectedItemStatValue;
     public GameObject useButton;
-    public GameObject dropButton;
     public GameObject equipButton;
     public GameObject unEquipButton;
+    public GameObject dropButton;
+
+    public bool itemResisterMode = false;
+    public bool itemUseMode = false;
 
     public static Inventory instance;
 
     private void Awake()
     {
         instance = this;
+        equipScript = GetComponent<Equip>();
+        playerStats = HUD.instance.player.GetComponent<PlayerStats>();
 
-    }
-    private void Start()
-    {
-        slots = new ItemSlot[uiSlot.Length];
-        equipSlots = new ItemSlot[equipUiSlot.Length];
-
+        slots = new ItemSlot[uiSlots.Length];
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i] = new ItemSlot();
-            uiSlot[i].index = i;
-            uiSlot[i].Clear();
+            uiSlots[i].index = i;
+            uiSlots[i].Clear();
         }
-        for (int j = 0; j< equipSlots.Length;j++)
+        equipitems = new ItemSlot[equipUiSlots.Length];
+        for (int j = 0; j < equipitems.Length; j++)
         {
-            equipSlots[j] = new ItemSlot();
-            equipUiSlot[j].index = j;
-            equipUiSlot[j].Clear();
+            equipitems[j] = new ItemSlot();
+            equipUiSlots[j].index = j;
+            equipUiSlots[j].Clear();
         }
-        AddItem(testItem);
 
         ClearSelectedItemWindow();
-        CheckEquip();
+        dropPosition = playerStats.gameObject.transform;
+        AddItem(testItems[0]);
+        AddItem(testItems[1]);
+        AddItem(testItems[2]);
     }
-
 
     public void AddItem(ItemSO item)
     {
@@ -78,7 +86,6 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
-
         ItemSlot emptySlot = GetEmptySlot();
         if (emptySlot != null)
         {
@@ -87,21 +94,12 @@ public class Inventory : MonoBehaviour
             UpdateUI();
             return;
         }
-
         ThrowItem(item);
     }
 
-    public void RemoveItem(ItemSlot slot)
-    {
-        slot.items = null;
-        UpdateUI();
-    }
-
-   
-
     private void ThrowItem(ItemSO item)
     {
-        Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector2.zero));
+        Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one));
     }
 
     public void UpdateUI()
@@ -109,30 +107,25 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].items != null)
-                uiSlot[i].Set(slots[i]);
+                uiSlots[i].Set(slots[i]);
             else
-                uiSlot[i].Clear();
+                uiSlots[i].Clear();
         }
     }
-
-
 
     private ItemSlot GetItemStack(ItemSO item)
     {
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].items == item && slots[i].quantity < item.maxStack)
-            {
                 return slots[i];
-            }
-
         }
         return null;
     }
 
     private ItemSlot GetEmptySlot()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; ++i)
         {
             if (slots[i].items == null)
                 return slots[i];
@@ -140,86 +133,75 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-
-
     public void SelectedItem(int index)
     {
         if (slots[index].items == null)
             return;
+        selectedItem = slots[index];
+        selectedItemIndex = index;
 
-        _selectedItem = slots[index];
-        _selectedItemIndex = index;
+        selectedItemName.text = selectedItem.items.itemName;
+        selectedItemDescription.text = selectedItem.items.itemDescription;
 
-        selectedItemName.text = _selectedItem.items.itemName;
-        selectedItemDescription.text = _selectedItem.items.itemDescription;
+        selectedItemStatName.text = string.Empty;
+        selectedItemStatValue.text = string.Empty;
 
-        if (_selectedItem.items.itemType == ItemType.Expendable)
+        if (selectedItem.items.itemType == ItemType.Expendable)
         {
-            switch (_selectedItem.items.expendType)
+            switch (selectedItem.items.expendType)
             {
                 case ExpendType.Heal:
                     {
-                        selectedItemStatName.text = "HP회복";
-                        selectedItemStatValue.text = _selectedItem.items.healPoint.ToString();
+                        selectedItemStatName.text = "회복";
+                        selectedItemStatValue.text = selectedItem.items.healPoint.ToString();
+                    }
+                    break;
+                case ExpendType.Cure:
+                    {
+
                     }
                     break;
                 case ExpendType.Hunger:
                     {
                         selectedItemStatName.text = "포만도";
-                        selectedItemStatValue.text = _selectedItem.items.HungerPoint.ToString();
-                    }
-                    break;
-                default:
-                    {
-                        selectedItemStatName.text = string.Empty;
-                        selectedItemStatValue.text = string.Empty;
+                        selectedItemStatValue.text = selectedItem.items.HungerPoint.ToString();
                     }
                     break;
             }
         }
-        else if (_selectedItem.items.itemType == ItemType.Equipable)
+        else if (selectedItem.items.itemType == ItemType.Equipable)
         {
-            switch (_selectedItem.items.equipType)
+            switch (selectedItem.items.equipType)
             {
                 case EquipType.Weapon:
                     {
                         selectedItemStatName.text = "공격력";
-                        selectedItemStatValue.text = _selectedItem.items.atk.ToString();
+                        selectedItemStatValue.text = selectedItem.items.atk.ToString();
                     }
                     break;
                 case EquipType.Top:
-                    {
-                        selectedItemStatName.text = "방어도";
-                        selectedItemStatValue.text = _selectedItem.items.def.ToString();
-                    }
-                    break;
                 case EquipType.Bottom:
                     {
-                        selectedItemStatName.text = "방어도";
-                        selectedItemStatValue.text = _selectedItem.items.def.ToString();
-                    }
-                    break;
-                default:
-                    {
-                        selectedItemStatName.text = string.Empty;
-                        selectedItemStatValue.text = string.Empty;
+                        selectedItemStatName.text = "방어력";
+                        selectedItemStatValue.text = selectedItem.items.def.ToString();
                     }
                     break;
             }
         }
-
-        useButton.SetActive(_selectedItem.items.itemType == ItemType.Expendable);
-        equipButton.SetActive(_selectedItem.items.isEquipped == false && _selectedItem.items.itemType == ItemType.Equipable);
-        unEquipButton.SetActive(_selectedItem.items.isEquipped == true && _selectedItem.items.itemType == ItemType.Equipable);
+        useButton.SetActive(selectedItem.items.itemType == ItemType.Expendable);
+        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !slots[index].isEquipped);
+        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && slots[index].isEquipped);
         dropButton.SetActive(true);
-
-
-
     }
-
+    public void UpdateButtons()
+    {
+        useButton.SetActive(selectedItem.items.itemType == ItemType.Expendable);
+        equipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && !slots[selectedItemIndex].isEquipped);
+        unEquipButton.SetActive(selectedItem.items.itemType == ItemType.Equipable && slots[selectedItemIndex].isEquipped);
+    }
     private void ClearSelectedItemWindow()
     {
-        _selectedItem = null;
+        selectedItem = null;
         selectedItemName.text = string.Empty;
         selectedItemDescription.text = string.Empty;
 
@@ -231,116 +213,149 @@ public class Inventory : MonoBehaviour
         unEquipButton.SetActive(false);
         dropButton.SetActive(false);
     }
-
-    public void OnUseButton()
+    public void OnUsebutton()
     {
-        if (_selectedItem.items.itemType == ItemType.Expendable)
+        if (selectedItem.items.itemType == ItemType.Expendable)
         {
-            switch (_selectedItem.items.expendType)
+            switch (selectedItem.items.expendType)
             {
                 case ExpendType.Heal:
+                    {
+                        SoundManager.I.Play(SfxIndex.UsePotion);
+                        playerStats.HealHp(selectedItem.items.healPoint);
+                    }
+                    break;
+                case ExpendType.Cure:
                     {
 
                     }
                     break;
                 case ExpendType.Hunger:
                     {
-
+                        playerStats.EatFood(selectedItem.items.HungerPoint);
                     }
                     break;
             }
         }
+        UpdateButtons();
+        RemoveSelectedItem();
     }
-
-    public void OnEquipButton()
+    public void OnUsebutton(int hotkey)
     {
-        _selectedItem.items.isEquipped = true;
-        Equip(_selectedItemIndex);
-    }
-    private void Equip(int index)
-    {
-        if (slots[index].items == null)
-            return;
-        if (slots[index].items.itemType == ItemType.Equipable && slots[index].items.isEquipped)
+        selectedItem = HUD.instance.hotKey[hotkey];
+        if (selectedItem.items.itemType == ItemType.Expendable)
         {
-            if (slots[index].items.equipType == EquipType.Weapon)
+            switch (selectedItem.items.expendType)
             {
-                if (equipSlots[0] != null)
-                {
-                    equipSlots[0].items = slots[index].items;
-                    equipSlots[0].quantity = 1;
-                    equipUiSlot[0].Set(equipSlots[0].items);
-                }
-            }
-            else if (slots[index].items.equipType == EquipType.Top)
-            {
-                if (equipSlots[1] != null)
-                {
-                    equipSlots[1].items = slots[index].items;
-                    equipSlots[1].quantity = 1;
-                    equipUiSlot[1].Set(equipSlots[1].items);
-                }
-            }
-            else if (slots[index].items.equipType == EquipType.Bottom)
-            {
-                if (equipSlots[2] != null)
-                {
-                    equipSlots[2].items = slots[index].items;
-                    equipSlots[2].quantity = 1;
-                    equipUiSlot[2].Set(equipSlots[2].items);
-                }
+                case ExpendType.Heal:
+                    {
+                        SoundManager.I.Play(SfxIndex.UsePotion);
+                        playerStats.HealHp(selectedItem.items.healPoint);
+                    }
+                    break;
+                case ExpendType.Cure:
+                    {
+
+                    }
+                    break;
+                case ExpendType.Hunger:
+                    {
+                        playerStats.EatFood(selectedItem.items.HungerPoint);
+                    }
+                    break;
             }
         }
-        UpdateEquipSlotUI();
-        uiSlot[index].Clear();
+        for (int i = 0; i < Inventory.instance.slots.Length; i++)
+        {
+            if(HUD.instance.hotKey[hotkey].items == Inventory.instance.slots[i].items)
+            {
+                selectedItem = Inventory.instance.slots[i];
+            }
+        }
+        RemoveSelectedItem();
+    }
+    public void OnEquipButton()
+    {
+        equipScript.EquipItem(selectedItemIndex);
+        UpdateButtons();
     }
     public void OnUnEquipButton()
     {
-        _selectedItem.items.isEquipped = false;
-        UnEquip(_selectedItemIndex);
-    }
-    private void UnEquip(int index)
-    {
-        UpdateEquipSlotUI();
-    }
-    public void UpdateEquipSlotUI()
-    {
-        for (int i = 0; i < equipSlots.Length; i++)
-        {
-            if (equipSlots[i] != null)
-            {
-                equipUiSlot[i].icon.sprite = equipSlots[i].items.itemSprite;
-            }
-            else
-            {
-                equipUiSlot[i].icon.gameObject.SetActive(false);
-            }
-        }
-    }
-    public void CheckEquip()
-    {
-        for(int i = 0; i<slots.Length; i++)
-        {
-            if (!slots[i].items.isEquipped)
-            {
-                return;
-            }
-            else if (slots[i].items.isEquipped)
-            {
-                Equip(i);
-                RemoveItem(slots[i]);
-            }
-        }
-        UpdateEquipSlotUI();
-    }
+        selectedItem.isEquipped = false;
+        if (selectedItem.items.equipType == EquipType.Weapon)
+            equipScript.UnEquipItem(selectedItemIndex, 0);
+        else if (selectedItem.items.equipType == EquipType.Top)
+            equipScript.UnEquipItem(selectedItemIndex, 1);
+        else if (selectedItem.items.equipType == EquipType.Bottom)
+            equipScript.UnEquipItem(selectedItemIndex, 2);
+        
 
+        UpdateButtons();
+    }
     public void OnDropButton()
     {
-
+        selectedItem.isEquipped = false;
+        ThrowItem(selectedItem.items);
+        UpdateButtons();
+        RemoveSelectedItem();
     }
-
-    public void OnCloseInventoryButton()
+    public void OnQuitButton()
     {
-        inventoryPopup.gameObject.SetActive(false);
+        inventoryWindow.SetActive(false);
     }
+    private void RemoveSelectedItem()
+    {
+        selectedItem.quantity--;
+        if (selectedItem.quantity <= 0)
+        {
+            if (uiSlots[selectedItemIndex].isEquipped)
+            {
+                if (selectedItem.items.equipType == EquipType.Weapon)
+                    equipScript.UnEquipItem(selectedItemIndex, 0);
+                else if (selectedItem.items.equipType == EquipType.Top)
+                    equipScript.UnEquipItem(selectedItemIndex, 1);
+                else if (selectedItem.items.equipType == EquipType.Bottom)
+                    equipScript.UnEquipItem(selectedItemIndex, 2);
+            }
+            for (int i = 0; i < HUD.instance.quickUI.Length; i++)
+            {
+                if (HUD.instance.hotKey[i] != null && selectedItem.items == HUD.instance.hotKey[i].items)
+                {
+                    HUD.instance.hotKey[i] = null;
+                }
+            }
+            selectedItem.items = null;
+            ClearSelectedItemWindow();
+            HUD.instance.UpdateQuickSlotUI();
+        }
+        UpdateUI();
+    }
+  
+    public int EquippedItemIndex()//장비 아이템의 타입에 따라 0,1,2번 장비슬롯의 번호를 반환합니다. 매개변수로 사용됩니다.
+    {
+        for (int i = 0; i < equipitems.Length; i++)
+        {
+            if (equipitems[i].items == null)
+                return -1;
+            else
+            {
+                if (equipitems[i].items.equipType == EquipType.Weapon)
+                {
+                    return 0;
+                }
+                else if (equipitems[i].items.equipType == EquipType.Top)
+                {
+                    return 1;
+                }
+                else if (equipitems[i].items.equipType == EquipType.Bottom)
+                {
+                    return 2;
+                }
+            }
+
+        }
+        return -1;
+    }
+
+
 }

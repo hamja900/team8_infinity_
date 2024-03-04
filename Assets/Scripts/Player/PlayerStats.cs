@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStats : MonoBehaviour
 {
-    public event Action PlayerDie;
-    int attackSpeed = 10;
+    public GameObject deadPopup;
+
+    int attackSpeed  = 10;
     int moveSpeed = 10;
-    float hp = 20;
-    float maxHp = 20;
+    public float hp  = 20;
+    public float maxHp = 20;
     int hpRegenCount = 200;
     int curHpRegenCount;
     int hpRegen = 1;
@@ -18,41 +20,70 @@ public class PlayerStats : MonoBehaviour
     int hpDeduction = 1; //조절 later
     int atk = 2;
     int def = 0;
-    int hunger = 4500;
-    int maxHunger = 4500;
-    int exp = 0;
-    int maxExp = 20;
+    public float hunger = 4500;
+    public float maxHunger = 4500;
+    public float exp  = 0;
+    public float maxExp = 20;
     int attackRange = 1;
+    public int level  = 1;
     private void Start()
     {
         TuenManager.I.MonsterTurn += PlayerTurn;
     }
     public int Attack()
     {
-        return atk;//장비 여부 반영
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            return atk + Inventory.instance.equipUiSlots[0].curSlot.items.atk;
+        }
+        return atk;
     }
     public int GetDef()
     {
-        return def;//장비 여부 반영
+        if (Inventory.instance != null)
+        {
+            if (Inventory.instance.equipUiSlots[1].curSlot != null && Inventory.instance.equipUiSlots[2].curSlot != null)
+            {
+                return def + Inventory.instance.equipUiSlots[1].curSlot.items.def + Inventory.instance.equipUiSlots[2].curSlot.items.def;
+            }
+            if (Inventory.instance.equipUiSlots[1].curSlot != null)
+            {
+                return def + Inventory.instance.equipUiSlots[1].curSlot.items.def;
+            }
+            if (Inventory.instance.equipUiSlots[2].curSlot != null)
+            {
+                return def + Inventory.instance.equipUiSlots[2].curSlot.items.def;
+            }
+        }
+        return def;
     }
     public int AttackSpeed()
     {
-        return attackSpeed;//장비 여부 반영
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            return attackSpeed + Inventory.instance.equipUiSlots[0].curSlot.items.attackSpeed;
+        }
+        return attackSpeed;
     }
     public int MoveSpeed()
     {
         return moveSpeed;//상태 여부 반영
     }
-    public int AttackRange()
+    public void SetAttackRange()
     {
-        return attackRange;//장비 여부 반영
+        int totalRange = attackRange;
+        if (Inventory.instance != null && Inventory.instance.equipUiSlots[0].curSlot != null)
+        {
+            totalRange = attackRange + Inventory.instance.equipUiSlots[0].curSlot.items.attackRange;
+        }
+        GetComponent<BoxCollider2D>().size = new Vector2(totalRange, totalRange);
     }
     public void GetExp(int exp)
     {
         this.exp += exp;
         while (this.exp >= maxExp)
         {
-            //lvup
+            LvUp();
         }
     }
     public void EatFood(int foodCount)
@@ -91,6 +122,7 @@ public class PlayerStats : MonoBehaviour
                 }
             }
         }
+        TuenManager.I.EnemyTurnOver();
     }
     public void HealHp(int healing)
     {
@@ -105,7 +137,25 @@ public class PlayerStats : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
-            PlayerDie?.Invoke();
+            PlayerDie();
         }
     }
+    void LvUp()
+    {
+        SoundManager.I.Play(SfxIndex.LvUp);
+        exp -= maxExp;
+        level++;
+        maxHp += 5;
+        hp = maxHp;
+        atk += 4;
+        def += 3;
+        maxExp =  maxExp * level;
+    }
+
+    public void PlayerDie()
+    {
+        gameObject.GetComponent<PlayerInput>().enabled = false;
+        deadPopup.SetActive(true);
+    }
+    
 }

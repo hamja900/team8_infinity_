@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Popups : MonoBehaviour
 {
@@ -12,4 +13,15 @@ public class Popups : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void OnMainSeceneButton()
+    {
+        DataManager.I.RemoveSaveData();
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void OnRetryButton()
+    {
+        DataManager.I.RemoveSaveData();
+        SceneManager.LoadScene("MainScene");
+    }
 }

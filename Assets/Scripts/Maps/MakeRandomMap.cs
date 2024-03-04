@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 나누어진 공간들로 방을만들고 복도, 벽을 만드는 역할수행
 public class MakeRandomMap : MonoBehaviour
@@ -18,20 +19,39 @@ public class MakeRandomMap : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject entrance;
+    [SerializeField] private GameObject trap;
+
+    [SerializeField] private GameObject Orc;
+    [SerializeField] private GameObject Slime;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
+
     private void Start()
     {
-        StartRandomMap();
+        GameManager.I.OnEnemyPrefabReady += StartRandomMap;
+        //StartRandomMap();
         entrance.SetActive(true);
     }
-
+    public void PlusCount()
+    {
+        GameManager.I.clearRoomNum++;
+    }
+    public void MinusCount()
+    {
+        if (GameManager.I.clearRoomNum == 0)
+        {
+            GameManager.I.clearRoomNum = 0;
+        }
+        else
+        {
+            GameManager.I.clearRoomNum--;
+        }
+    }
     public void StartRandomMap()
     {
         spreadTilemap.ClearAllTiles(); //깔려있는 모든타일 제거
-
         divideSpace.totalSpace = new RectangleSpace(new Vector2Int(0, 0), divideSpace.totalWidth, divideSpace.totalHeight);
         divideSpace.spaceList = new List<RectangleSpace>();
 
@@ -48,8 +68,53 @@ public class MakeRandomMap : MonoBehaviour
         spreadTilemap.SpreadFloorTilemap(floor);
         spreadTilemap.SpreadWallTilemap(wall);
 
+        //플레이어 스폰위치
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
+        //몬스터 스폰위치
+
+        foreach (var go in GameManager.I.RandomEnemyPrefab)
+        {
+            int randomAmount = Random.Range(0, 2);
+
+            for (int i = 0; i < divideSpace.spaceList.Count; i++)
+            {
+                Instantiate(go);
+                go.transform.position = (Vector2)divideSpace.spaceList[i].GetRandomPosition();
+            }
+        }
+
+        //출구, 함정 스폰
+        Stairs();
+
+        GameManager.I.TilemapReady();
+    }
+    private void Stairs()
+    {
+        int num = Random.Range(2, 6);
+        Debug.Log(num);
+        if(num >= 4)
+        {
+            trap.SetActive(true);
+        }
+        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num-1)].Center();
+        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
+        if (GameManager.I.clearRoomNum == 2)
+        {
+            SceneManager.LoadScene("EndingScene");
+            //entrance.SetActive(false);
+            //중간보스 최종보스 처리했을때 true로 바꾸기
+            //if
+            Debug.Log("중간보스룸");
+        }
+        else if(GameManager.I.clearRoomNum == 4)
+        {
+            Debug.Log("최종보스룸");
+        }
+        else if(GameManager.I.clearRoomNum == 5)
+        {
+            Debug.Log("게임 완료");
+        }
+        
     }
 
     // space리스트에 있는 모든 리스트의 MakeARandomRectangleRoom을 콜하고 리턴되는 방의좌표들을 UnionWith를 통해 floor에 추가
@@ -185,4 +250,10 @@ public class MakeRandomMap : MonoBehaviour
         }
         return boundary;
     }
+
+    //public void SetTileState()
+    //{
+    //    Debug.Log("SetTileState");
+    //    TileManager.I.SetTilemapInfo(Vector3Int.FloorToInt(player.transform.position));
+    //}
 }

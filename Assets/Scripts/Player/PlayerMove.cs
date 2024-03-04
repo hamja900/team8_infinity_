@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     PlayerStats stats;
     Rigidbody2D rigi;
     PlayerAnima aniScript;
-    int moveDelay = 10;
+    int moveDelay = 20;
     public static bool IsMoveing { get; private set; } = false;
     private void Awake()
     {
@@ -17,22 +17,13 @@ public class PlayerMove : MonoBehaviour
         rigi = GetComponent<Rigidbody2D>();
         stats = GetComponent<PlayerStats>();
     }
-    public bool CanMove()
-    {
-        if (!IsMoveing)//벽이나 몬스터가 있는 쪽으로는 움직이지 못 하게 해야함.
-        {
-            IsMoveing = true;
-            return true;
-        }
-        return false;
-    }
-    public void Move(Dir dir)
+    public bool CanMove(Dir dir)
     {
         Vector2 direction = Vector2.zero;
         switch (dir)
         {
             case Dir.q:
-                direction = new Vector2(-1, 1);aniScript.SpriteFileX(true);
+                direction = new Vector2(-1, 1); aniScript.SpriteFileX(true);
                 break;
             case Dir.w:
                 direction = Vector2.up;
@@ -56,6 +47,19 @@ public class PlayerMove : MonoBehaviour
                 direction = new Vector2(1, -1); aniScript.SpriteFileX(false);
                 break;
         }
+        Vector2 targetPos = direction + (Vector2)transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(targetPos, Vector2.zero, 0.1f, LayerMask.GetMask("Wall", "Enemy"));
+
+        if (!IsMoveing && hit.transform == null && !aniScript.IsAttackAnima)
+        {
+            IsMoveing = true;
+            Move(direction);
+            return true;
+        }
+        return false;
+    }
+    void Move(Vector2 direction)
+    {
         StartCoroutine(CharacterMove(direction));
     }
     IEnumerator CharacterMove(Vector2 dir)
