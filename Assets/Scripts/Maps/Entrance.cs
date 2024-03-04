@@ -33,6 +33,7 @@ public class Entrance : MonoBehaviour
         player.gameObject.GetComponent<PlayerInput>().enabled = true;
         makeRandomMap.PlusCount();
         //makeRandomMap.StartRandomMap();
+        GameManager.I.ReleaseAllEnemy();
         GameManager.I.MakeRandomEnemyList();
         HUD.instance.UpdateDungeonLevel();
         MoveUI.SetActive(false);

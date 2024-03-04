@@ -76,7 +76,7 @@ public class MakeRandomMap : MonoBehaviour
         foreach (var go in GameManager.I.RandomEnemyPrefab)
         {
             int randomAmount = Random.Range(0, 2);
-
+            
             for (int i = 0; i < divideSpace.spaceList.Count; i++)
             {
                 Instantiate(go);
@@ -101,7 +101,7 @@ public class MakeRandomMap : MonoBehaviour
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
         if (clearRoomNum == 2)
         {
-            SceneManager.LoadScene("EndingScene");
+            //SceneManager.LoadScene("EndingScene");
             //entrance.SetActive(false);
             //중간보스 최종보스 처리했을때 true로 바꾸기
             //if
@@ -251,10 +251,4 @@ public class MakeRandomMap : MonoBehaviour
         }
         return boundary;
     }
-
-    //public void SetTileState()
-    //{
-    //    Debug.Log("SetTileState");
-    //    TileManager.I.SetTilemapInfo(Vector3Int.FloorToInt(player.transform.position));
-    //}
 }

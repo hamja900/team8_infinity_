@@ -10,13 +10,14 @@ public class GameManager : SingletoneBase<GameManager>
 
     public int clearRoomNum = 0;
 
-    public List<EnemySO> enemySO = new List<EnemySO>();
     public List<GameObject> EnemyPrefab = new List<GameObject>();
 
     public List<GameObject> normalEnemyPrefab = new List<GameObject>();
     public List<GameObject> bossEnemyPrefab = new List<GameObject>();
 
     public List<GameObject> RandomEnemyPrefab = new List<GameObject>();
+
+    public List<GameObject> CurrentEnemyList = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -78,5 +79,22 @@ public class GameManager : SingletoneBase<GameManager>
             else
                 bossEnemyPrefab.Add(enemy);
         }
+    }
+
+    public void FindAllEnemy()
+    {
+        foreach(var go in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            CurrentEnemyList.Add(go);
+        }
+    }
+
+    public void ReleaseAllEnemy()
+    {
+        foreach(var go in CurrentEnemyList)
+        {
+            Destroy(go);
+        }
+        CurrentEnemyList.Clear();
     }
 }

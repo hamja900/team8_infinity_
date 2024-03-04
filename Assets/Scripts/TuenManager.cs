@@ -17,8 +17,12 @@ public class TuenManager : SingletoneBase<TuenManager>
     int curTurn;
     public int HowManyEntity { get; private set; }
     public bool isPlayerTurn { get; private set; } = true;
+
+    public int currentMovingEnemy;
+
     public void PlayerTurns(int useTurn)
     {
+        GameManager.I.FindAllEnemy();
         globalTrun += useTurn;
         
         isPlayerTurn = false;
@@ -31,7 +35,10 @@ public class TuenManager : SingletoneBase<TuenManager>
     IEnumerator StartMonsterTurn(int useTurn)
     {
         yield return new WaitForFixedUpdate();
-        MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
+        for (currentMovingEnemy = 0; currentMovingEnemy < GameManager.I.CurrentEnemyList.Count; currentMovingEnemy++)
+        {
+            MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
+        }
     }
 
     public void EnemyTurnOver()
