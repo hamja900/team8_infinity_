@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// ³ª´©¾îÁø °ø°£µé·Î ¹æÀ»¸¸µé°í º¹µµ, º®À» ¸¸µå´Â ¿ªÇÒ¼öÇà
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½
 public class MakeRandomMap : MonoBehaviour
 {
-    //¹æÀ» ¸¸µé¶§ ¾²ÀÌ´Â º¯¼öµé
-    [SerializeField] private int distance; // ¹æ°ú ¹æ°úÀÇ ÃÖ¼Ò °Å¸®
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½é¶§ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private int distance; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½Å¸ï¿½
     [SerializeField] private int minRoomWidth;
     [SerializeField] private int minRoomHeight;
 
-    // spaceList°¡Á®¿À´Â¿ëµµ
+    // spaceListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ëµµ
     [SerializeField] private DivideSpace divideSpace;
 
-    // Å¸ÀÏ±î´Â¿ëµµ
+    // Å¸ï¿½Ï±ï¿½Â¿ëµµ
     [SerializeField] private SpreadTilemap spreadTilemap;
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject entrance;
     [SerializeField] private GameObject trap;
 
-    [SerializeField] private GameObject Orc;
-    [SerializeField] private GameObject Slime;
+    public GameObject MidBoss;
+    public GameObject FinalBoss;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
@@ -51,26 +51,26 @@ public class MakeRandomMap : MonoBehaviour
     }
     public void StartRandomMap()
     {
-        spreadTilemap.ClearAllTiles(); //±ò·ÁÀÖ´Â ¸ðµçÅ¸ÀÏ Á¦°Å
+        spreadTilemap.ClearAllTiles(); //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         divideSpace.totalSpace = new RectangleSpace(new Vector2Int(0, 0), divideSpace.totalWidth, divideSpace.totalHeight);
         divideSpace.spaceList = new List<RectangleSpace>();
 
         floor = new HashSet<Vector2Int>();
         wall = new HashSet<Vector2Int>();
         divideSpace.DivideRoom(divideSpace.totalSpace);
-        //¹æ
+        //ï¿½ï¿½
         MakeRandomRooms();
-        //º¹µµ
+        //ï¿½ï¿½ï¿½ï¿½
         MakeCorridors();
-        //º®
+        //ï¿½ï¿½
         MakeWall();
 
         spreadTilemap.SpreadFloorTilemap(floor);
         spreadTilemap.SpreadWallTilemap(wall);
 
-        //ÇÃ·¹ÀÌ¾î ½ºÆùÀ§Ä¡
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-        //¸ó½ºÅÍ ½ºÆùÀ§Ä¡
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
 
         foreach (var go in GameManager.I.RandomEnemyPrefab)
         {
@@ -83,16 +83,16 @@ public class MakeRandomMap : MonoBehaviour
             }
         }
 
-        //Ãâ±¸, ÇÔÁ¤ ½ºÆù
+        //ï¿½â±¸, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Stairs();
 
         GameManager.I.TilemapReady();
     }
     private void Stairs()
     {
-        int num = Random.Range(2, 6);
+        int num = Random.Range(2, 4);
         Debug.Log(num);
-        if(num >= 4)
+        if(num >= 3)
         {
             trap.SetActive(true);
         }
@@ -100,25 +100,23 @@ public class MakeRandomMap : MonoBehaviour
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
         if (GameManager.I.clearRoomNum == 2)
         {
-            //SceneManager.LoadScene("EndingScene");
-            //entrance.SetActive(false);
-            //Áß°£º¸½º ÃÖÁ¾º¸½º Ã³¸®ÇßÀ»¶§ true·Î ¹Ù²Ù±â
-            //if
-            Debug.Log("Áß°£º¸½º·ë");
+            MidBoss = Instantiate(GameManager.I.bossEnemyPrefab[1]);
+            MidBoss.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
         }
         else if(GameManager.I.clearRoomNum == 4)
         {
-            Debug.Log("ÃÖÁ¾º¸½º·ë");
+            FinalBoss = Instantiate(GameManager.I.bossEnemyPrefab[0]);
+            FinalBoss.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
         }
         else if(GameManager.I.clearRoomNum == 5)
         {
-            Debug.Log("°ÔÀÓ ¿Ï·á");
+            SceneManager.LoadScene("EndingScene");
         }
         
     }
 
-    // space¸®½ºÆ®¿¡ ÀÖ´Â ¸ðµç ¸®½ºÆ®ÀÇ MakeARandomRectangleRoomÀ» ÄÝÇÏ°í ¸®ÅÏµÇ´Â ¹æÀÇÁÂÇ¥µéÀ» UnionWith¸¦ ÅëÇØ floor¿¡ Ãß°¡
-    // UnionWith ´Â HashSetÀÇ ÇÔ¼öÀÎµ¥ ÇÕÁýÇÕÀÌ¶ó°í »ý°¢ÇÏ¸é µÈ´Ù.
+    // spaceï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ MakeARandomRectangleRoomï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ÏµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ UnionWithï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ floorï¿½ï¿½ ï¿½ß°ï¿½
+    // UnionWith ï¿½ï¿½ HashSetï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½.
     private void MakeRandomRooms()
     {
         foreach(var space in divideSpace.spaceList)
@@ -143,10 +141,10 @@ public class MakeRandomMap : MonoBehaviour
         return positnions;
     }
 
-    //º¹µµ»ý¼ºÇÔ¼ö
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½
     private void MakeCorridors()
     {
-        //¹æÀÇ Áß½ÉÀ» ±âÁØÀ¸·Î ÀÌ¾î°¡±â¶§¹®¿¡ ¹æÀÇ Áß½É¸®½ºÆ®¸¦ Á¦ÀÛ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾î°¡ï¿½â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß½É¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         List<Vector2Int> tempCenters = new List<Vector2Int>();
         foreach(var space in divideSpace.spaceList)
         {
@@ -155,20 +153,20 @@ public class MakeRandomMap : MonoBehaviour
         }
 
         Vector2Int nextCenter;
-        Vector2Int currentCenter = tempCenters[0]; //½ÃÀÛÇÒ Áß½ÉÀ» Á¤ÇÑ´Ù.
-        //Áß½ÉÀ» ¸®½ºÆ®¿¡¼­ Á¦¿Ü½ÃÅ²´Ù.
+        Vector2Int currentCenter = tempCenters[0]; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
+        //ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ü½ï¿½Å²ï¿½ï¿½.
         tempCenters.Remove(currentCenter);
-        // Áß½É¿¡¼­ °¡Àå °¡±î¿î Áß½ÉÀ» Ã£°í º¹µµ¸¦ ¸¸µé¾îÁØ´Ù.
+        // ï¿½ß½É¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
         while (tempCenters.Count != 0)
         {
             nextCenter = ChooseShortestNextCorridor(tempCenters, currentCenter);
             MakeOneCorridor(currentCenter, nextCenter);
             currentCenter = nextCenter;
-            tempCenters.Remove(currentCenter); //»õ·Î¿îÁß½ÉÀ» ¸®½ºÆ®¿¡¼­ Á¦°ÅÇÑ´Ù.
+            tempCenters.Remove(currentCenter); //ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
         }
     }
 
-    // °¡Àå °¡±î¿î Áß½ÉÀ» Ã£¾ÆÁÖ´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Ô¼ï¿½
     private Vector2Int ChooseShortestNextCorridor(List<Vector2Int> tempCenters, Vector2Int previousCenter)
     {
         int n = 0;
@@ -176,7 +174,7 @@ public class MakeRandomMap : MonoBehaviour
 
         for(int i = 0; i < tempCenters.Count; i++)
         {
-            //DistanceÇÔ¼ö¶õ?
+            //Distanceï¿½Ô¼ï¿½ï¿½ï¿½?
             if (Vector2.Distance(previousCenter, tempCenters[i]) < minLength)
             {
                 minLength = Vector2.Distance(previousCenter, tempCenters[i]);
@@ -186,13 +184,13 @@ public class MakeRandomMap : MonoBehaviour
         return tempCenters[n];
     }
 
-    // x,yÀÇ ÁÂÃë¸¦ ÀÌÀ¸¸é µÎ Áß½ÉÀ» ÀÕ´Â º¹µµ°¡ ¿Ï¼ºµÈ´Ù.
+    // x,yï¿½ï¿½ ï¿½ï¿½ï¿½ë¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ ï¿½Õ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½È´ï¿½.
     private void MakeOneCorridor(Vector2Int currentCenter, Vector2Int nextCenter)
     {
         Vector2Int current = new Vector2Int(currentCenter.x, currentCenter.y);
         Vector2Int next = new Vector2Int(nextCenter.x, nextCenter.y);
         floor.Add(current);
-        //ÇöÀç Áß½ÉÀÇ xÁÂÇ¥°¡ ´ÙÀ½Áß½ÉÀÇ xÁÂÇ¥¿Í °°¾ÆÁú¶§±îÁö ÀÌµ¿ÇÏ¸ç ÀÚÃëÀúÀå
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         while (current.x != next.x)
         {
             if(current.x < next.x)
@@ -206,7 +204,7 @@ public class MakeRandomMap : MonoBehaviour
                 floor.Add(current);
             }
         }
-        //ÇöÀç Áß½ÉÀÇ yÁÂÇ¥°¡ ´ÙÀ½Áß½ÉÀÇ yÁÂÇ¥¿Í °°¾ÆÁú¶§±îÁö ÀÌµ¿ÇÏ¸ç ÀÚÃëÀúÀå
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ yï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ yï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         while (current.y != next.y)
         {
             if(current.y < next.y)
@@ -222,7 +220,7 @@ public class MakeRandomMap : MonoBehaviour
         }
     }
 
-    // ¸ðµçÅ¸ÀÏ¿¡´ëÇØ 3*3ºí·°À» ¸¸µé¾î ÀÎÁ¢ÇÑÅ¸ÀÏÁß ¹Ù´ÚÀÌ ¾Æ´Ñ°ÍÀ» Á¶»çÇÑ´Ù.
+    // ï¿½ï¿½ï¿½Å¸ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ 3*3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½Æ´Ñ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     private void MakeWall()
     {
         foreach(Vector2Int tile in floor)
