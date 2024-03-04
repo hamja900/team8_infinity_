@@ -142,6 +142,7 @@ public class PlayerStats : MonoBehaviour
     }
     void LvUp()
     {
+        //LvUpSFX
         exp -= maxExp;
         level++;
         maxHp += 5;

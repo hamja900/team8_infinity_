@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -254,10 +255,19 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void DropReward()
     {
-        //TODO : Item Drop
+        DropItem();
         //TODO : Drop EXP
     }
-
+    void DropItem()
+    {
+        foreach (var item in EnemyData.dropTable)
+        {
+            if (UnityEngine.Random.Range(0,1) <= item.percent)
+            {
+                Instantiate(item.dropTable, transform.position, Quaternion.Euler(Vector3.one));
+            }
+        }
+    }
     private void DestroyEnemy()
     {
         GameManager.I.OnEnemyDie -= DestroyEnemy;
