@@ -15,11 +15,13 @@ public class Popups : MonoBehaviour
 
     public void OnMainSeceneButton()
     {
+        DataManager.I.RemoveSaveData();
         SceneManager.LoadScene("StartScene");
     }
 
     public void OnRetryButton()
     {
+        DataManager.I.RemoveSaveData();
         SceneManager.LoadScene("MainScene");
     }
 }
