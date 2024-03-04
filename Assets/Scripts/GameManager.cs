@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class GameManager : SingletoneBase<GameManager>
 {
@@ -25,5 +26,6 @@ public class GameManager : SingletoneBase<GameManager>
     public void TilemapReady()
     {
         OnTilemapReady?.Invoke();
+        TileManager.I.InitTilemapInfo();
     }
 }

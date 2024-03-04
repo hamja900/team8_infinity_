@@ -30,12 +30,17 @@ public class TuenManager : SingletoneBase<TuenManager>
 
     public void EnemyTurnOver()
     {
-        Debug.Log("Enemy Turn Over");
         curTurn--;
         if (curTurn == 0)
         {
-            isPlayerTurn = true;
+            StartCoroutine(StartPlayerTurn());
         }
         OnEnemyTurnOver?.Invoke();
+    }
+
+    IEnumerator StartPlayerTurn()
+    {
+        yield return new WaitForFixedUpdate();
+        isPlayerTurn = true;
     }
 }

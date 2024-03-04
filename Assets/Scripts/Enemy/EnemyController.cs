@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public EnemyMove EnemyMove { get; private set; }
     public EnemyAttack EnemyAttack { get; private set; }
     public EnemyAnimation EnemyAnimation { get; private set; }
+    public EnemyPathFind EnemyPathFind { get; private set; }
 
     public Transform Target { get; private set; }
 
@@ -30,11 +31,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool isEnemyTurn = false;
     public bool isTurnOver = false;
+    public bool isChargeAttack = false;
 
     public EnemyState currentState;
 
     public int localTurn;
-    private int currentHealth;
+    [SerializeField] private int currentHealth;
 
     public event Action OnDie;
 
@@ -47,6 +49,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         EnemyMove = GetComponent<EnemyMove>();
         EnemyAttack = GetComponent<EnemyAttack>();
         EnemyAnimation = GetComponent<EnemyAnimation>();
+        EnemyPathFind = GetComponent<EnemyPathFind>();
 
         currentHealth = EnemyData.enemyMaxHealth;
     }
@@ -56,7 +59,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         movePoint.parent = null;
         localTurn = 0;
 
-        GameManager.I.OnEnemyDie += DestroyEnemy;
+        //GameManager.I.OnEnemyDie += DestroyEnemy;
         TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
 
@@ -77,12 +80,26 @@ public class EnemyController : MonoBehaviour, IDamageable
                 EnemyAnimation.ToggleAnimation("Idle", true);
                 break;
             case EnemyState.Chasing:
-                currentState = EnemyState.Chasing;
-                EnemyAnimation.ToggleAnimation("Walk", true);
+                if (isChargeAttack)
+                {
+                    SetEnemyState(EnemyState.Attacking);
+                    return;
+                }
+                else
+                {
+                    currentState = EnemyState.Chasing;
+                    EnemyAnimation.ToggleAnimation("Walk", true);
+                }
                 break;
             case EnemyState.Attacking: 
                 currentState = EnemyState.Attacking;
-                EnemyAnimation.TriggerAnimation("EnemyAttack");
+                if (EnemyData.enemyName.Equals("Slime"))
+                {
+                    if (!isChargeAttack)
+                        EnemyAnimation.ToggleAnimation("Charge", true);
+                }
+                else
+                    EnemyAnimation.TriggerAnimation("EnemyAttack");
                 break;
             case EnemyState.Dead:
                 currentState = EnemyState.Dead;
@@ -104,7 +121,6 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking:
                 currentState = EnemyState.Attacking;
-                //EnemyAnimation.ToggleAnimation("EnemyAttack", false);
                 break;
         }
     }
@@ -132,7 +148,6 @@ public class EnemyController : MonoBehaviour, IDamageable
             if (!IsTurnOver(EnemyState.Attacking))
             {
                 SetEnemyState(EnemyState.Attacking);
-                Debug.Log("Check Attack");
             }
             else
                 return;
@@ -141,8 +156,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             if (Target.transform.position.x - transform.position.x < 0) SpriteRenderer.flipX = true;
             else SpriteRenderer.flipX = false;
-
-            Debug.Log("IsInChasingRange");
 
             if (!IsTurnOver(EnemyState.Chasing))
                 SetEnemyState(EnemyState.Chasing);
@@ -166,33 +179,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void UpdateEnemyTurn(int turn)
     {
         movePoint.parent = null;
-        movePoint.position = SetEnemyMovePoint();
+        movePoint.position = EnemyPathFind.SetEnemyMovePoint();
 
         localTurn += turn;
         isEnemyTurn = true;
 
         SetEnemyState(EnemyState.Idle);
-    }
-
-    private Vector3 SetEnemyMovePoint()
-    {
-        Vector3 movePoint = (Target.transform.position - transform.position).normalized;
-
-        if (Mathf.Abs(movePoint.x) < 0.5f) movePoint.x = 0f;
-        else movePoint.x = movePoint.x > 0 ? 1f : -1f;
-
-        if (Mathf.Abs(movePoint.y) < 0.5f) movePoint.y = 0f;
-        else movePoint.y = movePoint.y > 0 ? 1f : -1f;
-
-        movePoint.x += transform.position.x;
-        movePoint.y += transform.position.y;
-
-        while (TileManager.I.HasObjectOnTile(Vector3Int.FloorToInt(movePoint)))
-        {
-
-        }
-
-        return movePoint;
     }
 
     public bool IsTurnOver(EnemyState state)
@@ -206,7 +198,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                     return true;
                 }
                 localTurn -= EnemyData.enemyMoveCost;
-                movePoint.position = SetEnemyMovePoint();
+                movePoint.position = EnemyPathFind.SetEnemyMovePoint();
                 return false;
             case EnemyState.Attacking:
                 if(localTurn < EnemyData.enemyAttackCost)
@@ -220,9 +212,10 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
     }
 
-    private void EndOfEnemyTurn()
+    public void EndOfEnemyTurn()
     {
         movePoint.parent = gameObject.transform;
+        EnemyPathFind.OnEnemyTurnOver();
 
         TuenManager.I.EnemyTurnOver();
         isEnemyTurn = false;
@@ -236,7 +229,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             currentHealth = 0;
             EnemyAnimation.TriggerAnimation("Dead");
-            Die();
+            //Die();
             return;
         }
         EnemyAnimation.TriggerAnimation("TakeDamage");
@@ -247,12 +240,15 @@ public class EnemyController : MonoBehaviour, IDamageable
         return (Vector2)transform.position;
     }
 
-    private void Die()
+    public void Die()
     {
+        //if (currentHealth > 0) return;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         EndOfEnemyTurn();
         DropReward();
         SetEnemyState(EnemyState.Dead);
+
+        DestroyEnemy();
     }
 
     private void DropReward()
@@ -263,7 +259,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void DestroyEnemy()
     {
-        GameManager.I.OnEnemyDie -= DestroyEnemy;
         TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
         Destroy(gameObject);
     }

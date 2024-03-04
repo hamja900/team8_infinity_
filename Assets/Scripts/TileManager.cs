@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,15 +7,20 @@ public class TileManager : SingletoneBase<TileManager>
 {
     public Dictionary<Vector3Int, bool> isObjectOnTile = new Dictionary<Vector3Int, bool>();
     public Tilemap tilemap;
+    public Tilemap Wall;
     public Transform Player {  get; private set; }
 
     public event Action OnTilemapInfoSet;
+
+    private void Awake()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         GameManager.I.OnTilemapReady += InitTilemapInfo;
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -27,7 +31,9 @@ public class TileManager : SingletoneBase<TileManager>
 
     public void InitTilemapInfo()
     {
-        tilemap = GameObject.FindGameObjectWithTag("Tilemap").gameObject.GetComponent<Tilemap>();
+        tilemap = GameObject.FindGameObjectWithTag("Tilemap").GetComponent<Tilemap>();
+        Wall = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
+
         isObjectOnTile.Clear();
 
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
@@ -40,15 +46,25 @@ public class TileManager : SingletoneBase<TileManager>
             Debug.Log("Init Complete");
         }
 
-        SetTilemapInfo(Vector3Int.FloorToInt(Player.transform.position));
+        SetTilemapInfo(Vector3Int.FloorToInt(Player.position));
         //OnTilemapInfoSet?.Invoke();
     }
 
+    // 오브젝트 생성, 움직였을 때 현재 자리의 상태를 true로 설정하기
     public void SetTilemapInfo(Vector3Int pos)
     {
         if(isObjectOnTile.ContainsKey(pos))
         {
             isObjectOnTile[pos] = true;
+        }
+    }
+
+    // 오브젝트가 움직였을 때, 현재 있던 자리의 상태를 false로 변경하기
+    public void ReleaceTilemapInfo(Vector3Int pos)
+    {
+        if (isObjectOnTile.ContainsKey(pos))
+        {
+            isObjectOnTile[pos] = false;
         }
     }
 
