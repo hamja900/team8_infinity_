@@ -16,8 +16,12 @@ public class TuenManager : SingletoneBase<TuenManager>
     public event Action OnEnemyTurnOver;
     int curTurn;
     public bool isPlayerTurn { get; private set; } = true;
+
+    public int currentMovingEnemy;
+
     public void PlayerTurns(int useTurn)
     {
+        GameManager.I.FindAllEnemy();
         globalTrun += useTurn;
         
         isPlayerTurn = false;

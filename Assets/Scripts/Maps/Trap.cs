@@ -19,7 +19,8 @@ public class Trap : MonoBehaviour
     IEnumerator StartTrap()
     {
         yield return new WaitForSeconds(0.2f);
-        makeRandomMap.MinusCount();
+        makeRandomMap.MinusCount(); // ¼öÁ¤
+        GameManager.I.ReleaseAllEnemy();
         makeRandomMap.StartRandomMap();
     }
 }
