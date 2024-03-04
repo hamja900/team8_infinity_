@@ -11,6 +11,13 @@ public class EnemyMove : MonoBehaviour
 
     public void Move()
     {
+        if (_controller.movePoint.position == transform.position)
+        {
+            _controller.ExitState(EnemyState.Chasing);
+            _controller.SetEnemyState(EnemyState.Idle);
+            return;
+        }
+
         Move(_controller.movePoint.position);
     }
 

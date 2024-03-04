@@ -24,5 +24,4 @@ public class Popups : MonoBehaviour
         DataManager.I.RemoveSaveData();
         SceneManager.LoadScene("MainScene");
     }
-
 }

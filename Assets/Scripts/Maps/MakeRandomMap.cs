@@ -22,6 +22,9 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField] private GameObject trap;
     [SerializeField] private GameObject damageTrap;
 
+    [SerializeField] private GameObject Orc;
+    [SerializeField] private GameObject Slime;
+
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
@@ -29,7 +32,8 @@ public class MakeRandomMap : MonoBehaviour
     
     private void Start()
     {
-        StartRandomMap();
+        GameManager.I.OnEnemyPrefabReady += StartRandomMap;
+        //StartRandomMap();
         entrance.SetActive(true);
     }
     public void PlusCount()
@@ -70,8 +74,21 @@ public class MakeRandomMap : MonoBehaviour
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //몬스터 스폰위치
 
+        foreach (var go in GameManager.I.RandomEnemyPrefab)
+        {
+            int randomAmount = Random.Range(0, 2);
+
+            for (int i = 0; i < divideSpace.spaceList.Count; i++)
+            {
+                Instantiate(go);
+                go.transform.position = (Vector2)divideSpace.spaceList[i].GetRandomPosition();
+            }
+        }
+
         //출구, 함정 스폰
         Stairs();
+
+        GameManager.I.TilemapReady();
     }
     private void Stairs()
     {
@@ -237,4 +254,10 @@ public class MakeRandomMap : MonoBehaviour
         }
         return boundary;
     }
+
+    //public void SetTileState()
+    //{
+    //    Debug.Log("SetTileState");
+    //    TileManager.I.SetTilemapInfo(Vector3Int.FloorToInt(player.transform.position));
+    //}
 }

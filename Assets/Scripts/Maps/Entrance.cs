@@ -32,7 +32,8 @@ public class Entrance : MonoBehaviour
         SoundManager.I.Play(SfxIndex.Walk,3);
         player.gameObject.GetComponent<PlayerInput>().enabled = true;
         makeRandomMap.PlusCount();
-        makeRandomMap.StartRandomMap();
+        //makeRandomMap.StartRandomMap();
+        GameManager.I.MakeRandomEnemyList();
         HUD.instance.UpdateDungeonLevel();
         MoveUI.SetActive(false);
     }

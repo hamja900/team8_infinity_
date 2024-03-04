@@ -15,7 +15,6 @@ public class TuenManager : SingletoneBase<TuenManager>
     public event Action<int> MonsterTurn;//변수명 수정
     public event Action OnEnemyTurnOver;
     int curTurn;
-    public int HowManyEntity { get; private set; }
     public bool isPlayerTurn { get; private set; } = true;
     public void PlayerTurns(int useTurn)
     {
@@ -23,7 +22,6 @@ public class TuenManager : SingletoneBase<TuenManager>
         
         isPlayerTurn = false;
         curTurn = MonsterTurn.GetInvocationList().Count();
-        HowManyEntity = curTurn;
         StartCoroutine(StartMonsterTurn(useTurn));
         //MonsterTurn?.Invoke(useTurn); //choice 분할해서 전달
     }
@@ -36,7 +34,6 @@ public class TuenManager : SingletoneBase<TuenManager>
 
     public void EnemyTurnOver()
     {
-        //Debug.Log("Enemy Turn Over");
         curTurn--;
         if (curTurn == 0)
         {
