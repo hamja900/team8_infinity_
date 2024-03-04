@@ -17,6 +17,7 @@ public class SaveData
     public float exp;
     public float maxExp;
     public int level;
+    public int dungeonLevel;
 
     public ItemSlot[] slots = new ItemSlot[Inventory.instance.slots.Length];
     public ItemSlot[] equipitems = new ItemSlot[Inventory.instance.equipitems.Length];
@@ -93,6 +94,7 @@ public class DataManager : SingletoneBase<DataManager>
                 playerStats.exp = saveData.exp;
                 playerStats.maxExp = saveData.maxExp;
                 playerStats.level = saveData.level;
+                GameManager.I.clearRoomNum = saveData.dungeonLevel;
             }
         }
 
@@ -141,6 +143,7 @@ public class DataManager : SingletoneBase<DataManager>
         saveData.exp = playerStats.exp;
         saveData.maxExp = playerStats.maxExp;
         saveData.level = playerStats.level;
+        saveData.dungeonLevel = GameManager.I.clearRoomNum;
 
         string json = JsonUtility.ToJson(saveData, true);
 

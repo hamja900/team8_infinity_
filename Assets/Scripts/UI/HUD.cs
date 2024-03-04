@@ -51,6 +51,7 @@ public class HUD : MonoBehaviour
         UpdatePlayerHpBar();
         UpdatePlayerLevelandExpBar();
         UpdatePlayerHungerBar();
+        UpdateDungeonLevel();
         //TuenManager.I.MonsterTurn += UpdatePlayerHpBar;
     }
 
@@ -76,7 +77,7 @@ public class HUD : MonoBehaviour
     }
     public void UpdateDungeonLevel()
     {
-
+        _dungeonLevelText.text = GameManager.I.clearRoomNum.ToString()+"Ãþ";
     }
 
     public void OnNextTurnButton()
