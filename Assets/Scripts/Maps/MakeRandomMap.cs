@@ -21,8 +21,8 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField] private GameObject entrance;
     [SerializeField] private GameObject trap;
 
-    [SerializeField] private GameObject Orc;
-    [SerializeField] private GameObject Slime;
+    public GameObject MidBoss;
+    public GameObject FinalBoss;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
@@ -90,9 +90,9 @@ public class MakeRandomMap : MonoBehaviour
     }
     private void Stairs()
     {
-        int num = Random.Range(2, 6);
+        int num = Random.Range(2, 4);
         Debug.Log(num);
-        if(num >= 4)
+        if(num >= 3)
         {
             trap.SetActive(true);
         }
@@ -100,19 +100,17 @@ public class MakeRandomMap : MonoBehaviour
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
         if (GameManager.I.clearRoomNum == 2)
         {
-            SceneManager.LoadScene("EndingScene");
-            //entrance.SetActive(false);
-            //중간보스 최종보스 처리했을때 true로 바꾸기
-            //if
-            Debug.Log("중간보스룸");
+            MidBoss = Instantiate(GameManager.I.bossEnemyPrefab[1]);
+            MidBoss.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
         }
         else if(GameManager.I.clearRoomNum == 4)
         {
-            Debug.Log("최종보스룸");
+            FinalBoss = Instantiate(GameManager.I.bossEnemyPrefab[0]);
+            FinalBoss.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
         }
         else if(GameManager.I.clearRoomNum == 5)
         {
-            Debug.Log("게임 완료");
+            SceneManager.LoadScene("EndingScene");
         }
         
     }
