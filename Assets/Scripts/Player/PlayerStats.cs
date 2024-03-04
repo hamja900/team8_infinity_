@@ -149,6 +149,7 @@ public class PlayerStats : MonoBehaviour
         hp = maxHp;
         atk += 4;
         def += 3;
+        maxExp =  maxExp * level;
     }
 
     public void PlayerDie()
