@@ -192,7 +192,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         return playerDistanceSqr <= EnemyData.enemyAttackRange * EnemyData.enemyAttackRange;
     }
 
-    private void UpdateEnemyTurn(int turn)
+    public void UpdateEnemyTurn(int turn)
     {
         movePoint.parent = null;
         movePoint.position = EnemyPathFind.SetEnemyMovePoint();
@@ -297,6 +297,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         Destroy(gameObject);
     }
+
     private void OnDestroy()
     {
         TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
