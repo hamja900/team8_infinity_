@@ -256,7 +256,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void DropReward()
     {
         DropItem();
-        //TODO : Drop EXP
+        Target.gameObject.GetComponent<PlayerStats>().GetExp((int)EnemyData.enemyDropExp);
     }
     void DropItem()
     {
