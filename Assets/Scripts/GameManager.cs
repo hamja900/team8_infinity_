@@ -8,7 +8,7 @@ public class GameManager : SingletoneBase<GameManager>
     public event Action OnTilemapReady;
     public event Action OnEnemyPrefabReady;
 
-    public int clearRoomNum = 0;
+    public int clearRoomNum = 1;
 
 
 

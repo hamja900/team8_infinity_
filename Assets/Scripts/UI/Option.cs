@@ -9,7 +9,11 @@ public class Option : MonoBehaviour
     public Slider volumeSlider;
     public GameObject optionWindow;
 
- 
+    private void Start()
+    {
+        volumeSlider.value = SoundManager.I.volume;
+    }
+
     public void Update()
     {
          SoundManager.I.volume = volumeSlider.value;
