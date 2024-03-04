@@ -20,12 +20,13 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject entrance;
     [SerializeField] private GameObject trap;
+    [SerializeField] private GameObject damageTrap;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
     private int clearRoomNum = 0;
-
+    
     private void Start()
     {
         StartRandomMap();
@@ -76,11 +77,13 @@ public class MakeRandomMap : MonoBehaviour
     {
         int num = Random.Range(2, 6);
         Debug.Log(num);
-        if(num >= 4)
+        if(num >= 2)
         {
             trap.SetActive(true);
+            damageTrap.SetActive(true);
         }
-        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num-1)].Center();
+        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num - 1)].Center();
+        damageTrap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num + 1)].Center();
         entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
         if (clearRoomNum == 2)
         {
