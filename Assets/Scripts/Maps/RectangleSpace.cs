@@ -25,18 +25,13 @@ public class RectangleSpace
 
     public Vector2Int GetRandomPosition()
     {
-        //Vector2Int maxPosition = new Vector2Int(leftDown.x + width, leftDown.y + height);
-
-        //int posX = leftDown.x + Random.Range(0, maxPosition.x);
-        //int posY = leftDown.y + Random.Range(0, maxPosition.y);
-
-        //return new Vector2Int(posX, posY);
-
         Vector2Int pos = Center();
 
-        int posX = Random.Range(pos.x - width / 2 + 3, pos.x + width / 2 - 3);
-        int posY = Random.Range(pos.y - height / 2 + 3, pos.y + height / 2 - 3);
+        int posX = Random.Range(pos.x - width / 2 + 5, pos.x + width / 2 - 5);
+        int posY = Random.Range(pos.y - height / 2 + 5, pos.y + height / 2 - 5);
 
-        return new Vector2Int(posX, posY);
+        pos = new Vector2Int(posX, posY);
+
+        return pos == Center() ? new Vector2Int(posX - 1, posY - 1) : pos;
     }
 }

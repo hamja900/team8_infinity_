@@ -79,7 +79,6 @@ public class MakeRandomMap : MonoBehaviour
 
             for (int i = 0; i < divideSpace.spaceList.Count; i++)
             {
-                Debug.Log($"Enemy Instantiate {go.name}");
                 Instantiate(go);
                 go.transform.position = (Vector2)divideSpace.spaceList[i].GetRandomPosition();
             }

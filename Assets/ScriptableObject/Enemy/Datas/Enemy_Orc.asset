@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5922680681322542065, guid: 7d2b1dffb81f94543b2800de7f9e1856, type: 3}
   enemyName: Orc
+  enemyType: 0
   enemyHealth: 10
   enemyMaxHealth: 10
-  enemyAtk: 2
+  enemyAtk: 0
   enemyAttackRange: 1.42
-  enemyDetectRange: 5
+  enemyDetectRange: 3
   enemySafeRange: 0
   enemyDropExp: 10
+  dropTable: []
   enemyMoveCost: 10
   enemyAttackCost: 10
   leftOverTurn: 0

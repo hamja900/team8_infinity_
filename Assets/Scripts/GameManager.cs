@@ -47,6 +47,8 @@ public class GameManager : SingletoneBase<GameManager>
 
     public void MakeRandomEnemyList()
     {
+        RandomEnemyPrefab.Clear();
+
         foreach (var go in normalEnemyPrefab)
         {
             if (go != null)
