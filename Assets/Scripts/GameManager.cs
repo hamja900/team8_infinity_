@@ -64,10 +64,7 @@ public class GameManager : SingletoneBase<GameManager>
                 }
             }
         }
-        foreach (var go in RandomEnemyPrefab)
-        {
-            Debug.Log(go.name.ToString());
-        }
+
         OnEnemyPrefabReady?.Invoke();
     }
 

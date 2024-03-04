@@ -97,7 +97,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 currentState = EnemyState.Attacking;
                 if (EnemyData.enemyName.Equals("Slime"))
                 {
-                    Debug.Log("Slime Attack");
+
                 }
                 else
                     EnemyAnimation.TriggerAnimation("EnemyAttack");
@@ -268,7 +268,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         ReleaseEnemyTurn();
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        EndOfEnemyTurn();
+        
         DropReward();
         SetEnemyState(EnemyState.Dead);
 
@@ -300,6 +300,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void ReleaseEnemyTurn()
     {
+        EndOfEnemyTurn();
         TuenManager.I.MonsterTurn -= UpdateEnemyTurn;
     }
 }
