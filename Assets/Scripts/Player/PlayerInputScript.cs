@@ -15,68 +15,111 @@ public class PlayerInputScript : MonoBehaviour
 {
     PlayerAttack attack;
     PlayerMove move;
+    Coroutine MoveCorCheck;
+    WaitForSeconds MoveDelay;
     private void Awake()
     {
+        MoveDelay = new WaitForSeconds(0.3f);
         move = GetComponent<PlayerMove>();
         attack = GetComponent<PlayerAttack>();
     }
     #region Inputs
     //-------------move-----------
+    IEnumerator MoveCor(Dir dir)
+    {
+        while (true)
+        {
+            if (TuenManager.I.isPlayerTurn)
+            {
+                move.CanMove(dir);
+            }
+            if (TuenManager.I.HowManyEntity == 1) // 1 == player Only
+            {
+                yield return MoveDelay;
+                continue;
+            }
+            yield return null;
+        }
+    }
     public void OnQ()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.q);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.q));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnW()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.w);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.w));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnE()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.e);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.e));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnA()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.a);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.a));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnD()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.d);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.d));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnZ()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.z);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.z));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnX()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.x);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.x));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     public void OnC()
     {
-        if (TuenManager.I.isPlayerTurn)
+        if (MoveCorCheck == null)
         {
-            move.CanMove(Dir.c);
+            MoveCorCheck = StartCoroutine(MoveCor(Dir.c));
+            return;
         }
+        StopCoroutine(MoveCorCheck);
+        MoveCorCheck = null;
     }
     //---------------Move----------
     //--------------Stop-----------
@@ -84,7 +127,7 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (TuenManager.I.isPlayerTurn)
         {
-            TuenManager.I.PlayerTurns(10);
+            TuenManager.I.PlayerTurns((int)TurnSize.defaultTurn);
         }
     }
     //-------------Stop-----------
@@ -171,9 +214,10 @@ public class PlayerInputScript : MonoBehaviour
     public void OnV()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 0.1f, LayerMask.GetMask("Item"));
-        if (hit.transform != null)
+        if (hit.transform != null && TuenManager.I.isPlayerTurn)
         {
             hit.transform.gameObject.GetComponent<ItemScript>().GetItem();
+            TuenManager.I.PlayerTurns((int)TurnSize.defaultTurn);
         }
     }
     #endregion

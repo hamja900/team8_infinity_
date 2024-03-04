@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public event Action PlayerDie;
+    public GameObject deadPopup;
+
     int attackSpeed  = 10;
     int moveSpeed = 10;
     public float hp  = 20;
@@ -135,7 +136,7 @@ public class PlayerStats : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
-            PlayerDie?.Invoke();
+            PlayerDie();
         }
     }
     void LvUp()
@@ -147,4 +148,10 @@ public class PlayerStats : MonoBehaviour
         atk += 4;
         def += 3;
     }
+
+    public void PlayerDie()
+    {
+        deadPopup.SetActive(true);
+    }
+    
 }
