@@ -21,7 +21,7 @@ MonoBehaviour:
   enemyAttackRange: 1.42
   enemyDetectRange: 3
   enemySafeRange: 0
-  enemyDropExp: 10
+  enemyDropExp: 30
   dropTable: []
   enemyMoveCost: 10
   enemyAttackCost: 10

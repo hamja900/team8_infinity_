@@ -279,9 +279,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         DropItem();
         Target.gameObject.GetComponent<PlayerStats>().GetExp((int)EnemyData.enemyDropExp);
+        HUD.instance.UpdatePlayerLevelandExpBar();
     }
     void DropItem()
     {
+        if (EnemyData.dropTable == null)
+            return;
         foreach (var item in EnemyData.dropTable)
         {
             if (UnityEngine.Random.Range(0,1) <= item.percent)
