@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07120cbd6c7c13946b8e672a57f82e34, type: 3}
+  m_Name: Enemy_Dragon
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4057527581106726761, guid: 5ed95df2ba4d6ca46b886a0ee63f4228, type: 3}
+  enemyName: Dragon
+  enemyHealth: 100
+  enemyMaxHealth: 100
+  enemyAtk: 5
+  enemyAttackRange: 3
+  enemyDetectRange: 6
+  enemySafeRange: 0
+  enemyDropExp: 0
+  enemyMoveCost: 15
+  enemyAttackCost: 20
+  leftOverTurn: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 나누어진 공간들로 방을만들고 복도, 벽을 만드는 역할수행
 public class MakeRandomMap : MonoBehaviour
@@ -18,20 +19,36 @@ public class MakeRandomMap : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject entrance;
+    [SerializeField] private GameObject trap;
+
+    [SerializeField] private GameObject Orc;
+    [SerializeField] private GameObject Slime;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
 
-    //private int clearRoomNum = 0;
+    private int clearRoomNum = 0;
 
     private void Start()
     {
+        //TileManager.I.OnTilemapInfoSet += SetTileState;
         StartRandomMap();
         entrance.SetActive(true);
     }
     public void PlusCount()
     {
-        GameManager.I.clearRoomNum++;
+        clearRoomNum++;
+    }
+    public void MinusCount()
+    {
+        if (clearRoomNum == 0)
+        {
+            clearRoomNum = 0;
+        }
+        else
+        {
+            clearRoomNum--;
+        }
     }
     public void StartRandomMap()
     {
@@ -55,29 +72,41 @@ public class MakeRandomMap : MonoBehaviour
         //플레이어 스폰위치
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //몬스터 스폰위치
+        //Instantiate(Orc);
+        //Instantiate(Slime);
 
-        //출구 스폰위치 <-플레이어에서 제일 먼 방에 생성 + 보스도 같은방에 생성
+        //출구, 함정 스폰
         Stairs();
+
+        GameManager.I.TilemapReady();
     }
     private void Stairs()
     {
-        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
-        if (GameManager.I.clearRoomNum == 2)
+        int num = Random.Range(2, 6);
+        Debug.Log(num);
+        if(num >= 4)
         {
+            trap.SetActive(true);
+        }
+        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num-1)].Center();
+        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
+        if (clearRoomNum == 2)
+        {
+            SceneManager.LoadScene("EndingScene");
             //entrance.SetActive(false);
             //중간보스 최종보스 처리했을때 true로 바꾸기
             //if
             Debug.Log("중간보스룸");
         }
-        else if(GameManager.I.clearRoomNum == 4)
+        else if(clearRoomNum == 4)
         {
             Debug.Log("최종보스룸");
         }
-        else if(GameManager.I.clearRoomNum == 5)
+        else if(clearRoomNum == 5)
         {
-            //엔딩씬 출력
             Debug.Log("게임 완료");
         }
+        
     }
 
     // space리스트에 있는 모든 리스트의 MakeARandomRectangleRoom을 콜하고 리턴되는 방의좌표들을 UnionWith를 통해 floor에 추가
@@ -213,4 +242,10 @@ public class MakeRandomMap : MonoBehaviour
         }
         return boundary;
     }
+
+    //public void SetTileState()
+    //{
+    //    Debug.Log("SetTileState");
+    //    TileManager.I.SetTilemapInfo(Vector3Int.FloorToInt(player.transform.position));
+    //}
 }

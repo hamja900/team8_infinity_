@@ -16,9 +16,9 @@ MonoBehaviour:
   enemyName: Orc
   enemyHealth: 10
   enemyMaxHealth: 10
-  enemyAtk: 5
+  enemyAtk: 2
   enemyAttackRange: 1.42
-  enemyDetectRange: 10
+  enemyDetectRange: 5
   enemySafeRange: 0
   enemyDropExp: 30
   dropTable: []
