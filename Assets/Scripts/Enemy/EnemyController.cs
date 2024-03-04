@@ -60,7 +60,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         movePoint.parent = null;
         localTurn = 0;
 
-        //GameManager.I.OnEnemyDie += DestroyEnemy;
         TuenManager.I.MonsterTurn += UpdateEnemyTurn;
     }
 
@@ -172,6 +171,12 @@ public class EnemyController : MonoBehaviour, IDamageable
             else
                 return;
         }
+        else
+        {
+            localTurn = 0;
+            EndOfEnemyTurn();
+            return;
+        }
     }
 
     private bool IsInChasingRange()
@@ -243,6 +248,14 @@ public class EnemyController : MonoBehaviour, IDamageable
             return;
         }
         EnemyAnimation.TriggerAnimation("TakeDamage");
+        if(isChargeAttack)
+        {
+            isChargeAttack = false;
+            EnemyAttack.ToggleAttackRange(0, 0, 0, 0);
+            ExitState(EnemyState.Attacking);
+            SetEnemyState(EnemyState.Waiting);
+            EndOfEnemyTurn();
+        }
     }
 
     public Vector2 Pos()

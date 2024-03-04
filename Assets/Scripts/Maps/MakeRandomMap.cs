@@ -59,8 +59,8 @@ public class MakeRandomMap : MonoBehaviour
         //플레이어 스폰위치
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //몬스터 스폰위치
-        Instantiate(Orc);
-        Instantiate(Slime);
+        //Instantiate(Orc);
+        //Instantiate(Slime);
 
         //출구 스폰위치 <-플레이어에서 제일 먼 방에 생성 + 보스도 같은방에 생성
         Stairs();

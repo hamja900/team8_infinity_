@@ -18,7 +18,7 @@ MonoBehaviour:
   enemyMaxHealth: 20
   enemyAtk: 4
   enemyAttackRange: 2
-  enemyDetectRange: 10
+  enemyDetectRange: 5
   enemySafeRange: 0
   enemyDropExp: 0
   enemyMoveCost: 20
