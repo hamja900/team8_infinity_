@@ -127,7 +127,7 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (TuenManager.I.isPlayerTurn)
         {
-            TuenManager.I.PlayerTurns(10);
+            TuenManager.I.PlayerTurns((int)TurnSize.defaultTurn);
         }
     }
     //-------------Stop-----------
@@ -214,9 +214,10 @@ public class PlayerInputScript : MonoBehaviour
     public void OnV()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 0.1f, LayerMask.GetMask("Item"));
-        if (hit.transform != null)
+        if (hit.transform != null && TuenManager.I.isPlayerTurn)
         {
             hit.transform.gameObject.GetComponent<ItemScript>().GetItem();
+            TuenManager.I.PlayerTurns((int)TurnSize.defaultTurn);
         }
     }
     #endregion
