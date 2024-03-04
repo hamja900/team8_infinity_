@@ -269,11 +269,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 387805953903116058}
   - {fileID: 3761492146368789837}
+  - {fileID: 387805953903116058}
   - {fileID: 66694516725300093}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7534067959484757172
 MonoBehaviour:

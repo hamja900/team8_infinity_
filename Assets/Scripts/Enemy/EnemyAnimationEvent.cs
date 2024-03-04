@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class EnemyAnimationEvent : MonoBehaviour
 {
@@ -18,7 +19,15 @@ public class EnemyAnimationEvent : MonoBehaviour
 
     public void OnEnemyAnimationFinish()
     {
-        _controller.ExitState(EnemyState.Attacking);
-        _controller.SetEnemyState(EnemyState.Idle);
+        if (_controller.EnemyData.enemyName.Equals("Slime"))
+        {
+            _controller.ExitState(EnemyState.Waiting);
+            _controller.SetEnemyState(EnemyState.Idle);
+        }
+        else
+        {
+            _controller.ExitState(EnemyState.Waiting);
+            _controller.SetEnemyState(EnemyState.Idle);
+        }
     }
 }

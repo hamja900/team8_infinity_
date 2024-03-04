@@ -22,5 +22,5 @@ MonoBehaviour:
   enemySafeRange: 0
   enemyDropExp: 0
   enemyMoveCost: 20
-  enemyAttackCost: 10
+  enemyAttackCost: 20
   leftOverTurn: 0

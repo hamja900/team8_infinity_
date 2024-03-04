@@ -33,14 +33,8 @@ public class TuenManager : SingletoneBase<TuenManager>
         curTurn--;
         if (curTurn == 0)
         {
-            StartCoroutine(StartPlayerTurn());
+            isPlayerTurn = true;
         }
         OnEnemyTurnOver?.Invoke();
-    }
-
-    IEnumerator StartPlayerTurn()
-    {
-        yield return new WaitForFixedUpdate();
-        isPlayerTurn = true;
     }
 }

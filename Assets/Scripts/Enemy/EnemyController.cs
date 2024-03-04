@@ -8,6 +8,7 @@ public enum EnemyState
     Idle,
     Chasing,
     Attacking,
+    Waiting,
     Dead
 }
 
@@ -82,6 +83,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             case EnemyState.Chasing:
                 if (isChargeAttack)
                 {
+                    currentState = EnemyState.Attacking;
                     SetEnemyState(EnemyState.Attacking);
                     return;
                 }
@@ -95,11 +97,14 @@ public class EnemyController : MonoBehaviour, IDamageable
                 currentState = EnemyState.Attacking;
                 if (EnemyData.enemyName.Equals("Slime"))
                 {
-                    if (!isChargeAttack)
-                        EnemyAnimation.ToggleAnimation("Charge", true);
+                    Debug.Log("Slime Attack");
                 }
                 else
                     EnemyAnimation.TriggerAnimation("EnemyAttack");
+                break;
+            case EnemyState.Waiting:
+                currentState = EnemyState.Waiting;
+                EnemyAnimation.ToggleAnimation("Idle", true);
                 break;
             case EnemyState.Dead:
                 currentState = EnemyState.Dead;
@@ -116,11 +121,14 @@ public class EnemyController : MonoBehaviour, IDamageable
                 EnemyAnimation.ToggleAnimation("Idle", false);
                 break;
             case EnemyState.Chasing:
-                currentState = EnemyState.Chasing;
+                currentState = EnemyState.Idle;
                 EnemyAnimation.ToggleAnimation("Walk", false);
                 break;
             case EnemyState.Attacking:
-                currentState = EnemyState.Attacking;
+                currentState = EnemyState.Idle;
+                break;
+            case EnemyState.Waiting:
+                currentState = EnemyState.Idle;
                 break;
         }
     }
@@ -137,6 +145,8 @@ public class EnemyController : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking:
                 EnemyAttack.Attack();
+                break;
+            case EnemyState.Waiting:
                 break;
         }
     }
