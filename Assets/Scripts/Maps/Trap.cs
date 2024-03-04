@@ -22,6 +22,7 @@ public class Trap : MonoBehaviour
         HUD.instance.UpdateDungeonLevel();
         //makeRandomMap.StartRandomMap();
         GameManager.I.ReleaseAllEnemy();
+        GameManager.I.DestroyItem();
         GameManager.I.MakeRandomEnemyList();
     }
 }

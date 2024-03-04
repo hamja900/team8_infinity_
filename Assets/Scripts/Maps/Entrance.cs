@@ -7,7 +7,9 @@ public class Entrance : MonoBehaviour
 {
     [SerializeField] MakeRandomMap makeRandomMap;
     [SerializeField] private GameObject MoveUI;
+    
     GameObject player;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //TODO
@@ -36,6 +38,7 @@ public class Entrance : MonoBehaviour
         player.gameObject.GetComponent<PlayerInput>().enabled = true;
         makeRandomMap.PlusCount();
         //makeRandomMap.StartRandomMap();
+        GameManager.I.DestroyItem();
         GameManager.I.ReleaseAllEnemy();
         GameManager.I.MakeRandomEnemyList();
         HUD.instance.UpdateDungeonLevel();

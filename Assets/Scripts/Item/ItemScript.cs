@@ -11,6 +11,7 @@ public class ItemScript : MonoBehaviour
     private void Start()
     {
         player = HUD.instance.player.transform;
+        GameManager.I.ItemList.Add(this.gameObject);
     }
     public void GetItem()
     {
@@ -25,6 +26,7 @@ public class ItemScript : MonoBehaviour
             }
             SoundManager.I.Play(SfxIndex.PickUpSound);
             Inventory.instance.AddItem(itemSO);
+            GameManager.I.ItemList.Remove(this.gameObject);
             Destroy(gameObject);
         }
     }
