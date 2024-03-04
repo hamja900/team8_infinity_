@@ -22,7 +22,19 @@ MonoBehaviour:
   enemyDetectRange: 5
   enemySafeRange: 0
   enemyDropExp: 0
-  dropTable: []
+  dropTable:
+  - dropTable: {fileID: 9183976415729574656, guid: e9e0e5795b5948c4db86153b5a83e37a, type: 3}
+    percent: 0.4
+  - dropTable: {fileID: 9183976415729574656, guid: 08e6b2c4fd20fab4bbe4e8c19626f2a4, type: 3}
+    percent: 0.2
+  - dropTable: {fileID: 9183976415729574656, guid: f0a00c338bc2eaa4cacdc01ddf4f6cd4, type: 3}
+    percent: 0.2
+  - dropTable: {fileID: 9183976415729574656, guid: 70887d4396263c242b45685d10e3dbc1, type: 3}
+    percent: 0.3
+  - dropTable: {fileID: 9183976415729574656, guid: ed18a6e8f6e9baf4ebe6dc893a3720d1, type: 3}
+    percent: 0.5
+  - dropTable: {fileID: 9183976415729574656, guid: ed18a6e8f6e9baf4ebe6dc893a3720d1, type: 3}
+    percent: 0.5
   enemyMoveCost: 20
   enemyAttackCost: 20
   leftOverTurn: 0
