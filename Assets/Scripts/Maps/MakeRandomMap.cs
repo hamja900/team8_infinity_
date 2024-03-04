@@ -69,25 +69,19 @@ public class MakeRandomMap : MonoBehaviour
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //몬스터 스폰위치
 
-        //출구 스폰위치 <-플레이어에서 제일 먼 방에 생성 + 보스도 같은방에 생성
+        //출구, 함정 스폰
         Stairs();
-        //함정 스폰위치
-        ShowTrap();
-        Debug.Log("현재 클리어한 방 개수는 " + clearRoomNum);
-    }
-    private void ShowTrap()
-    {
-        int num = Random.Range(1, 4);
-        Debug.Log(num);
-        if(num >= 2)
-        {
-            trap.SetActive(true);
-        }
-        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 2].Center();
     }
     private void Stairs()
     {
-        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
+        int num = Random.Range(2, 6);
+        Debug.Log(num);
+        if(num >= 4)
+        {
+            trap.SetActive(true);
+        }
+        trap.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - (num-1)].Center();
+        entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - num].Center();
         if (clearRoomNum == 2)
         {
             SceneManager.LoadScene("EndingScene");
