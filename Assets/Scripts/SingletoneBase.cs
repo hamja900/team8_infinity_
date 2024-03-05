@@ -10,8 +10,11 @@ public class SingletoneBase<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (i == null)
             {
-                GameObject temp = new GameObject();
-                i = temp.AddComponent<T>();
+                i = FindObjectOfType<T>();
+                if (i == null)
+                {
+                    i = new GameObject(typeof(T).FullName).AddComponent<T>();
+                }
             }
             return i;
         } 

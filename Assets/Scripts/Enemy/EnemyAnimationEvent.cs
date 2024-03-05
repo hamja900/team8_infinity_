@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 public class EnemyAnimationEvent : MonoBehaviour
 {
@@ -19,8 +18,9 @@ public class EnemyAnimationEvent : MonoBehaviour
 
     public void OnEnemyAnimationFinish()
     {
-        if (_controller.EnemyData.enemyName.Equals("Slime"))
+        if (_controller.EnemyData.enemyType == EnemyType.Boss)
         {
+            _controller.EnemyAttack.ToggleAttackRange(0, 0, 0, 0);
             _controller.ExitState(EnemyState.Waiting);
             _controller.SetEnemyState(EnemyState.Idle);
         }
@@ -29,5 +29,16 @@ public class EnemyAnimationEvent : MonoBehaviour
             _controller.ExitState(EnemyState.Waiting);
             _controller.SetEnemyState(EnemyState.Idle);
         }
+    }
+
+    public void OnEnemyAttackAnimationStart()
+    {
+        if (_controller.EnemyData.enemyName.Equals("Slime"))
+        {
+            if (_controller.isChargeAttack)
+                _controller.EnemyAttack.ToggleAttackRange(0, 1, 0, 65);
+        }
+        else
+            _controller.EnemyAttack.ToggleAttackRange(0, 0, 1, 65);
     }
 }

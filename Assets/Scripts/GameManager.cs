@@ -12,13 +12,15 @@ public class GameManager : SingletoneBase<GameManager>
 
 
 
-    public List<EnemySO> enemySO = new List<EnemySO>();
     public List<GameObject> EnemyPrefab = new List<GameObject>();
 
     public List<GameObject> normalEnemyPrefab = new List<GameObject>();
     public List<GameObject> bossEnemyPrefab = new List<GameObject>();
 
     public List<GameObject> RandomEnemyPrefab = new List<GameObject>();
+
+    public List<GameObject> CurrentEnemyList = new List<GameObject>();
+    public List<GameObject> ItemList = new List<GameObject>(); 
 
     // Start is called before the first frame update
     void Start()
@@ -63,11 +65,6 @@ public class GameManager : SingletoneBase<GameManager>
             }
         }
 
-        foreach (var go in RandomEnemyPrefab)
-        {
-            Debug.Log(go.name.ToString());
-        }
-
         OnEnemyPrefabReady?.Invoke();
     }
 
@@ -79,6 +76,32 @@ public class GameManager : SingletoneBase<GameManager>
                 normalEnemyPrefab.Add(enemy);
             else
                 bossEnemyPrefab.Add(enemy);
+        }
+    }
+
+    public void FindAllEnemy()
+    {
+        foreach(var go in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            CurrentEnemyList.Add(go);
+        }
+    }
+
+    public void ReleaseAllEnemy()
+    {
+        foreach(var go in CurrentEnemyList)
+        {
+            if (go == null) continue;
+            go.GetComponent<EnemyController>().ReleaseEnemyTurn();
+            Destroy(go);
+        }
+        CurrentEnemyList.Clear();
+    }
+    public void DestroyItem()
+    {
+        foreach (var item in ItemList)
+        {
+            Destroy(item.gameObject);
         }
     }
 }
